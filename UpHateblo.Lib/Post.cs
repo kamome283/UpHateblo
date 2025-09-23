@@ -1,7 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Mime;
-using System.Text;
-using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace UpHateblo.Lib;
 
@@ -22,71 +21,12 @@ public record EntryHeader(
     string UrlPath
 );
 
-internal static class PostRequestSchema
-{
-    // Reference: https://developer.hatena.ne.jp/ja/documents/blog/apis/atom/
-    [XmlRoot("entry")]
-    public class PostEntryRequestSchema(BlogConfig config, EntryHeader header, string content)
-    {
-        [XmlElement("title")] public readonly string Title = header.Title;
-        [XmlElement("author")] public readonly Author Author = new(config.Username);
-        [XmlElement("content")] public readonly Content Content = new(content);
-        [XmlElement("updated")] public readonly DateTime Updated = header.Date;
-        [XmlElement("category")] public readonly Category Category = new(header.Category);
-
-        // No support for draft and preview post currently
-        [XmlElement("app:control")] public readonly AppControl AppControl = new(false, false);
-
-        [XmlElement("hatenablog:custom-url")]
-        public readonly CustomUrl CustomUrl = new(header.UrlPath);
-    }
-
-    public class Author(string name)
-    {
-        [XmlElement("name")] public readonly string Name = name;
-    }
-
-    public class Content(string content)
-    {
-        [XmlAttribute("type")] public readonly string Type = "text/plain";
-        [XmlText] public readonly string Text = content;
-    }
-
-    public class Category(string[] category)
-    {
-        [XmlAttribute("term")] public readonly string[] Term = category;
-    }
-
-    public class AppControl(bool draft, bool preview)
-    {
-        [XmlElement("app:draft")] public readonly string Draft = draft ? "yes" : "no";
-        [XmlElement("app:preview")] public readonly string Preview = preview ? "yes" : "no";
-    }
-
-    public class CustomUrl(string urlPath)
-    {
-        [XmlAttribute("xmlns:hatenablog")]
-        public readonly string HatenaBlog = "http://www.hatena.ne.jp/info/xmlns#hatenablog";
-
-        [XmlText] public readonly string Text = urlPath;
-    }
-}
-
-public sealed class Utf8StringWriter : StringWriter
-{
-    public override Encoding Encoding => Encoding.UTF8;
-}
-
 public class Post(HttpClient client, BlogConfig blog, EntryHeader header, string content)
 {
-    private static readonly XmlSerializer Serializer =
-        new XmlSerializer(typeof(PostRequestSchema.PostEntryRequestSchema));
-
-    private static readonly XmlSerializerNamespaces XmlNamespaces = GetHatenaXmlNamespaces();
-
     public async Task Run()
     {
-        var serialized = GetSerializedContent();
+        var xml = GetRequestXml();
+        var serialized = xml.ToString();
         var wsseToken =
             new Wsse(blog.Username, blog.Password, Guid.NewGuid().ToString(), DateTime.Now)
                 .GetToken();
@@ -104,22 +44,46 @@ public class Post(HttpClient client, BlogConfig blog, EntryHeader header, string
         return httpContent;
     }
 
-    private string GetSerializedContent()
+    /// <returns>エントリーのポスト用のXML</returns>
+    /// <remarks>
+    /// References:
+    /// https://learn.microsoft.com/ja-jp/dotnet/api/system.xml.linq.xdocument?view=net-8.0
+    /// https://learn.microsoft.com/ja-jp/dotnet/standard/linq/create-document-namespaces-csharp
+    /// https://neue.cc/2009/08/18_189.html
+    /// </remarks>
+    private XDocument GetRequestXml()
     {
-        var entry = new PostRequestSchema.PostEntryRequestSchema(blog, header, content);
-        // staticにして使いまわすこともできるけど、
-        // 毎回フラッシュしないといけないのでバグの原因になりうる
-        // 別にIOを行うわけでもなし、毎回インスタンスを生成してもいいと考えている
-        using var writer = new Utf8StringWriter();
-        Serializer.Serialize(writer, entry, XmlNamespaces);
-        return writer.GetStringBuilder().ToString();
-    }
+        XNamespace atom = "http://www.w3.org/2005/Atom";
+        XNamespace app = "http://www.w3.org/2007/app";
+        XNamespace hatenablog = "http://www.hatena.ne.jp/info/xmlns#hatenablog";
 
-    private static XmlSerializerNamespaces GetHatenaXmlNamespaces()
-    {
-        var namespaces = new XmlSerializerNamespaces();
-        namespaces.Add("", "http://www.w3.org/2005/Atom");
-        namespaces.Add("app", "http://www.w3.org/2007/app");
-        return namespaces;
+        return new XDocument(
+            new XElement(atom + "entry",
+                new XAttribute(XNamespace.Xmlns + "app", app),
+                new XAttribute(XNamespace.Xmlns + "hatenablog", hatenablog),
+
+                new XElement(atom + "title", header.Title),
+                new XElement(atom + "author",
+                    new XElement(atom + "name", blog.Username)
+                ),
+                new XElement(atom + "content",
+                    new XAttribute("type", "text/plain"),
+                    new XText(content)
+                ),
+                new XElement(atom + "updated", header.Date),
+                new XElement(atom + "category",
+                    header.Category.Select(c => new XAttribute("term", c))
+                ),
+                new XElement(app + "control",
+                    // Set yes before ready to use
+                    new XElement(app + "draft", "yes"),
+                    // Not supported currently
+                    new XElement(app + "preview", "no")
+                ),
+                new XElement(hatenablog + "custom-url",
+                    new XText(header.UrlPath)
+                )
+            )
+        );
     }
 }
