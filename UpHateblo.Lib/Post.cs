@@ -1,4 +1,7 @@
-﻿using System.Xml.Serialization;
+﻿using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace UpHateblo.Lib;
 
@@ -6,7 +9,11 @@ public record BlogConfig(
     string BlogId,
     string Username,
     string Password
-);
+)
+{
+    public Uri EntryEndPoint =>
+        new Uri($"https://blog.hatena.ne.jp/${Username}/${BlogId}/atom/entry");
+}
 
 public record EntryHeader(
     string Title,
@@ -65,14 +72,54 @@ internal static class PostRequestSchema
     }
 }
 
-public static class Post
+public sealed class Utf8StringWriter : StringWriter
 {
-    public static async Task Run(
-        HttpClient client,
-        BlogConfig blog,
-        EntryHeader header,
-        string content)
+    public override Encoding Encoding => Encoding.UTF8;
+}
+
+public class Post(HttpClient client, BlogConfig blog, EntryHeader header, string content)
+{
+    private static readonly XmlSerializer Serializer =
+        new XmlSerializer(typeof(PostRequestSchema.PostEntryRequestSchema));
+
+    private static readonly XmlSerializerNamespaces XmlNamespaces = GetHatenaXmlNamespaces();
+
+    public async Task Run()
     {
-        throw new NotImplementedException();
+        var serialized = GetSerializedContent();
+        var wsseToken =
+            new Wsse(blog.Username, blog.Password, Guid.NewGuid().ToString(), DateTime.Now)
+                .GetToken();
+        var httpContent = GetHttpContent(serialized, wsseToken);
+        var res = await client.PostAsync(blog.EntryEndPoint, httpContent);
+        res.EnsureSuccessStatusCode();
+    }
+
+    private StringContent GetHttpContent(string body, string wsseToken)
+    {
+        StringContent httpContent = new StringContent(body);
+        httpContent.Headers.ContentType =
+            MediaTypeHeaderValue.Parse(MediaTypeNames.Application.Xml);
+        httpContent.Headers.Add("X-WSSE", wsseToken);
+        return httpContent;
+    }
+
+    private string GetSerializedContent()
+    {
+        var entry = new PostRequestSchema.PostEntryRequestSchema(blog, header, content);
+        // staticにして使いまわすこともできるけど、
+        // 毎回フラッシュしないといけないのでバグの原因になりうる
+        // 別にIOを行うわけでもなし、毎回インスタンスを生成してもいいと考えている
+        using var writer = new Utf8StringWriter();
+        Serializer.Serialize(writer, entry, XmlNamespaces);
+        return writer.GetStringBuilder().ToString();
+    }
+
+    private static XmlSerializerNamespaces GetHatenaXmlNamespaces()
+    {
+        var namespaces = new XmlSerializerNamespaces();
+        namespaces.Add("", "http://www.w3.org/2005/Atom");
+        namespaces.Add("app", "http://www.w3.org/2007/app");
+        return namespaces;
     }
 }
