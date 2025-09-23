@@ -11,7 +11,7 @@ public record BlogConfig(
 )
 {
     public Uri EntryEndPoint =>
-        new Uri($"https://blog.hatena.ne.jp/${Username}/${BlogId}/atom/entry");
+        new Uri($"https://blog.hatena.ne.jp/{Username}/{BlogId}/atom/entry");
 }
 
 public record EntryHeader(

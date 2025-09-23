@@ -27,7 +27,7 @@ public class Wsse(string username, string password, string nonce, DateTime creat
     {
         var digest = GetDigest();
         return $"""
-                UsernameToken Username="${username}", PasswordDigest="${digest}, Nonce="${nonce}", Created="${Created}"
+                UsernameToken Username="{username}", PasswordDigest="{digest}, Nonce="{nonce}", Created="{Created}"
                 """;
     }
 
