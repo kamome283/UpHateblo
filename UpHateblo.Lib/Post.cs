@@ -5,17 +5,21 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib;
 
-public class Post(HttpClient client, BlogConfig blog, EntryHeader header, string content)
+public class Post(HttpClient client, Entry entry)
 {
+    private BlogConfig Blog => entry.Blog;
+    private EntryHeader Header => entry.Header;
+    private string Content => entry.Content;
+
     public async Task Run()
     {
         var xml = GetRequestXml();
         var serialized = xml.ToString();
         var wsseToken =
-            new Wsse(blog.Username, blog.Password, Guid.NewGuid().ToString(), DateTime.Now)
+            new Wsse(Blog.Username, Blog.Password, Guid.NewGuid().ToString(), DateTime.Now)
                 .GetToken();
         var httpContent = GetHttpContent(serialized, wsseToken);
-        var res = await client.PostAsync(blog.EntryEndPoint, httpContent);
+        var res = await client.PostAsync(Blog.EntryEndPoint, httpContent);
         res.EnsureSuccessStatusCode();
     }
 
@@ -46,17 +50,17 @@ public class Post(HttpClient client, BlogConfig blog, EntryHeader header, string
                 new XAttribute(XNamespace.Xmlns + "app", app),
                 new XAttribute(XNamespace.Xmlns + "hatenablog", hatenablog),
 
-                new XElement(atom + "title", header.Title),
+                new XElement(atom + "title", Header.Title),
                 new XElement(atom + "author",
-                    new XElement(atom + "name", blog.Username)
+                    new XElement(atom + "name", Blog.Username)
                 ),
                 new XElement(atom + "content",
                     new XAttribute("type", "text/plain"),
-                    new XText(content)
+                    new XText(Content)
                 ),
-                new XElement(atom + "updated", header.Date),
+                new XElement(atom + "updated", Header.Date),
                 new XElement(atom + "category",
-                    header.Category.Select(c => new XAttribute("term", c))
+                    Header.Category.Select(c => new XAttribute("term", c))
                 ),
                 new XElement(app + "control",
                     // Set yes before ready to use
@@ -65,7 +69,7 @@ public class Post(HttpClient client, BlogConfig blog, EntryHeader header, string
                     new XElement(app + "preview", "no")
                 ),
                 new XElement(hatenablog + "custom-url",
-                    new XText(header.UrlPath)
+                    new XText(Header.UrlPath)
                 )
             )
         );
