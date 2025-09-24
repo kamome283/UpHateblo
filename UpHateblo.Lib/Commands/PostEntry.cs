@@ -12,7 +12,7 @@ public class PostEntry(HttpClient client, Entry entry)
 
     public async Task Run()
     {
-        var xml = new PostEntrySchema(entry).Serialize();
+        var xml = new PostEntrySchema().Serialize(entry);
         var wsse =
             new Wsse(Blog.Username, Blog.Password, Guid.NewGuid().ToString(), DateTime.Now);
         var httpContent = new HatenaContent(xml, wsse);

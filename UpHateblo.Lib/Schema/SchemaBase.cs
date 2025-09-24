@@ -12,7 +12,7 @@ namespace UpHateblo.Lib.Schema;
 /// https://learn.microsoft.com/ja-jp/dotnet/standard/linq/create-document-namespaces-csharp
 /// https://neue.cc/2009/08/18_189.html
 /// </remarks>
-internal abstract class SchemaBase(Entry entry)
+internal abstract class SchemaBase
 {
     protected static readonly XNamespace AtomNs = "http://www.w3.org/2005/Atom";
     protected static readonly XNamespace AppNs = "http://www.w3.org/2007/app";
@@ -20,9 +20,5 @@ internal abstract class SchemaBase(Entry entry)
     protected static readonly XNamespace HatenaBlogNs =
         "http://www.hatena.ne.jp/info/xmlns#hatenablog";
 
-    protected BlogConfig Blog => entry.Blog;
-    protected EntryHeader Header => entry.Header;
-    protected string Content => entry.Content;
-
-    public abstract XDocument Serialize();
+    public abstract XDocument Serialize(Entry entry);
 }
