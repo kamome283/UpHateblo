@@ -6,7 +6,7 @@ namespace UpHateblo.Lib.Http;
 
 internal class HatenaContent : StringContent
 {
-    public HatenaContent(XDocument? xml, Wsse wsse) : base(xml is not null ? xml.ToString() : "")
+    public HatenaContent(XDocument? xml, Wsse wsse) : base(xml?.ToString() ?? "")
     {
         Headers.ContentType = MediaTypeHeaderValue.Parse(MediaTypeNames.Application.Xml);
         Headers.Add("X-WSSE", wsse.GetToken());
