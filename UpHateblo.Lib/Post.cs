@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using UpHateblo.Lib.Entities;
 using UpHateblo.Lib.Http;
 
@@ -15,22 +13,11 @@ public class Post(HttpClient client, Entry entry)
     public async Task Run()
     {
         var xml = GetRequestXml();
-        var serialized = xml.ToString();
-        var wsseToken =
-            new Wsse(Blog.Username, Blog.Password, Guid.NewGuid().ToString(), DateTime.Now)
-                .GetToken();
-        var httpContent = GetHttpContent(serialized, wsseToken);
+        var wsse =
+            new Wsse(Blog.Username, Blog.Password, Guid.NewGuid().ToString(), DateTime.Now);
+        var httpContent = new HatenaContent(xml, wsse);
         var res = await client.PostAsync(Blog.EntryEndPoint, httpContent);
         res.EnsureSuccessStatusCode();
-    }
-
-    private StringContent GetHttpContent(string body, string wsseToken)
-    {
-        StringContent httpContent = new StringContent(body);
-        httpContent.Headers.ContentType =
-            MediaTypeHeaderValue.Parse(MediaTypeNames.Application.Xml);
-        httpContent.Headers.Add("X-WSSE", wsseToken);
-        return httpContent;
     }
 
     /// <returns>エントリーのポスト用のXML</returns>
