@@ -5,25 +5,18 @@ namespace UpHateblo.Lib.Tests.Http;
 
 public class WsseTests
 {
-    private static string ValidityTestCase1 =>
+    internal static string ValidityTestExpected =>
         """
         UsernameToken Username="Kamome283", PasswordDigest="EP4+VS7LZFZpfQJf7U3qvqxjW1Y=, Nonce="some-nonce", Created="2025-09-23T21:29:00"
         """;
 
-    public static IEnumerable<object[]> ValidityTestSource()
-    {
-        return
-        [
-            ["Kamome283", "password12", "some-nonce", "2025-09-23T21:29:00", ValidityTestCase1],
-        ];
-    }
+    internal static Wsse ValidityTestInstance =>
+        new("Kamome283", "password12", "some-nonce", DateTime.Parse("2025-09-23T21:29:00"));
 
-    [Theory, MemberData(nameof(ValidityTestSource))]
-    public void TokenIsValid(string username, string password, string nonce, string datetime,
-        string expected)
+    [Fact]
+    public void TokenIsValid()
     {
-        var wsse = new Wsse(username, password, nonce, DateTime.Parse(datetime));
-        Assert.Equal(expected, wsse.GetToken());
+        Assert.Equal(ValidityTestExpected, ValidityTestInstance.GetToken());
     }
 
     [Fact]
