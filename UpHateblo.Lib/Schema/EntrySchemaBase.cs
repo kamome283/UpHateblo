@@ -12,7 +12,7 @@ namespace UpHateblo.Lib.Schema;
 /// https://learn.microsoft.com/ja-jp/dotnet/standard/linq/create-document-namespaces-csharp
 /// https://neue.cc/2009/08/18_189.html
 /// </remarks>
-internal abstract class SchemaBase
+internal abstract class EntrySchemaBase
 {
     protected static readonly XNamespace AtomNs = "http://www.w3.org/2005/Atom";
     protected static readonly XNamespace AppNs = "http://www.w3.org/2007/app";
