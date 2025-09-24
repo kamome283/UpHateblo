@@ -70,6 +70,18 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntrySecrets>
         await EntryCommands.Post(HttpClient, Blog, header, Content);
     }
 
+    /// <summary>
+    /// 空文字列をUrlPathに指定した場合:
+    /// 下書きはカスタムURLが空の状態で投稿される。
+    /// 本投稿はそのブログのデフォルトのルールでカスタムURLが採番される。
+    /// </summary>
+    [Fact]
+    public async Task PostingOnEmptyUrlPathThrows()
+    {
+        var header = UrlPathRandomizedHeader() with { UrlPath = "" };
+        await EntryCommands.Post(HttpClient, Blog, header, Content);
+    }
+
     private EntryHeader UrlPathRandomizedHeader()
     {
         return Header with { UrlPath = Guid.CreateVersion7().ToString() };
