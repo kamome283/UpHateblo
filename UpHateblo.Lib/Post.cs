@@ -37,7 +37,6 @@ public class Post(HttpClient client, Entry entry)
             new XElement(atom + "entry",
                 new XAttribute(XNamespace.Xmlns + "app", app),
                 new XAttribute(XNamespace.Xmlns + "hatenablog", hatenablog),
-
                 new XElement(atom + "title", Header.Title),
                 new XElement(atom + "author",
                     new XElement(atom + "name", Blog.Username)
