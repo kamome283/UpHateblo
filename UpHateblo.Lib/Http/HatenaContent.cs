@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace UpHateblo.Lib.Http;
 
-internal class HatenaContent: StringContent
+internal class HatenaContent : StringContent
 {
     public HatenaContent(XDocument? xml, Wsse wsse) : base(xml is not null ? xml.ToString() : "")
     {

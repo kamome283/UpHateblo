@@ -6,6 +6,5 @@ public record BlogConfig(
     string Password
 )
 {
-    public Uri EntryEndPoint =>
-        new Uri($"https://blog.hatena.ne.jp/{Username}/{BlogId}/atom/entry");
+    public Uri EntryEndPoint => new($"https://blog.hatena.ne.jp/{Username}/{BlogId}/atom/entry");
 }
