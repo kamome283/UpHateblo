@@ -3,37 +3,30 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
-[SuppressMessage("ReSharper", "NotAccessedPositionalProperty.Global")]
-[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-public record BaseEntry(
-    string Title,
-    string Category,
-    string Date,
-    string UrlPath,
-    string Content
-);
-
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 [SuppressMessage("ReSharper", "NotAccessedPositionalProperty.Global")]
-public record PostEntrySecrets(BlogConfig BlogConfig, BaseEntry BaseEntry);
+public record PostEntryCommandSecrets(BlogConfig Blog);
 
-public class PostEntryCommandTests : CommandTestsBase<PostEntrySecrets>
+public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
 {
     private static readonly HttpClient HttpClient = new();
 
-    private BlogConfig Blog => new(Get("BlogConfig:BlogId"), Get("BlogConfig:Username"),
-        Get("BlogConfig:Password"));
+    private BlogConfig Blog =>
+        new(Get("Blog:BlogId"), Get("Blog:Username"), Get("Blog:Password"));
 
-    private EntryHeader Header => new(
-        Get("BaseEntry:Title"),
-        Get("BaseEntry:Category").Split(","),
-        DateTime.Parse(Get("BaseEntry:Date")),
-        Get("BaseEntry:UrlPath"),
-        Get("BaseEntry:Draft") == "true",
-        Get("BaseEntry:Preview") == "true"
+    internal static EntryHeader Header => new(
+        "テスト",
+        ["Test"],
+        DateTime.Parse("2025-09-23T21:29:00"),
+        "test-path",
+        true
     );
 
-    private string Content => Get("BaseEntry:Content");
+    internal static string Content =>
+        """
+        うまくいっているといいな
+        複数行
+        """;
 
     [Fact]
     public async Task ItCanPostEntry()
