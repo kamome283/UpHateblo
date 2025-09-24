@@ -3,14 +3,14 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Schema;
 
-/// <summary>HTTPリクエストのボディとして送るXMLのスキーマを定義するクラス</summary>>
+/// <summary>HTTPリクエストのボディとして送るXMLのスキーマを定義するクラス</summary>
 /// <remarks>
-/// References for Request Body:
-/// https://developer.hatena.ne.jp/ja/documents/blog/apis/atom/
-/// References for XDocument:
-/// https://learn.microsoft.com/ja-jp/dotnet/api/system.xml.linq.xdocument?view=net-8.0
-/// https://learn.microsoft.com/ja-jp/dotnet/standard/linq/create-document-namespaces-csharp
-/// https://neue.cc/2009/08/18_189.html
+///     References for Request Body:
+///     https://developer.hatena.ne.jp/ja/documents/blog/apis/atom/
+///     References for XDocument:
+///     https://learn.microsoft.com/ja-jp/dotnet/api/system.xml.linq.xdocument?view=net-8.0
+///     https://learn.microsoft.com/ja-jp/dotnet/standard/linq/create-document-namespaces-csharp
+///     https://neue.cc/2009/08/18_189.html
 /// </remarks>
 internal abstract class EntrySchemaBase
 {
