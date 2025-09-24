@@ -1,0 +1,61 @@
+using System.Diagnostics.CodeAnalysis;
+using UpHateblo.Lib.Entities;
+
+namespace UpHateblo.Lib.Tests.Commands;
+
+[SuppressMessage("ReSharper", "NotAccessedPositionalProperty.Global")]
+[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+public record BaseEntry(
+    string Title,
+    string Category,
+    string Date,
+    string UrlPath,
+    string Content
+);
+
+[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+[SuppressMessage("ReSharper", "NotAccessedPositionalProperty.Global")]
+public record PostEntrySecrets(BlogConfig BlogConfig, BaseEntry BaseEntry);
+
+public class PostEntryCommandTests : CommandTestsBase<PostEntrySecrets>
+{
+    private static readonly HttpClient HttpClient = new();
+
+    private BlogConfig Blog => new(Get("BlogConfig:BlogId"), Get("BlogConfig:Username"),
+        Get("BlogConfig:Password"));
+
+    private EntryHeader Header => new(
+        Get("BaseEntry:Title"),
+        Get("BaseEntry:Category").Split(","),
+        DateTime.Parse(Get("BaseEntry:Date")),
+        Get("BaseEntry:UrlPath")
+    );
+
+    private string Content => Get("BaseEntry:Content");
+
+    [Fact]
+    public async Task ItCanPostEntry()
+    {
+        await EntryCommands.Post(HttpClient, Blog, UrlPathRandomizedHeader(), Content);
+    }
+
+    [Fact]
+    public async Task ItCanPostMultipleCategoryEntry()
+    {
+        var header = UrlPathRandomizedHeader() with { Category = ["技術", "Test"] };
+        await EntryCommands.Post(HttpClient, Blog, header, Content);
+    }
+
+    [Fact]
+    public async Task ItCanPostOnSameUrlPath()
+    {
+        var header = UrlPathRandomizedHeader();
+        await EntryCommands.Post(HttpClient, Blog, header, Content);
+        await EntryCommands.Post(HttpClient, Blog, header, Content);
+    }
+
+    private EntryHeader UrlPathRandomizedHeader()
+    {
+        return Header with { UrlPath = Guid.CreateVersion7().ToString() };
+    }
+}
