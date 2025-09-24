@@ -40,7 +40,7 @@ public static class EntryCommands
         var wsse = new Wsse(
             entry.Blog.Username,
             entry.Blog.Password,
-            wsseNonce ?? Guid.NewGuid().ToString(),
+            wsseNonce ?? Guid.CreateVersion7().ToString(),
             wsseDateTime ?? DateTime.Now
         );
         return new HatenaContent(xml, wsse);
