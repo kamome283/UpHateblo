@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -19,6 +20,13 @@ namespace UpHateblo.Lib.Http;
 internal class Wsse(string username, string password, string nonce, DateTime createdDateTime)
 {
     private static readonly SHA1 Sha1 = SHA1.Create();
+
+    // 空文字列のnonceで作成したWSSEトークンでは認証できなかったので、
+    // 空文字列の場合はイニシャライズ直後にValidationExceptionを投げる
+    // ReSharper disable once UnusedMember.Local
+    private string _ = nonce != ""
+        ? nonce
+        : throw new ValidationException("nonce cannot be empty string.");
 
     // ISO-8601 extended format without timezone
     private string Created => createdDateTime.ToString("s");
