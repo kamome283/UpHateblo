@@ -2,7 +2,7 @@
 using UpHateblo.Lib.Http;
 using UpHateblo.Lib.Schema;
 
-namespace UpHateblo.Lib;
+namespace UpHateblo.Lib.Commands;
 
 public class PostEntry(HttpClient client, Entry entry)
 {
