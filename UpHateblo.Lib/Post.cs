@@ -2,6 +2,7 @@
 using System.Net.Mime;
 using System.Xml.Linq;
 using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Http;
 
 namespace UpHateblo.Lib;
 
