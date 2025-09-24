@@ -62,6 +62,10 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntrySecrets>
         await EntryCommands.Post(HttpClient, Blog, header, Content);
     }
 
+    /// <summary>
+    /// 同じUrlPathで投稿した場合:
+    /// 二度目以降の投稿はカスタムURLの後ろに _1 などのサフィックスがつく
+    /// </summary>
     [Fact]
     public async Task ItCanPostOnSameUrlPath()
     {
