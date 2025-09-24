@@ -16,7 +16,7 @@ namespace UpHateblo.Lib.Http;
 /// https://kanatech.hatenablog.com/entry/2013/01/06/132031
 /// https://ameblo.jp/norixp/entry-10013651868.html
 /// </remarks>
-public class Wsse(string username, string password, string nonce, DateTime createdDateTime)
+internal class Wsse(string username, string password, string nonce, DateTime createdDateTime)
 {
     private static readonly SHA1 Sha1 = SHA1.Create();
 
