@@ -1,25 +1,9 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Xml.Linq;
+using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib;
-
-public record BlogConfig(
-    string BlogId,
-    string Username,
-    string Password
-)
-{
-    public Uri EntryEndPoint =>
-        new Uri($"https://blog.hatena.ne.jp/{Username}/{BlogId}/atom/entry");
-}
-
-public record EntryHeader(
-    string Title,
-    string[] Category,
-    DateTime Date,
-    string UrlPath
-);
 
 public class Post(HttpClient client, BlogConfig blog, EntryHeader header, string content)
 {
