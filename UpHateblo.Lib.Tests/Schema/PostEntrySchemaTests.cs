@@ -7,7 +7,7 @@ namespace UpHateblo.Lib.Tests.Schema;
 
 public class PostEntrySchemaTests
 {
-    static public string ExpectedContent =>
+    public static string ExpectedContent =>
         """
         <entry xmlns:app="http://www.w3.org/2007/app" xmlns:hatenablog="http://www.hatena.ne.jp/info/xmlns#hatenablog" xmlns="http://www.w3.org/2005/Atom">
           <title>テスト</title>

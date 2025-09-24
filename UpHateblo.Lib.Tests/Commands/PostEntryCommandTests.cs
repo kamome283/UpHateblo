@@ -56,8 +56,8 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     }
 
     /// <summary>
-    /// 同じUrlPathで投稿した場合:
-    /// 二度目以降の投稿はカスタムURLの後ろに _1 などのサフィックスがつく
+    ///     同じUrlPathで投稿した場合:
+    ///     二度目以降の投稿はカスタムURLの後ろに _1 などのサフィックスがつく
     /// </summary>
     [Fact]
     public async Task ItCanPostOnSameUrlPath()
@@ -68,9 +68,9 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     }
 
     /// <summary>
-    /// 空文字列をUrlPathに指定した場合:
-    /// 下書きはカスタムURLが空の状態で投稿される。
-    /// 本投稿はそのブログのデフォルトのルールでカスタムURLが採番される。
+    ///     空文字列をUrlPathに指定した場合:
+    ///     下書きはカスタムURLが空の状態で投稿される。
+    ///     本投稿はそのブログのデフォルトのルールでカスタムURLが採番される。
     /// </summary>
     [Fact]
     public async Task PostingOnEmptyUrlPathThrows()
