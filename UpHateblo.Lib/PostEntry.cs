@@ -4,7 +4,7 @@ using UpHateblo.Lib.Schema;
 
 namespace UpHateblo.Lib;
 
-public class Post(HttpClient client, Entry entry)
+public class PostEntry(HttpClient client, Entry entry)
 {
     private BlogConfig Blog => entry.Blog;
     private EntryHeader Header => entry.Header;
