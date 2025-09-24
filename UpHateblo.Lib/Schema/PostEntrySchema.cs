@@ -28,9 +28,8 @@ internal class PostEntrySchema : EntrySchemaBase
                     new XText(content)
                 ),
                 new XElement(AtomNs + "updated", header.Date),
-                new XElement(AtomNs + "category",
-                    header.Category.Select(c => new XAttribute("term", c))
-                ),
+                header.Category.Select(c => new XElement(AtomNs + "category",
+                    new XAttribute("term", c))),
                 new XElement(AppNs + "control",
                     // Set yes before ready to use
                     new XElement(AppNs + "draft", "yes"),
