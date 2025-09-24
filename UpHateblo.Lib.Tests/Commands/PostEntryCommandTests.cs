@@ -28,7 +28,9 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntrySecrets>
         Get("BaseEntry:Title"),
         Get("BaseEntry:Category").Split(","),
         DateTime.Parse(Get("BaseEntry:Date")),
-        Get("BaseEntry:UrlPath")
+        Get("BaseEntry:UrlPath"),
+        Get("BaseEntry:Draft") == "true",
+        Get("BaseEntry:Preview") == "true"
     );
 
     private string Content => Get("BaseEntry:Content");
@@ -37,6 +39,20 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntrySecrets>
     public async Task ItCanPostEntry()
     {
         await EntryCommands.Post(HttpClient, Blog, UrlPathRandomizedHeader(), Content);
+    }
+
+    [Fact]
+    public async Task ItCanPostProductionEntry()
+    {
+        var header = UrlPathRandomizedHeader() with { Draft = false };
+        await EntryCommands.Post(HttpClient, Blog, header, Content);
+    }
+
+    [Fact(Skip = "プレビューフラグをオンにして投稿した結果がどのようなものになるか私がよくわかっていない")]
+    public async Task ItCanPostPreviewEntry()
+    {
+        var header = UrlPathRandomizedHeader() with { Preview = true };
+        await EntryCommands.Post(HttpClient, Blog, header, Content);
     }
 
     [Fact]

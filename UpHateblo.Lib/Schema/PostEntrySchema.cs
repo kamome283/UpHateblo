@@ -31,10 +31,8 @@ internal class PostEntrySchema : EntrySchemaBase
                 header.Category.Select(c => new XElement(AtomNs + "category",
                     new XAttribute("term", c))),
                 new XElement(AppNs + "control",
-                    // Set yes before ready to use
-                    new XElement(AppNs + "draft", "yes"),
-                    // Not supported currently
-                    new XElement(AppNs + "preview", "no")
+                    new XElement(AppNs + "draft", header.Draft ? "yes" : "no"),
+                    new XElement(AppNs + "preview", header.Preview ? "yes" : "no")
                 ),
                 new XElement(HatenaBlogNs + "custom-url",
                     new XText(header.UrlPath)
