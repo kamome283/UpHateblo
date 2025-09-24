@@ -1,3 +1,3 @@
 namespace UpHateblo.Lib.Entities;
 
-public record struct Entry(BlogConfig Blog, EntryHeader Header, string Content);
+public record Entry(BlogConfig Blog, EntryHeader Header, string Content);
