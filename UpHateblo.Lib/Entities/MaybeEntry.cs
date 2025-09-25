@@ -1,11 +1,14 @@
+using Equatable.Attributes;
+
 namespace UpHateblo.Lib.Entities;
 
 /// <summary>
 /// ファイルやCLIのパラメーターから読み出すエントリーの断片
 /// </summary>
-public record MaybeEntry(
+[Equatable]
+public partial record MaybeEntry(
     string? Title,
-    HashSet<string>? Category,
+    [property: HashSetEquality] HashSet<string>? Category,
     DateTime? Date,
     string? Content,
     string? UrlPath,
