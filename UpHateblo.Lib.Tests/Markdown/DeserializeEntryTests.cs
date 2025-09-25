@@ -39,4 +39,17 @@ public class DeserializeEntryTests
             Assert.Throws<YamlException>(() => { DeserializeEntry.Run(content); });
         Assert.Equal(expected, DeserializeEntry.Run(content));
     }
+
+    /// <summary>
+    /// フロントマターのデシリアライズを同時に行っても問題ないかを簡易的にテスト
+    /// </summary>
+    [Fact]
+    public async Task ItWorksInMultiThreadEnv()
+    {
+        var firstTestCase = TestCases[0];
+        var expected = firstTestCase[0] as MaybeEntry;
+        var content = firstTestCase[1] as string ?? throw new NullReferenceException();
+        await Assert.AllAsync(Enumerable.Range(1, 100),
+            async _ => { await Task.Run(() => ItCanDeserializeAsSupposed(expected, content)); });
+    }
 }
