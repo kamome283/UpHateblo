@@ -10,7 +10,7 @@ public class PostEntrySchemaTests
     private static BlogConfig DefaultBlogConfig =>
         new("kamome283.hatenablog.com", "Kamome283", "foobar");
 
-    public static string ExpectedContent =>
+    private static string DefaultExpectedContent =>
         """
         <entry xmlns:app="http://www.w3.org/2007/app" xmlns:hatenablog="http://www.hatena.ne.jp/info/xmlns#hatenablog" xmlns="http://www.w3.org/2005/Atom">
           <title>テスト</title>
@@ -29,7 +29,7 @@ public class PostEntrySchemaTests
         </entry>
         """;
 
-    public static string ExpectedContentWhenUrlPathIsNull =>
+    private static string ExpectedContentWhenUrlPathIsNull =>
         """
         <entry xmlns:app="http://www.w3.org/2007/app" xmlns:hatenablog="http://www.hatena.ne.jp/info/xmlns#hatenablog" xmlns="http://www.w3.org/2005/Atom">
           <title>テスト</title>
@@ -47,30 +47,26 @@ public class PostEntrySchemaTests
         </entry>
         """;
 
-    [Fact]
-    public void IsValidSchema()
+    public static object[][] TestCases =>
+    [
+        [
+            new Entry(DefaultBlogConfig, PostEntryCommandTests.Header,
+                PostEntryCommandTests.Content),
+            DefaultExpectedContent
+        ],
+        [
+            new Entry(DefaultBlogConfig, PostEntryCommandTests.Header with { UrlPath = null },
+                PostEntryCommandTests.Content),
+            ExpectedContentWhenUrlPathIsNull
+        ],
+    ];
+
+    [Theory, MemberData(nameof(TestCases))]
+    public void SchemaIsValid(Entry entry, string expectedContent)
     {
-        var expected = XDocument.Parse(ExpectedContent);
-
         var schema = new PostEntrySchema();
-        var blog = new BlogConfig("kamome283.hatenablog.com", "Kamome283", "foobar");
-        var entry = new Entry(blog, PostEntryCommandTests.Header, PostEntryCommandTests.Content);
+        var expected = XDocument.Parse(expectedContent);
         var actual = schema.Serialize(entry);
-
-        Assert.Equal(expected.ToString(), actual.ToString());
-    }
-
-    [Fact]
-    public void ReturnsValidSchemaIfUrlPathIsNull()
-    {
-        var expected = XDocument.Parse(ExpectedContentWhenUrlPathIsNull);
-
-        var schema = new PostEntrySchema();
-        var entry = new Entry(DefaultBlogConfig,
-            PostEntryCommandTests.Header with { UrlPath = null },
-            PostEntryCommandTests.Content);
-        var actual = schema.Serialize(entry);
-
         Assert.Equal(expected.ToString(), actual.ToString());
     }
 }
