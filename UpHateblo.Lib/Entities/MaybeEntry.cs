@@ -3,7 +3,7 @@ using Equatable.Attributes;
 namespace UpHateblo.Lib.Entities;
 
 /// <summary>
-/// ファイルやCLIのパラメーターから読み出すエントリーの断片
+///     ファイルやCLIのパラメーターから読み出すエントリーの断片
 /// </summary>
 [Equatable]
 public partial record MaybeEntry(

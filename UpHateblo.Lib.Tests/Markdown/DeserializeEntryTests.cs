@@ -5,11 +5,11 @@ using YamlDotNet.Core;
 namespace UpHateblo.Lib.Tests.Markdown;
 
 /// <summary>
-/// フロントマターの中のYAMLのパースについては
-/// [YamlDotNet](https://github.com/aaubry/YamlDotNet)
-/// の挙動に従う。
-/// フロントマターと本文を区切る部分が自身の処理なので
-/// この部分を重点的にテストする。
+///     フロントマターの中のYAMLのパースについては
+///     [YamlDotNet](https://github.com/aaubry/YamlDotNet)
+///     の挙動に従う。
+///     フロントマターと本文を区切る部分が自身の処理なので
+///     この部分を重点的にテストする。
 /// </summary>
 public class DeserializeEntryTests
 {
@@ -32,7 +32,8 @@ public class DeserializeEntryTests
 
     /// <param name="expected">nullの場合はフロントマターのパースに失敗したケースを想定</param>
     /// <param name="content">パースする文字列</param>
-    [Theory, MemberData(nameof(TestCases))]
+    [Theory]
+    [MemberData(nameof(TestCases))]
     public void ItCanDeserializeAsSupposed(MaybeEntry? expected, string content)
     {
         if (expected is null)
@@ -47,7 +48,7 @@ public class DeserializeEntryTests
     }
 
     /// <summary>
-    /// フロントマターのデシリアライズを同時に行っても問題ないかを簡易的にテスト
+    ///     フロントマターのデシリアライズを同時に行っても問題ないかを簡易的にテスト
     /// </summary>
     [Fact]
     public async Task ItWorksInMultiThreadEnv()
