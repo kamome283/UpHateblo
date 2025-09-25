@@ -1,3 +1,11 @@
 namespace UpHateblo.Lib.Entities;
 
-public record Entry(BlogConfig Blog, EntryHeader Header, string Content);
+public record Entry(
+    string Title,
+    string[] Category,
+    DateTime Date,
+    string Content,
+    string? UrlPath,
+    bool? Draft = null,
+    bool? Preview = null
+);

@@ -14,45 +14,43 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     private BlogConfig Blog =>
         new(Get("Blog:BlogId"), Get("Blog:Username"), Get("Blog:Password"));
 
-    internal static EntryHeader Header => new(
+    internal static Entry Header => new(
         "テスト",
         ["Test"],
         DateTime.Parse("2025-09-23T21:29:00"),
+        """
+        うまくいっているといいな
+        複数行
+        """,
         "test-path",
         true
     );
 
-    internal static string Content =>
-        """
-        うまくいっているといいな
-        複数行
-        """;
-
     [Fact]
     public async Task ItCanPostEntry()
     {
-        await EntryCommands.Post(HttpClient, Blog, UrlPathRandomizedHeader(), Content);
+        await EntryCommands.Post(HttpClient, Blog, UrlPathRandomizedHeader());
     }
 
     [Fact]
     public async Task ItCanPostProductionEntry()
     {
         var header = UrlPathRandomizedHeader() with { Draft = false };
-        await EntryCommands.Post(HttpClient, Blog, header, Content);
+        await EntryCommands.Post(HttpClient, Blog, header);
     }
 
     [Fact(Skip = "プレビューフラグをオンにして投稿した結果がどのようなものになるか私がよくわかっていない")]
     public async Task ItCanPostPreviewEntry()
     {
         var header = UrlPathRandomizedHeader() with { Preview = true };
-        await EntryCommands.Post(HttpClient, Blog, header, Content);
+        await EntryCommands.Post(HttpClient, Blog, header);
     }
 
     [Fact]
     public async Task ItCanPostMultipleCategoryEntry()
     {
         var header = UrlPathRandomizedHeader() with { Category = ["技術", "Test"] };
-        await EntryCommands.Post(HttpClient, Blog, header, Content);
+        await EntryCommands.Post(HttpClient, Blog, header);
     }
 
     /// <summary>
@@ -63,8 +61,8 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     public async Task ItCanPostOnSameUrlPath()
     {
         var header = UrlPathRandomizedHeader();
-        await EntryCommands.Post(HttpClient, Blog, header, Content);
-        await EntryCommands.Post(HttpClient, Blog, header, Content);
+        await EntryCommands.Post(HttpClient, Blog, header);
+        await EntryCommands.Post(HttpClient, Blog, header);
     }
 
     /// <summary>
@@ -76,10 +74,10 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     public async Task PostingOnEmptyUrlPathThrows()
     {
         var header = UrlPathRandomizedHeader() with { UrlPath = "" };
-        await EntryCommands.Post(HttpClient, Blog, header, Content);
+        await EntryCommands.Post(HttpClient, Blog, header);
     }
 
-    private EntryHeader UrlPathRandomizedHeader()
+    private Entry UrlPathRandomizedHeader()
     {
         return Header with { UrlPath = Guid.CreateVersion7().ToString() };
     }

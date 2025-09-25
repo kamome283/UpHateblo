@@ -9,34 +9,30 @@ namespace UpHateblo.Lib.Schema;
 /// </remarks>
 internal class PostEntrySchema : EntrySchemaBase
 {
-    public override XDocument Serialize(Entry entry)
+    public override XDocument Serialize(BlogConfig blog, Entry entry)
     {
-        var blog = entry.Blog;
-        var header = entry.Header;
-        var content = entry.Content;
-
         return new XDocument(
             new XElement(AtomNs + "entry",
                 new XAttribute(XNamespace.Xmlns + "app", AppNs),
                 new XAttribute(XNamespace.Xmlns + "hatenablog", HatenaBlogNs),
-                new XElement(AtomNs + "title", header.Title),
+                new XElement(AtomNs + "title", entry.Title),
                 new XElement(AtomNs + "author",
                     new XElement(AtomNs + "name", blog.Username)
                 ),
                 new XElement(AtomNs + "content",
                     new XAttribute("type", "text/plain"),
-                    new XText(content)
+                    new XText(entry.Content)
                 ),
-                new XElement(AtomNs + "updated", header.Date),
-                header.Category.Select(c => new XElement(AtomNs + "category",
+                new XElement(AtomNs + "updated", entry.Date),
+                entry.Category.Select(c => new XElement(AtomNs + "category",
                     new XAttribute("term", c))),
                 new XElement(AppNs + "control",
-                    new XElement(AppNs + "draft", header.Draft == true ? "yes" : "no"),
-                    new XElement(AppNs + "preview", header.Preview == true ? "yes" : "no")
+                    new XElement(AppNs + "draft", entry.Draft == true ? "yes" : "no"),
+                    new XElement(AppNs + "preview", entry.Preview == true ? "yes" : "no")
                 ),
-                header.UrlPath is not null
+                entry.UrlPath is not null
                     ? new XElement(HatenaBlogNs + "custom-url",
-                        new XText(header.UrlPath)
+                        new XText(entry.UrlPath)
                     )
                     : null
             )

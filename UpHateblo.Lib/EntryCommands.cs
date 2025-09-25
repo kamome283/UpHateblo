@@ -14,14 +14,13 @@ public static class EntryCommands
     public static async Task Post(
         HttpClient httpClient,
         BlogConfig blog,
-        EntryHeader header,
-        string content,
+        Entry entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
     {
         var httpContent =
-            GenHatenaContent(PostEntrySchema, blog, header, content, wsseNonce, wsseDateTime);
+            GenHatenaContent(PostEntrySchema, blog, entry, wsseNonce, wsseDateTime);
         var res = await httpClient.PostAsync(blog.EntryEndPoint, httpContent);
         res.EnsureSuccessStatusCode();
     }
@@ -29,17 +28,15 @@ public static class EntryCommands
     private static HatenaContent GenHatenaContent(
         EntrySchemaBase? schema,
         BlogConfig blog,
-        EntryHeader header,
-        string content,
+        Entry entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
     {
-        var entry = new Entry(blog, header, content);
-        var xml = schema?.Serialize(entry);
+        var xml = schema?.Serialize(blog, entry);
         var wsse = new Wsse(
-            entry.Blog.Username,
-            entry.Blog.Password,
+            blog.Username,
+            blog.Password,
             wsseNonce ?? Guid.CreateVersion7().ToString(),
             wsseDateTime ?? DateTime.Now
         );

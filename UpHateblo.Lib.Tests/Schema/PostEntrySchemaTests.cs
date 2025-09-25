@@ -49,24 +49,20 @@ public class PostEntrySchemaTests
 
     public static object[][] TestCases =>
     [
+        [DefaultBlogConfig, PostEntryCommandTests.Header, DefaultExpectedContent],
         [
-            new Entry(DefaultBlogConfig, PostEntryCommandTests.Header,
-                PostEntryCommandTests.Content),
-            DefaultExpectedContent
-        ],
-        [
-            new Entry(DefaultBlogConfig, PostEntryCommandTests.Header with { UrlPath = null },
-                PostEntryCommandTests.Content),
+            DefaultBlogConfig, PostEntryCommandTests.Header with { UrlPath = null },
             ExpectedContentWhenUrlPathIsNull
-        ],
+        ]
     ];
 
-    [Theory, MemberData(nameof(TestCases))]
-    public void SchemaIsValid(Entry entry, string expectedContent)
+    [Theory]
+    [MemberData(nameof(TestCases))]
+    public void SchemaIsValid(BlogConfig blog, Entry entry, string expectedContent)
     {
         var schema = new PostEntrySchema();
         var expected = XDocument.Parse(expectedContent);
-        var actual = schema.Serialize(entry);
+        var actual = schema.Serialize(blog, entry);
         Assert.Equal(expected.ToString(), actual.ToString());
     }
 }
