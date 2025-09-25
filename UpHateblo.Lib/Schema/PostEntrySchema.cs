@@ -34,9 +34,11 @@ internal class PostEntrySchema : EntrySchemaBase
                     new XElement(AppNs + "draft", header.Draft == true ? "yes" : "no"),
                     new XElement(AppNs + "preview", header.Preview == true ? "yes" : "no")
                 ),
-                new XElement(HatenaBlogNs + "custom-url",
-                    new XText(header.UrlPath)
-                )
+                header.UrlPath is not null
+                    ? new XElement(HatenaBlogNs + "custom-url",
+                        new XText(header.UrlPath)
+                    )
+                    : null
             )
         );
     }

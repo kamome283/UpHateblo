@@ -4,9 +4,7 @@ public record EntryHeader(
     string Title,
     string[] Category,
     DateTime Date,
-    string UrlPath,
-    bool Draft = false,
-    bool Preview = false
+    string? UrlPath,
     bool? Draft = null,
     bool? Preview = null
 );
