@@ -7,4 +7,6 @@ public record EntryHeader(
     string UrlPath,
     bool Draft = false,
     bool Preview = false
+    bool? Draft = null,
+    bool? Preview = null
 );
