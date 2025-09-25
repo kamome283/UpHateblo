@@ -11,4 +11,9 @@ public record MaybeEntry(
     string? UrlPath,
     bool? Draft,
     bool? Preview
-);
+)
+{
+    public MaybeEntry() : this(null, null, null, null, null, null, null)
+    {
+    }
+}
