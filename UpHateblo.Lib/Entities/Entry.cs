@@ -5,7 +5,7 @@ public record Entry(
     string[] Category,
     DateTime Date,
     string Content,
-    string? UrlPath,
+    string? CustomPath,
     bool? Draft = null,
     bool? Preview = null
 );

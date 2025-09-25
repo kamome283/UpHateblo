@@ -49,9 +49,9 @@ public class PostEntrySchemaTests
 
     public static object[][] TestCases =>
     [
-        [DefaultBlogConfig, PostEntryCommandTests.Header, DefaultExpectedContent],
+        [DefaultBlogConfig, PostEntryCommandTests.Entry, DefaultExpectedContent],
         [
-            DefaultBlogConfig, PostEntryCommandTests.Header with { UrlPath = null },
+            DefaultBlogConfig, PostEntryCommandTests.Entry with { CustomPath = null },
             ExpectedContentWhenUrlPathIsNull
         ]
     ];

@@ -30,9 +30,9 @@ internal class PostEntrySchema : EntrySchemaBase
                     new XElement(AppNs + "draft", entry.Draft == true ? "yes" : "no"),
                     new XElement(AppNs + "preview", entry.Preview == true ? "yes" : "no")
                 ),
-                entry.UrlPath is not null
+                entry.CustomPath is not null
                     ? new XElement(HatenaBlogNs + "custom-url",
-                        new XText(entry.UrlPath)
+                        new XText(entry.CustomPath)
                     )
                     : null
             )
