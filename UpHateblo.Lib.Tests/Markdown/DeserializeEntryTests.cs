@@ -36,9 +36,14 @@ public class DeserializeEntryTests
     public void ItCanDeserializeAsSupposed(MaybeEntry? expected, string content)
     {
         if (expected is null)
+        {
             Assert.Throws<YamlException>(() => { DeserializeEntry.Run(content); });
-        var actual = DeserializeEntry.Run(content);
-        Assert.Equal(expected, actual);
+        }
+        else
+        {
+            var actual = DeserializeEntry.Run(content);
+            Assert.Equal(expected, actual);
+        }
     }
 
     /// <summary>
