@@ -79,4 +79,11 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
         var header = UrlPathRandomizedHeader with { UrlPath = "" };
         await EntryCommands.Post(HttpClient, Blog, header);
     }
+
+    [Fact]
+    public async Task ItCanPostWhenUrlPathIsNull()
+    {
+        var header = UrlPathRandomizedHeader with { UrlPath = null };
+        await EntryCommands.Post(HttpClient, Blog, header);
+    }
 }
