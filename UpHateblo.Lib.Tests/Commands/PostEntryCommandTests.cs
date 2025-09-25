@@ -71,7 +71,7 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     ///     本投稿はそのブログのデフォルトのルールでカスタムURLが採番される。
     /// </summary>
     [Fact]
-    public async Task PostingOnEmptyUrlPathThrows()
+    public async Task ItCanPostOnEmptyUrlPath()
     {
         var header = UrlPathRandomizedHeader() with { UrlPath = "" };
         await EntryCommands.Post(HttpClient, Blog, header);
