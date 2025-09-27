@@ -1,11 +1,15 @@
+using Equatable.Attributes;
+
 namespace UpHateblo.Lib.Entities;
 
-public record Entry(
+[Equatable]
+public partial record Entry(
     string Title,
-    string[] Category,
+    [property: HashSetEquality] HashSet<string> Category,
     DateTime Date,
     string Content,
     string? CustomPath,
+    string? EntryId,
     bool? Draft = null,
     bool? Preview = null
 );

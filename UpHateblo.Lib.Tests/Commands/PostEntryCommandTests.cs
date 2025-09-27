@@ -19,6 +19,7 @@ public class PostEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
         複数行
         """,
         "test-path",
+        EntryId: null,
         true
     );
 
