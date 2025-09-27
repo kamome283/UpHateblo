@@ -47,6 +47,7 @@ Audience: Advanced .NET contributors working on this repository. This document c
   - A trivial example test was created and executed during preparation of this document to validate instructions, then removed to keep the repository clean, as required by this task.
 
 3) Project-specific testing/dev notes
+- Documentation for using the Hatena Blog API can be found in ./HatenaBlogApiProtocol.md
 - YAML front matter deserialization (DeserializeEntry)
   - The Markdown front matter supports keys such as Title, Category (sequence), Date (DateTimeOffset), UrlPath, Draft (bool), Preview (bool).
   - Empty or missing front matter is allowed; the body is the entire content.
