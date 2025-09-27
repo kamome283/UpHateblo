@@ -56,7 +56,8 @@ public class PostEntrySchemaTests
         ]
     ];
 
-    [Theory, MemberData(nameof(TestCases))]
+    [Theory]
+    [MemberData(nameof(TestCases))]
     public void SchemaIsValid(BlogConfig blog, Entry entry, string expectedContent)
     {
         var schema = new PostEntrySchema();
