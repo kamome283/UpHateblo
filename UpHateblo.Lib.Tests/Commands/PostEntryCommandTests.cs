@@ -1,14 +1,9 @@
-using System.Diagnostics.CodeAnalysis;
 using UpHateblo.Lib.Commands;
 using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
-[SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-[SuppressMessage("ReSharper", "NotAccessedPositionalProperty.Global")]
-public record PostEntryCommandSecrets(BlogConfig Blog);
-
-public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
+public class PostEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
 {
     private static readonly HttpClient HttpClient = new();
 
