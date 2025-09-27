@@ -1,0 +1,69 @@
+using UpHateblo.Lib.Entities;
+
+namespace UpHateblo.Lib.Tests.Entities;
+
+public class EntryTests
+{
+    // Use a fixed date for deterministic tests
+    private static readonly DateTime FixedDate =
+        DateTime.Parse("2023-10-27T10:00:00Z").ToUniversalTime();
+
+    [Fact]
+    public void EqualsWhenHashSetInstancesAreDifferentButContentsAreSame()
+    {
+        // Arrange
+        var entry1 = new Entry(
+            "Title",
+            ["tech", "c#"],
+            FixedDate,
+            "Content",
+            "/url",
+            "entry-id",
+            false,
+            false
+        );
+        var entry2 = new Entry(
+            "Title",
+            ["c#", "tech"], // Order does not matter for HashSet
+            FixedDate,
+            "Content",
+            "/url",
+            "entry-id",
+            false,
+            false
+        );
+
+        // Act & Assert
+        Assert.Equal(entry1, entry2);
+        Assert.Equal(entry1.GetHashCode(), entry2.GetHashCode());
+    }
+
+    [Fact]
+    public void NotEqualsWhenHashSetContentsDiffer()
+    {
+        // Arrange
+        var entry1 = new Entry(
+            "Title",
+            ["tech", "c#"],
+            FixedDate,
+            "Content",
+            "/url",
+            "entry-id",
+            false,
+            false
+        );
+        var entry2 = new Entry(
+            "Title",
+            ["tech", "dotnet"],
+            FixedDate,
+            "Content",
+            "/url",
+            "entry-id",
+            false,
+            false
+        );
+
+        // Act & Assert
+        Assert.NotEqual(entry1, entry2);
+    }
+}
