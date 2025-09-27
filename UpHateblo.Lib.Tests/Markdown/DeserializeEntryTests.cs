@@ -149,4 +149,74 @@ public class DeserializeEntryTests
         // Current behavior: YamlDotNet throws when a scalar cannot be converted to the target type.
         Assert.Throws<YamlException>(() => DeserializeEntry.Run(content));
     }
+
+    [Fact]
+    public async Task ItIsThreadSafeForConcurrentDeserialization()
+    {
+        // Prepare a set of representative inputs
+        string fullSpec = """
+                          ---
+                          Title: FullSpecMarkdown
+                          Category: 
+                            - A
+                            - B
+                          Date: 2025-01-09T19:07:00+09:00
+                          UrlPath: test/url-path
+                          Draft: true
+                          Preview: false
+                          ---
+                          This is a test,
+                          and this is the second line of the content.
+                          """;
+        string bodyOnly = """
+                          Hello world!
+                          This is body only.
+                          """;
+        string unknownFields = """
+                               ---
+                               Title: Known Title
+                               UnknownField: some value
+                               AnotherOne: 123
+                               ---
+                               Body goes here.
+                               """;
+
+        string[] inputs = [fullSpec, bodyOnly, unknownFields];
+
+        // Take single-threaded baselines to compare against
+        var baselines = inputs.Select(DeserializeEntry.Run).ToArray();
+
+        const int iterations = 200;
+        var tasks = Enumerable.Range(0, iterations)
+            .SelectMany(_ => inputs.Select((input, idx) => Task.Run(() =>
+            {
+                var actual = DeserializeEntry.Run(input);
+                Assert.Equal(baselines[idx], actual);
+            })));
+
+        await Task.WhenAll(tasks);
+    }
+
+    [Fact]
+    public async Task ItConsistentlyThrowsConcurrentlyForInvalidNonStringProperties()
+    {
+        string invalidContent = """
+                                ---
+                                Title: HasInvalids
+                                Date: not-a-date
+                                Draft: not-a-bool
+                                Preview: maybe
+                                ---
+                                Body is here.
+                                """;
+
+        const int iterations = 200;
+        var tasks = Enumerable.Range(0, iterations)
+            .Select(_ => Task.Run(() =>
+                Assert.Throws<YamlException>(() =>
+                    DeserializeEntry.Run(invalidContent))
+            ));
+
+        await Task.WhenAll(tasks);
+    }
 }
