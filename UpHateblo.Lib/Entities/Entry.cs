@@ -5,7 +5,7 @@ namespace UpHateblo.Lib.Entities;
 [Equatable]
 public partial record Entry(
     string Title,
-    [property: SequenceEquality] string[] Category,
+    [property: HashSetEquality] HashSet<string> Category,
     DateTime Date,
     string Content,
     string? CustomPath,
