@@ -1,11 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
 using UpHateblo.Lib.Entities;
 using UpHateblo.Lib.Schema;
 
 namespace UpHateblo.Lib.Commands;
 
-[SuppressMessage("ReSharper", "UnusedType.Global")]
-[SuppressMessage("ReSharper", "UnusedMember.Global")]
 public static class PostEntryCommand
 {
     private static readonly PostEntrySchema PostEntrySchema = new();
