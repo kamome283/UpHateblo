@@ -10,7 +10,7 @@ public class PushEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
     private static readonly HttpClient HttpClient = new();
 
     private BlogConfig BlogConfig =>
-        new BlogConfig(Get("Blog:BlogId"), Get("Blog:Username"), Get("Blog:Password"));
+        new(Get("Blog:BlogId"), Get("Blog:Username"), Get("Blog:Password"));
 
     [Fact]
     public async Task ItCanPushEntry()
