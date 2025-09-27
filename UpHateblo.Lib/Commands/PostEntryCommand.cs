@@ -3,15 +3,15 @@ using UpHateblo.Lib.Entities;
 using UpHateblo.Lib.Http;
 using UpHateblo.Lib.Schema;
 
-namespace UpHateblo.Lib;
+namespace UpHateblo.Lib.Commands;
 
 [SuppressMessage("ReSharper", "UnusedType.Global")]
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
-public static class EntryCommands
+public static class PostEntryCommand
 {
     private static readonly PostEntrySchema PostEntrySchema = new();
 
-    public static async Task Post(
+    public static async Task Run(
         HttpClient httpClient,
         BlogConfig blog,
         Entry entry,

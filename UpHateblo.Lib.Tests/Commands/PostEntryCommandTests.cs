@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using UpHateblo.Lib.Commands;
 using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Commands;
@@ -32,28 +33,28 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     [Fact]
     public async Task ItCanPostEntry()
     {
-        await EntryCommands.Post(HttpClient, Blog, CustomPathRandomizedEntry);
+        await PostEntryCommand.Run(HttpClient, Blog, CustomPathRandomizedEntry);
     }
 
     [Fact]
     public async Task ItCanPostProductionEntry()
     {
         var entry = CustomPathRandomizedEntry with { Draft = false };
-        await EntryCommands.Post(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, Blog, entry);
     }
 
     [Fact(Skip = "プレビューフラグをオンにして投稿した結果がどのようなものになるか私がよくわかっていない")]
     public async Task ItCanPostPreviewEntry()
     {
         var entry = CustomPathRandomizedEntry with { Preview = true };
-        await EntryCommands.Post(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, Blog, entry);
     }
 
     [Fact]
     public async Task ItCanPostMultipleCategoryEntry()
     {
         var entry = CustomPathRandomizedEntry with { Category = ["技術", "Test"] };
-        await EntryCommands.Post(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, Blog, entry);
     }
 
     /// <summary>
@@ -64,8 +65,8 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     public async Task ItCanPostOnSameUrlPath()
     {
         var entry = CustomPathRandomizedEntry;
-        await EntryCommands.Post(HttpClient, Blog, entry);
-        await EntryCommands.Post(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, Blog, entry);
     }
 
     /// <summary>
@@ -77,13 +78,13 @@ public class PostEntryCommandTests : CommandTestsBase<PostEntryCommandSecrets>
     public async Task ItCanPostOnEmptyUrlPath()
     {
         var entry = CustomPathRandomizedEntry with { CustomPath = "" };
-        await EntryCommands.Post(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, Blog, entry);
     }
 
     [Fact]
     public async Task ItCanPostWhenUrlPathIsNull()
     {
         var entry = CustomPathRandomizedEntry with { CustomPath = null };
-        await EntryCommands.Post(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, Blog, entry);
     }
 }
