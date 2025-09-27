@@ -6,6 +6,7 @@ public record Entry(
     DateTime Date,
     string Content,
     string? CustomPath,
+    string? EntryId,
     bool? Draft = null,
     bool? Preview = null
 );
