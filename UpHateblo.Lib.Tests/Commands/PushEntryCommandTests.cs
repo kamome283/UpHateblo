@@ -39,6 +39,6 @@ public class PushEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
                       """,
             Preview = true,
         };
-        await PushEntryCommand.Run(HttpClient, BlogConfig, EntryId, pushEntry);
+        await PushEntryCommand.Run(HttpClient, BlogConfig, pushEntry);
     }
 }

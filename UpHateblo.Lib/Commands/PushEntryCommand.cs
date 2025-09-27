@@ -10,7 +10,6 @@ public static class PushEntryCommand
     public static async Task Run(
         HttpClient httpClient,
         BlogConfig blog,
-        string entryId,
         Entry entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
@@ -18,7 +17,7 @@ public static class PushEntryCommand
     {
         var httpContent =
             CommandHelper.GenHatenaContent(PostEntrySchema, blog, entry, wsseNonce, wsseDateTime);
-        var memberEndpoint = new Uri($"{blog.EntryEndPoint}/{entryId}");
+        var memberEndpoint = new Uri($"{blog.EntryEndPoint}/{entry.EntryId}");
         var res = await httpClient.PutAsync(memberEndpoint, httpContent);
         res.EnsureSuccessStatusCode();
     }
