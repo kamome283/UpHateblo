@@ -46,13 +46,107 @@ public class DeserializeEntryTests
     }
 
     [Fact]
-    public void ItThrowsOnParsingInvalidCategoryFormat()
+    public void ItIgnoresInvalidCategoryScalar()
     {
         string content = """
                          ---
                          Category: InvalidCategory
                          ---
                          """;
-        Assert.Throws<YamlException>(() => { DeserializeEntry.Run(content); });
+        var actual = DeserializeEntry.Run(content);
+        Assert.Null(actual.Category);
+    }
+
+    [Fact]
+    public void ItCanDeserializeMarkdownWithoutFrontMatter()
+    {
+        string content = """
+                         Hello world!
+                         This is body only.
+                         """;
+        MaybeEntry expected = new(
+            Title: null,
+            Category: null,
+            Date: null,
+            Content: """
+                     Hello world!
+                     This is body only.
+                     """,
+            UrlPath: null,
+            Draft: null,
+            Preview: null
+        );
+        var actual = DeserializeEntry.Run(content);
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void ItIgnoresUnknownFieldsInFrontMatter()
+    {
+        string content = """
+                         ---
+                         Title: Known Title
+                         UnknownField: some value
+                         AnotherOne: 123
+                         ---
+                         Body goes here.
+                         """;
+        var actual = DeserializeEntry.Run(content);
+        Assert.Equal("Known Title", actual.Title);
+        Assert.Equal("""
+                     Body goes here.
+                     """, actual.Content);
+    }
+
+    [Fact]
+    public void ItTreatsSingleSeparatorAsBodyOnly()
+    {
+        string content = """
+                         ---
+                         Title: ShouldNotBeParsed
+                         """;
+        var actual = DeserializeEntry.Run(content);
+        Assert.Null(actual.Title);
+        Assert.Null(actual.Category);
+        Assert.Null(actual.Date);
+        Assert.Equal("""
+                     ---
+                     Title: ShouldNotBeParsed
+                     """, actual.Content);
+    }
+
+    [Fact]
+    public void ItAllowsContentImmediatelyAfterClosingSeparator()
+    {
+        string content = """
+                         ---
+                         Title: Immediate
+                         ---Content starts right away.
+                         """;
+        var actual = DeserializeEntry.Run(content);
+        // Current behavior: the separator must be on its own line. If content follows immediately,
+        // the whole text is treated as body with no front matter parsed.
+        Assert.Null(actual.Title);
+        Assert.Equal("""
+                     ---
+                     Title: Immediate
+                     ---Content starts right away.
+                     """, actual.Content);
+    }
+
+    [Fact]
+    public void ItHandlesInvalidNonStringProperties()
+    {
+        string content = """
+                         ---
+                         Title: HasInvalids
+                         Date: not-a-date
+                         Draft: not-a-bool
+                         Preview: maybe
+                         ---
+                         Body is here.
+                         """;
+        // Current behavior: YamlDotNet throws when a scalar cannot be converted to the target type.
+        Assert.Throws<YamlException>(() => DeserializeEntry.Run(content));
     }
 }
