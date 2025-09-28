@@ -58,7 +58,7 @@ public class PostEntrySchemaTests
 
     [Theory]
     [MemberData(nameof(TestCases))]
-    public void SchemaIsValid(BlogConfig blog, Entry entry, string expectedContent)
+    public void SchemaIsValid(BlogConfig blog, PostableEntry entry, string expectedContent)
     {
         var schema = new PostEntrySchema();
         var expected = XDocument.Parse(expectedContent);

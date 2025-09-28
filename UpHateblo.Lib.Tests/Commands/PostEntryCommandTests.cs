@@ -10,23 +10,20 @@ public class PostEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
     private BlogConfig Blog =>
         new(Get("Blog:BlogId"), Get("Blog:Username"), Get("Blog:Password"));
 
-    internal static Entry Entry => new(
+    internal static PostableEntry Entry => new(
         Title: "テスト",
         Category: ["Test"],
         Content: """
                  うまくいっているといいな
                  複数行
                  """,
-        ContentType: null,
-        EntryId: null,
         CustomPath: "test-path",
         Updated: DateTime.Parse("2025-09-23T21:29:00"),
-        Published: DateTime.Parse("2025-09-23T21:29:00"),
         Draft: true,
         Preview: false
     );
 
-    private static Entry CustomPathRandomizedEntry =>
+    private static PostableEntry CustomPathRandomizedEntry =>
         Entry with { CustomPath = Guid.CreateVersion7().ToString() };
 
     [Fact]

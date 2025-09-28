@@ -2,7 +2,7 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Entities;
 
-public class EntryTests
+public class PostableEntryTests
 {
     // Use a fixed date for deterministic tests
     private static readonly DateTime FixedDate =
@@ -12,27 +12,21 @@ public class EntryTests
     public void EqualsWhenHashSetInstancesAreDifferentButContentsAreSame()
     {
         // Arrange
-        var entry1 = new Entry(
+        var entry1 = new PostableEntry(
             Title: "Title",
             Category: ["tech", "c#"],
             Content: "Content",
-            ContentType: "text/plain",
-            EntryId: "entry-id",
             CustomPath: "/url",
             Updated: FixedDate,
-            Published: FixedDate,
             Draft: false,
             Preview: false
         );
-        var entry2 = new Entry(
+        var entry2 = new PostableEntry(
             Title: "Title",
             Category: ["c#", "tech"], // Order does not matter for HashSet
             Content: "Content",
-            ContentType: "text/plain",
-            EntryId: "entry-id",
             CustomPath: "/url",
             Updated: FixedDate,
-            Published: FixedDate,
             Draft: false,
             Preview: false
         );
@@ -46,27 +40,21 @@ public class EntryTests
     public void NotEqualsWhenHashSetContentsDiffer()
     {
         // Arrange
-        var entry1 = new Entry(
+        var entry1 = new PostableEntry(
             Title: "Title",
             Category: ["tech", "c#"],
             Content: "Content",
-            ContentType: "text/plain",
-            EntryId: "entry-id",
             CustomPath: "/url",
             Updated: FixedDate,
-            Published: FixedDate,
             Draft: false,
             Preview: false
         );
-        var entry2 = new Entry(
+        var entry2 = new PostableEntry(
             Title: "Title",
             Category: ["tech", "dotnet"],
             Content: "Content",
-            ContentType: "text/plain",
-            EntryId: "entry-id",
             CustomPath: "/url",
             Updated: FixedDate,
-            Published: FixedDate,
             Draft: false,
             Preview: false
         );

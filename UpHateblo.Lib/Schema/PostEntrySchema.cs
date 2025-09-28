@@ -9,7 +9,7 @@ namespace UpHateblo.Lib.Schema;
 /// </remarks>
 internal class PostEntrySchema : EntrySchemaBase
 {
-    public override XDocument Serialize(BlogConfig blog, Entry entry)
+    public override XDocument Serialize(BlogConfig blog, PostableEntry entry)
     {
         return new XDocument(
             new XElement(AtomNs + "entry",

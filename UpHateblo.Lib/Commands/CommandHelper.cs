@@ -9,7 +9,7 @@ internal static class CommandHelper
     public static HatenaContent GenHatenaContent(
         EntrySchemaBase? schema,
         BlogConfig blog,
-        Entry entry,
+        PostableEntry entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )

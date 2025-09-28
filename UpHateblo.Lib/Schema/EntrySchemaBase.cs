@@ -20,5 +20,5 @@ internal abstract class EntrySchemaBase
     protected static readonly XNamespace HatenaBlogNs =
         "http://www.hatena.ne.jp/info/xmlns#hatenablog";
 
-    public abstract XDocument Serialize(BlogConfig blog, Entry entry);
+    public abstract XDocument Serialize(BlogConfig blog, PostableEntry entry);
 }
