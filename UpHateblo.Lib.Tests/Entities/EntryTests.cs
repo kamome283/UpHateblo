@@ -13,24 +13,28 @@ public class EntryTests
     {
         // Arrange
         var entry1 = new Entry(
-            "Title",
-            ["tech", "c#"],
-            FixedDate,
-            "Content",
-            "/url",
-            "entry-id",
-            false,
-            false
+            Title: "Title",
+            Category: ["tech", "c#"],
+            Content: "Content",
+            ContentType: "text/plain",
+            EntryId: "entry-id",
+            CustomPath: "/url",
+            Updated: FixedDate,
+            Published: FixedDate,
+            Draft: false,
+            Preview: false
         );
         var entry2 = new Entry(
-            "Title",
-            ["c#", "tech"], // Order does not matter for HashSet
-            FixedDate,
-            "Content",
-            "/url",
-            "entry-id",
-            false,
-            false
+            Title: "Title",
+            Category: ["c#", "tech"], // Order does not matter for HashSet
+            Content: "Content",
+            ContentType: "text/plain",
+            EntryId: "entry-id",
+            CustomPath: "/url",
+            Updated: FixedDate,
+            Published: FixedDate,
+            Draft: false,
+            Preview: false
         );
 
         // Act & Assert
@@ -43,24 +47,28 @@ public class EntryTests
     {
         // Arrange
         var entry1 = new Entry(
-            "Title",
-            ["tech", "c#"],
-            FixedDate,
-            "Content",
-            "/url",
-            "entry-id",
-            false,
-            false
+            Title: "Title",
+            Category: ["tech", "c#"],
+            Content: "Content",
+            ContentType: "text/plain",
+            EntryId: "entry-id",
+            CustomPath: "/url",
+            Updated: FixedDate,
+            Published: FixedDate,
+            Draft: false,
+            Preview: false
         );
         var entry2 = new Entry(
-            "Title",
-            ["tech", "dotnet"],
-            FixedDate,
-            "Content",
-            "/url",
-            "entry-id",
-            false,
-            false
+            Title: "Title",
+            Category: ["tech", "dotnet"],
+            Content: "Content",
+            ContentType: "text/plain",
+            EntryId: "entry-id",
+            CustomPath: "/url",
+            Updated: FixedDate,
+            Published: FixedDate,
+            Draft: false,
+            Preview: false
         );
 
         // Act & Assert
