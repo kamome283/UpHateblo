@@ -7,7 +7,7 @@ public class FetchedEntryTests
     private static readonly FetchedEntry BaseEntry = new(
         EntryId: "entry-id",
         Title: "Test Title",
-        Category: [],
+        Category: ["tech", "c#"],
         Content: "Test content",
         AbsoluteCustomPath: "/test/custom/path",
         AbsoluteUpdated: DateTime.Parse("2023-10-02"),
@@ -20,18 +20,16 @@ public class FetchedEntryTests
     [Fact]
     public void EqualsWhenCategoryContainsSameContents()
     {
-        var entry1 = BaseEntry with { Category = ["tech", "c#"] };
-        var entry2 = BaseEntry with { Category = ["c#", "tech"] };
-        Assert.Equal(entry1, entry2);
-        Assert.Equal(entry1.GetHashCode(), entry2.GetHashCode());
+        var modified = BaseEntry with { Category = ["c#", "tech"] };
+        Assert.Equal(BaseEntry, modified);
+        Assert.Equal(BaseEntry.GetHashCode(), modified.GetHashCode());
     }
 
     [Fact]
     public void NotEqualsWhenCategoryContainsDifferentContents()
     {
-        var entry1 = BaseEntry with { Category = ["tech", "c#"] };
-        var entry2 = BaseEntry with { Category = ["c#", "dotnet"] };
-        Assert.NotEqual(entry1, entry2);
-        Assert.NotEqual(entry1.GetHashCode(), entry2.GetHashCode());
+        var modified = BaseEntry with { Category = ["c#", "dotnet"] };
+        Assert.NotEqual(BaseEntry, modified);
+        Assert.NotEqual(BaseEntry.GetHashCode(), modified.GetHashCode());
     }
 }

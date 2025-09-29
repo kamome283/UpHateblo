@@ -4,62 +4,29 @@ namespace UpHateblo.Lib.Tests.Entities;
 
 public class EntryTests
 {
-    // Use a fixed date for deterministic tests
-    private static readonly DateTime FixedDate =
-        DateTime.Parse("2023-10-27T10:00:00Z").ToUniversalTime();
+    private static readonly Entry BaseEntry = new(
+        Title: "Title",
+        Category: ["tech", "c#"],
+        Content: "Content",
+        CustomPath: "/url",
+        Updated: DateTime.Parse("2023-10-01"),
+        Draft: false,
+        Preview: false
+    );
 
     [Fact]
-    public void EqualsWhenHashSetInstancesAreDifferentButContentsAreSame()
+    public void EqualsWhenCategoryContainsSameContents()
     {
-        // Arrange
-        var entry1 = new Entry(
-            Title: "Title",
-            Category: ["tech", "c#"],
-            Content: "Content",
-            CustomPath: "/url",
-            Updated: FixedDate,
-            Draft: false,
-            Preview: false
-        );
-        var entry2 = new Entry(
-            Title: "Title",
-            Category: ["c#", "tech"], // Order does not matter for HashSet
-            Content: "Content",
-            CustomPath: "/url",
-            Updated: FixedDate,
-            Draft: false,
-            Preview: false
-        );
-
-        // Act & Assert
-        Assert.Equal(entry1, entry2);
-        Assert.Equal(entry1.GetHashCode(), entry2.GetHashCode());
+        var modified = BaseEntry with { Category = ["c#", "tech"] };
+        Assert.Equal(BaseEntry, modified);
+        Assert.Equal(BaseEntry.GetHashCode(), modified.GetHashCode());
     }
 
     [Fact]
-    public void NotEqualsWhenHashSetContentsDiffer()
+    public void NotEqualsWhenCategoryContainsDifferentContents()
     {
-        // Arrange
-        var entry1 = new Entry(
-            Title: "Title",
-            Category: ["tech", "c#"],
-            Content: "Content",
-            CustomPath: "/url",
-            Updated: FixedDate,
-            Draft: false,
-            Preview: false
-        );
-        var entry2 = new Entry(
-            Title: "Title",
-            Category: ["tech", "dotnet"],
-            Content: "Content",
-            CustomPath: "/url",
-            Updated: FixedDate,
-            Draft: false,
-            Preview: false
-        );
-
-        // Act & Assert
-        Assert.NotEqual(entry1, entry2);
+        var modified = BaseEntry with { Category = ["c#", "dotnet"] };
+        Assert.NotEqual(BaseEntry, modified);
+        Assert.NotEqual(BaseEntry.GetHashCode(), modified.GetHashCode());
     }
 }
