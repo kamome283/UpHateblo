@@ -8,6 +8,7 @@ namespace UpHateblo.Lib.Commands;
 
 public static class ListEntryCommand
 {
+    // TODO: ペジネーションに対応させる
     public static async Task<FetchedEntry[]> Run(
         HttpClient httpClient,
         BlogConfig blog,
