@@ -3,14 +3,14 @@ using UpHateblo.Lib.Schema;
 
 namespace UpHateblo.Lib.Commands;
 
-public static class PushEntryCommand
+public static class EditEntryCommand
 {
     private static readonly PostEntrySchema PostEntrySchema = new();
 
     public static async Task Run(
         HttpClient httpClient,
         BlogConfig blog,
-        PushableEntry entry,
+        EditableEntry entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )

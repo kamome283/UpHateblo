@@ -3,7 +3,7 @@ using Equatable.Attributes;
 namespace UpHateblo.Lib.Entities;
 
 [Equatable]
-public partial record PushableEntry(
+public partial record EditableEntry(
     // Newly defined fields
     string EntryId,
     // Inherited fields

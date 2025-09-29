@@ -19,5 +19,5 @@ public partial record FetchedEntry(
     // Newly defined fields
     DateTime Published,
     string ContentType
-) : PushableEntry(EntryId, Title, Category, Content, AbsoluteCustomPath, AbsoluteUpdated,
+) : EditableEntry(EntryId, Title, Category, Content, AbsoluteCustomPath, AbsoluteUpdated,
     AbsoluteDraft, AbsolutePreview);

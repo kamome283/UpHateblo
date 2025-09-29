@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entities;
 namespace UpHateblo.Lib.Tests.Commands;
 
 // 結合テストでないのでこのコマンドのテスト対象のエントリーは決め打ちにしている
-public class PushEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
+public class EditEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
 {
     private const string EntryId = "6802888565257240236";
     private static readonly HttpClient HttpClient = new();
@@ -17,7 +17,7 @@ public class PushEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
     public async Task ItCanPushEntry()
     {
         var updated = DateTime.Now;
-        PushableEntry entry = new(
+        EditableEntry entry = new(
             EntryId: EntryId,
             Title: "PushCommandTest",
             Category: ["Push", "Test"],
@@ -30,6 +30,6 @@ public class PushEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
             Draft: true,
             Preview: false
         );
-        await PushEntryCommand.Run(HttpClient, BlogConfig, entry);
+        await EditEntryCommand.Run(HttpClient, BlogConfig, entry);
     }
 }

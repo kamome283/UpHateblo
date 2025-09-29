@@ -2,9 +2,9 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Entities;
 
-public class PushableEntryTests
+public class EditableEntryTests
 {
-    private static readonly PushableEntry BaseEntry = new(
+    private static readonly EditableEntry BaseEntry = new(
         EntryId: "entry-id",
         Title: "Title",
         Category: ["tech", "c#"],
