@@ -7,16 +7,20 @@ namespace UpHateblo.Lib.Entities;
 /// </summary>
 [Equatable]
 public partial record MaybeEntry(
+    // Inherited fields
+    string? EntryId,
     string? Title,
     [property: HashSetEquality] HashSet<string>? Category,
-    DateTime? Date,
     string? Content,
-    string? UrlPath,
+    string? CustomPath,
+    DateTime? Updated,
     bool? Draft,
-    bool? Preview
+    bool? Preview,
+    DateTime? Published,
+    string? ContentType
 )
 {
-    public MaybeEntry() : this(null, null, null, null, null, null, null)
+    public MaybeEntry() : this(null, null, null, null, null, null, null, null, null, null)
     {
     }
 }
