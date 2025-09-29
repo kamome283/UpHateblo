@@ -10,7 +10,7 @@ public static class PostEntryCommand
     public static async Task Run(
         HttpClient httpClient,
         BlogConfig blog,
-        PostableEntry entry,
+        Entry entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )

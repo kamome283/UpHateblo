@@ -14,4 +14,4 @@ public partial record PushableEntry(
     DateTime? Updated,
     bool? Draft,
     bool? Preview
-) : PostableEntry(Title, Category, Content, CustomPath, Updated, Draft, Preview);
+) : Entry(Title, Category, Content, CustomPath, Updated, Draft, Preview);

@@ -2,7 +2,7 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Entities;
 
-public class PostableEntryTests
+public class EntryTests
 {
     // Use a fixed date for deterministic tests
     private static readonly DateTime FixedDate =
@@ -12,7 +12,7 @@ public class PostableEntryTests
     public void EqualsWhenHashSetInstancesAreDifferentButContentsAreSame()
     {
         // Arrange
-        var entry1 = new PostableEntry(
+        var entry1 = new Entry(
             Title: "Title",
             Category: ["tech", "c#"],
             Content: "Content",
@@ -21,7 +21,7 @@ public class PostableEntryTests
             Draft: false,
             Preview: false
         );
-        var entry2 = new PostableEntry(
+        var entry2 = new Entry(
             Title: "Title",
             Category: ["c#", "tech"], // Order does not matter for HashSet
             Content: "Content",
@@ -40,7 +40,7 @@ public class PostableEntryTests
     public void NotEqualsWhenHashSetContentsDiffer()
     {
         // Arrange
-        var entry1 = new PostableEntry(
+        var entry1 = new Entry(
             Title: "Title",
             Category: ["tech", "c#"],
             Content: "Content",
@@ -49,7 +49,7 @@ public class PostableEntryTests
             Draft: false,
             Preview: false
         );
-        var entry2 = new PostableEntry(
+        var entry2 = new Entry(
             Title: "Title",
             Category: ["tech", "dotnet"],
             Content: "Content",
