@@ -1,12 +1,24 @@
 using System.Xml.Linq;
 using UpHateblo.Lib.Entities;
 using UpHateblo.Lib.Schema;
-using UpHateblo.Lib.Tests.Commands;
 
 namespace UpHateblo.Lib.Tests.Schema;
 
 public class PostEntrySchemaTests
 {
+    private static Entry Entry => new(
+        Title: "テスト",
+        Category: ["Test"],
+        Content: """
+                 うまくいっているといいな
+                 複数行
+                 """,
+        CustomPath: "test-path",
+        Updated: DateTime.Parse("2025-09-23T21:29:00"),
+        Draft: true,
+        Preview: false
+    );
+
     private static BlogConfig DefaultBlogConfig =>
         new("kamome283.hatenablog.com", "Kamome283", "foobar");
 
@@ -49,9 +61,9 @@ public class PostEntrySchemaTests
 
     public static object[][] TestCases =>
     [
-        [DefaultBlogConfig, PostEntryCommandTests.Entry, DefaultExpectedContent],
+        [DefaultBlogConfig, Entry, DefaultExpectedContent],
         [
-            DefaultBlogConfig, PostEntryCommandTests.Entry with { CustomPath = null },
+            DefaultBlogConfig, Entry with { CustomPath = null },
             ExpectedContentWhenUrlPathIsNull
         ]
     ];

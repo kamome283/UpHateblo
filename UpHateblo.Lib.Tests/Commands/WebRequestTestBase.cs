@@ -10,6 +10,9 @@ public record BlogConfigSecrets(BlogConfig Blog);
 [Trait("Category", "WebRequest")]
 public abstract class WebRequestTestBase
 {
+    // この名前空間のテストは結合テストでないので、テスト対象のエントリーは決め打ちにしている
+    protected const string FixedTargetEntryId = "6802888565257240236";
+
     protected WebRequestTestBase()
     {
         var config = new ConfigurationBuilder()

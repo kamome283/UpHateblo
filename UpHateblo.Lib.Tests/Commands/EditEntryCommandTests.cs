@@ -3,22 +3,20 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
-// 結合テストでないのでこのコマンドのテスト対象のエントリーは決め打ちにしている
 public class EditEntryCommandTests : WebRequestTestBase
 {
-    private const string EntryId = "6802888565257240236";
     private static readonly HttpClient HttpClient = new();
 
     [Fact]
-    public async Task ItCanPushEntry()
+    public async Task ItCanEditEntry()
     {
         var updated = DateTime.Now;
         EditableEntry entry = new(
-            EntryId: EntryId,
-            Title: "PushCommandTest",
-            Category: ["Push", "Test"],
+            EntryId: FixedTargetEntryId,
+            Title: "EditCommandTest",
+            Category: ["UpHateblo", "Edit", "Test"],
             Content: $"""
-                      This is a test content of Push command.
+                      This is a test content of edit command.
                       Updated at {updated}
                       """,
             CustomPath: null,

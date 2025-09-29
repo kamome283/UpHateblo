@@ -10,8 +10,6 @@ public class ListEntryCommandTests : WebRequestTestBase
     public async Task ItCanListEntries()
     {
         var entries = await ListEntryCommand.Run(HttpClient, BlogConfig);
-        // 最低限のテスト
-        // 実際に正しく動作しているかはデバッガーをつかって`entries`の値を確認する必要がある
-        Assert.NotNull(entries);
+        Assert.Contains(entries, e => e.EntryId == FixedTargetEntryId);
     }
 }
