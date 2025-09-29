@@ -3,9 +3,9 @@ using UpHateblo.Lib.Http;
 
 namespace UpHateblo.Lib.Tests.Http;
 
-public class HatenaContentTests
+public class HatenaRequestTests
 {
-    private static string XmlContentExample =>
+    private static string BodyExample =>
         """
         <?xml version="1.0" encoding="utf-8"?>
         <entry xmlns="http://www.w3.org/2005/Atom"
@@ -26,30 +26,23 @@ public class HatenaContentTests
         """;
 
     [Fact]
-    public async Task IsValidHttpContentWithXml()
+    public async Task IsValidHttpRequestMessageWithBody()
     {
-        var xml = XDocument.Parse(XmlContentExample);
-        var httpContent = new HatenaContent(xml, WsseTests.ValidityTestInstance);
-        Assert.Equal(
-            httpContent.Headers.First(kv => kv.Key == "X-WSSE").Value.First(),
-            WsseTests.ValidityTestInstance.GetToken()
+        var body = XDocument.Parse(BodyExample);
+        var request = new HatenaRequest(
+            HttpMethod.Get,
+            new Uri("http://localhost:3000"),
+            body,
+            WsseTests.ValidityTestInstance
         );
-        var body = await httpContent.ReadAsStringAsync();
-        Assert.Equal(
-            xml.ToString(),
-            XDocument.Parse(body).ToString()
-        );
-    }
 
-    [Fact]
-    public async Task IsValidHttpContentWithoutXml()
-    {
-        var httpContent = new HatenaContent(null, WsseTests.ValidityTestInstance);
         Assert.Equal(
-            httpContent.Headers.First(kv => kv.Key == "X-WSSE").Value.First(),
+            request.Headers.First(kv => kv.Key == "X-WSSE").Value.First(),
             WsseTests.ValidityTestInstance.GetToken()
         );
-        var body = await httpContent.ReadAsStringAsync();
-        Assert.Equal("", body);
+
+        var actualContent = await request.Content!.ReadAsStringAsync();
+        var actualBody = XDocument.Parse(actualContent);
+        Assert.Equal(body.ToString(), actualBody.ToString());
     }
 }

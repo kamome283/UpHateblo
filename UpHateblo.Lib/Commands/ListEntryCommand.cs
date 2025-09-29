@@ -1,5 +1,6 @@
 using System.Xml.Linq;
 using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Http;
 using UpHateblo.Lib.Schema;
 
 namespace UpHateblo.Lib.Commands;
@@ -13,17 +14,12 @@ public static class ListEntryCommand
         DateTime? wsseDateTime = null
     )
     {
-        var httpContent =
-            CommandHelper.GenHatenaContent(null, blog, null, wsseNonce, wsseDateTime);
-        // TODO: GETリクエストでもHeaderを使えるように、すべてのリクエストでHttpContentではなくHttpRequestMessageを使うようにする
-        var request = new HttpRequestMessage(HttpMethod.Get, blog.EntryEndPoint);
-        foreach (var header in httpContent.Headers)
-        {
-            request.Headers.TryAddWithoutValidation(header.Key, header.Value);
-        }
+        var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
+        var request = new HatenaRequest(HttpMethod.Get, blog.EntryEndPoint, null, wsse);
 
         var res = await httpClient.SendAsync(request);
         res.EnsureSuccessStatusCode();
+
         var content = await res.Content.ReadAsStringAsync();
         var xml = XDocument.Parse(content);
         // TODO: XMLの名前空間を一箇所に集める
