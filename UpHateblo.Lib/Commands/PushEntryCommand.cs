@@ -10,7 +10,7 @@ public static class PushEntryCommand
     public static async Task Run(
         HttpClient httpClient,
         BlogConfig blog,
-        Entry entry,
+        PushableEntry entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
