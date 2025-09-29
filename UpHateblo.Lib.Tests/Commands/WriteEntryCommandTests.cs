@@ -1,8 +1,8 @@
+using UpHateblo.Lib.Commands;
 using UpHateblo.Lib.Entities;
-using UpHateblo.Lib.Markdown;
 using YamlDotNet.Core;
 
-namespace UpHateblo.Lib.Tests.Markdown;
+namespace UpHateblo.Lib.Tests.Commands;
 
 /// <summary>
 ///     YAML parsing in the front matter follows the behavior of
@@ -10,7 +10,7 @@ namespace UpHateblo.Lib.Tests.Markdown;
 ///     Since our own processing handles the separation between front matter and body,
 ///     this part is the focus of testing.
 /// </summary>
-public class DeserializeEntryTests
+public class WriteEntryCommandTests
 {
     [Fact]
     public void ItCanDeserializeFullSpecMarkdown()
@@ -41,7 +41,7 @@ public class DeserializeEntryTests
                          This is a test,
                          and this is the second line of the content.
                          """;
-        MaybeEntry actual = DeserializeEntry.Run(content);
+        MaybeEntry actual = WriteEntryCommand.Run(content);
         Assert.Equal(expected, actual);
     }
 
@@ -53,7 +53,7 @@ public class DeserializeEntryTests
                          Category: InvalidCategory
                          ---
                          """;
-        var actual = DeserializeEntry.Run(content);
+        var actual = WriteEntryCommand.Run(content);
         Assert.Null(actual.Category);
     }
 
@@ -71,7 +71,7 @@ public class DeserializeEntryTests
                       This is body only.
                       """
         };
-        var actual = DeserializeEntry.Run(content);
+        var actual = WriteEntryCommand.Run(content);
         Assert.Equal(expected, actual);
     }
 
@@ -86,7 +86,7 @@ public class DeserializeEntryTests
                          ---
                          Body goes here.
                          """;
-        var actual = DeserializeEntry.Run(content);
+        var actual = WriteEntryCommand.Run(content);
         Assert.Equal("Known Title", actual.Title);
         Assert.Equal("""
                      Body goes here.
@@ -100,7 +100,7 @@ public class DeserializeEntryTests
                          ---
                          Title: ShouldNotBeParsed
                          """;
-        var actual = DeserializeEntry.Run(content);
+        var actual = WriteEntryCommand.Run(content);
         Assert.Null(actual.Title);
         Assert.Null(actual.Category);
         Assert.Null(actual.Updated);
@@ -118,7 +118,7 @@ public class DeserializeEntryTests
                          Title: Immediate
                          ---Content starts right away.
                          """;
-        var actual = DeserializeEntry.Run(content);
+        var actual = WriteEntryCommand.Run(content);
         // Current behavior: the separator must be on its own line. If content follows immediately,
         // the whole text is treated as body with no front matter parsed.
         Assert.Null(actual.Title);
@@ -142,7 +142,7 @@ public class DeserializeEntryTests
                          Body is here.
                          """;
         // Current behavior: YamlDotNet throws when a scalar cannot be converted to the target type.
-        Assert.Throws<YamlException>(() => DeserializeEntry.Run(content));
+        Assert.Throws<YamlException>(() => WriteEntryCommand.Run(content));
     }
 
     [Fact]
@@ -179,13 +179,13 @@ public class DeserializeEntryTests
         string[] inputs = [fullSpec, bodyOnly, unknownFields];
 
         // Take single-threaded baselines to compare against
-        var baselines = inputs.Select(DeserializeEntry.Run).ToArray();
+        var baselines = inputs.Select(WriteEntryCommand.Run).ToArray();
 
         const int iterations = 200;
         var tasks = Enumerable.Range(0, iterations)
             .SelectMany(_ => inputs.Select((input, idx) => Task.Run(() =>
             {
-                var actual = DeserializeEntry.Run(input);
+                var actual = WriteEntryCommand.Run(input);
                 Assert.Equal(baselines[idx], actual);
             })));
 
@@ -209,7 +209,7 @@ public class DeserializeEntryTests
         var tasks = Enumerable.Range(0, iterations)
             .Select(_ => Task.Run(() =>
                 Assert.Throws<YamlException>(() =>
-                    DeserializeEntry.Run(invalidContent))
+                    WriteEntryCommand.Run(invalidContent))
             ));
 
         await Task.WhenAll(tasks);
