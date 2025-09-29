@@ -3,7 +3,7 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
-public class PostEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
+public class PostEntryCommandTests : WebRequestTestBase<BlogConfigSecrets>
 {
     private static readonly HttpClient HttpClient = new();
 
