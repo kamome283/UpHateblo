@@ -13,6 +13,9 @@ public class ListEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
     [Fact]
     public async Task ItCanListEntries()
     {
-        await ListEntryCommand.Run(HttpClient, Blog);
+        var entries = await ListEntryCommand.Run(HttpClient, Blog);
+        // 最低限のテスト
+        // 実際に正しく動作しているかはデバッガーをつかって`entries`の値を確認する必要がある
+        Assert.NotNull(entries);
     }
 }
