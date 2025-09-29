@@ -3,12 +3,9 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
-public class PostEntryCommandTests : WebRequestTestBase<BlogConfigSecrets>
+public class PostEntryCommandTests : WebRequestTestBase
 {
     private static readonly HttpClient HttpClient = new();
-
-    private BlogConfig Blog =>
-        new(Get("Blog:BlogId"), Get("Blog:Username"), Get("Blog:Password"));
 
     internal static Entry Entry => new(
         Title: "テスト",
@@ -29,28 +26,28 @@ public class PostEntryCommandTests : WebRequestTestBase<BlogConfigSecrets>
     [Fact]
     public async Task ItCanPostEntry()
     {
-        await PostEntryCommand.Run(HttpClient, Blog, CustomPathRandomizedEntry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, CustomPathRandomizedEntry);
     }
 
     [Fact]
     public async Task ItCanPostProductionEntry()
     {
         var entry = CustomPathRandomizedEntry with { Draft = false };
-        await PostEntryCommand.Run(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
     }
 
     [Fact(Skip = "プレビューフラグをオンにして投稿した結果がどのようなものになるか私がよくわかっていない")]
     public async Task ItCanPostPreviewEntry()
     {
         var entry = CustomPathRandomizedEntry with { Preview = true };
-        await PostEntryCommand.Run(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
     }
 
     [Fact]
     public async Task ItCanPostMultipleCategoryEntry()
     {
         var entry = CustomPathRandomizedEntry with { Category = ["技術", "Test"] };
-        await PostEntryCommand.Run(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
     }
 
     /// <summary>
@@ -61,8 +58,8 @@ public class PostEntryCommandTests : WebRequestTestBase<BlogConfigSecrets>
     public async Task ItCanPostOnSameUrlPath()
     {
         var entry = CustomPathRandomizedEntry;
-        await PostEntryCommand.Run(HttpClient, Blog, entry);
-        await PostEntryCommand.Run(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
     }
 
     /// <summary>
@@ -74,13 +71,13 @@ public class PostEntryCommandTests : WebRequestTestBase<BlogConfigSecrets>
     public async Task ItCanPostOnEmptyUrlPath()
     {
         var entry = CustomPathRandomizedEntry with { CustomPath = "" };
-        await PostEntryCommand.Run(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
     }
 
     [Fact]
     public async Task ItCanPostWhenUrlPathIsNull()
     {
         var entry = CustomPathRandomizedEntry with { CustomPath = null };
-        await PostEntryCommand.Run(HttpClient, Blog, entry);
+        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
     }
 }

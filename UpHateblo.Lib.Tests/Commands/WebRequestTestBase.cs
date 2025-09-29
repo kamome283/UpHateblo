@@ -1,20 +1,26 @@
 using Microsoft.Extensions.Configuration;
+using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
+// ReSharper disable once ClassNeverInstantiated.Global
+// ReSharper disable once NotAccessedPositionalProperty.Global
+public record BlogConfigSecrets(BlogConfig Blog);
+
 [Trait("Category", "WebRequest")]
-public abstract class WebRequestTestBase<TSecrets> where TSecrets : class
+public abstract class WebRequestTestBase
 {
     protected WebRequestTestBase()
     {
-        var configBuilder = new ConfigurationBuilder().AddUserSecrets<TSecrets>();
-        Config = configBuilder.Build();
+        var config = new ConfigurationBuilder()
+            .AddUserSecrets<BlogConfigSecrets>()
+            .Build();
+        BlogConfig = new(
+            config["Blog:BlogId"]!,
+            config["Blog:Username"]!,
+            config["Blog:Password"]!
+        );
     }
 
-    private IConfigurationRoot Config { get; }
-
-    protected string Get(string key)
-    {
-        return Config[key] ?? throw new KeyNotFoundException(key);
-    }
+    protected BlogConfig BlogConfig { get; }
 }
