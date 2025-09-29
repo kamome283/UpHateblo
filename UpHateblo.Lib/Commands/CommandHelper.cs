@@ -9,12 +9,12 @@ internal static class CommandHelper
     public static HatenaContent GenHatenaContent(
         EntrySchemaBase? schema,
         BlogConfig blog,
-        Entry entry,
+        Entry? entry,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
     {
-        var xml = schema?.Serialize(blog, entry);
+        var xml = schema is not null && entry is not null ? schema.Serialize(blog, entry) : null;
         var wsse = new Wsse(
             blog.Username,
             blog.Password,
