@@ -2,14 +2,12 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using UpHateblo.Lib.Entities;
+using static UpHateblo.Lib.Schema.SchemaNamespaces;
 
 namespace UpHateblo.Lib.Schema;
 
-public static class FetchedEntrySchema
+internal static class FetchedEntrySchema
 {
-    private static readonly XNamespace AppNs = "http://www.w3.org/2007/app";
-    private static readonly XNamespace AtomNs = "http://www.w3.org/2005/Atom";
-
     private static readonly Regex UrlEntryPathRegex = new("/entry/(.*)$");
 
     private static readonly string[] ContentTypes =

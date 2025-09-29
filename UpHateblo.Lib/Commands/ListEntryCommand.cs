@@ -2,6 +2,7 @@ using System.Xml.Linq;
 using UpHateblo.Lib.Entities;
 using UpHateblo.Lib.Http;
 using UpHateblo.Lib.Schema;
+using static UpHateblo.Lib.Schema.SchemaNamespaces;
 
 namespace UpHateblo.Lib.Commands;
 
@@ -22,9 +23,7 @@ public static class ListEntryCommand
 
         var content = await res.Content.ReadAsStringAsync();
         var xml = XDocument.Parse(content);
-        // TODO: XMLの名前空間を一箇所に集める
-        XNamespace atomNs = "http://www.w3.org/2005/Atom";
-        var entries = xml.Root!.Elements(atomNs + "entry").Select(FetchedEntrySchema.Deserialize);
+        var entries = xml.Root!.Elements(AtomNs + "entry").Select(FetchedEntrySchema.Deserialize);
         return entries.ToArray();
     }
 }

@@ -60,9 +60,8 @@ public class PostEntrySchemaTests
     [MemberData(nameof(TestCases))]
     public void SchemaIsValid(BlogConfig blog, Entry entry, string expectedContent)
     {
-        var schema = new PostEntrySchema();
         var expected = XDocument.Parse(expectedContent);
-        var actual = schema.Serialize(blog, entry);
+        var actual = PostEntrySchema.Serialize(blog, entry);
         Assert.Equal(expected.ToString(), actual.ToString());
     }
 }

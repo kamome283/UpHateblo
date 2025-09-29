@@ -6,8 +6,6 @@ namespace UpHateblo.Lib.Commands;
 
 public static class PostEntryCommand
 {
-    private static readonly PostEntrySchema PostEntrySchema = new();
-
     public static async Task Run(
         HttpClient httpClient,
         BlogConfig blog,
