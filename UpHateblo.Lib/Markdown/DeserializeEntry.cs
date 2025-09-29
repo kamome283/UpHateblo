@@ -39,7 +39,7 @@ public static class DeserializeEntry
         var (maybeFrontMatter, body) = content.Separate();
         var frontMatter = maybeFrontMatter is not null
             ? maybeFrontMatter.ParseFrontMatter()
-            : new MaybeEntry(null, null, null, null, null, null, null);
+            : new MaybeEntry(null, null, null, null, null, null, null, null, null, null);
         return frontMatter with { Content = body };
     }
 }

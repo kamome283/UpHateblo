@@ -23,7 +23,7 @@ internal class PostEntrySchema : EntrySchemaBase
                     new XAttribute("type", "text/plain"),
                     new XText(entry.Content)
                 ),
-                new XElement(AtomNs + "updated", entry.Date),
+                new XElement(AtomNs + "updated", entry.Updated),
                 entry.Category.Select(c => new XElement(AtomNs + "category",
                     new XAttribute("term", c))),
                 new XElement(AppNs + "control",

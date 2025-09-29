@@ -11,16 +11,16 @@ public class PostEntryCommandTests : CommandTestsBase<BlogConfigSecrets>
         new(Get("Blog:BlogId"), Get("Blog:Username"), Get("Blog:Password"));
 
     internal static Entry Entry => new(
-        "テスト",
-        ["Test"],
-        DateTime.Parse("2025-09-23T21:29:00"),
-        """
-        うまくいっているといいな
-        複数行
-        """,
-        "test-path",
-        EntryId: null,
-        true
+        Title: "テスト",
+        Category: ["Test"],
+        Content: """
+                 うまくいっているといいな
+                 複数行
+                 """,
+        CustomPath: "test-path",
+        Updated: DateTime.Parse("2025-09-23T21:29:00"),
+        Draft: true,
+        Preview: false
     );
 
     private static Entry CustomPathRandomizedEntry =>

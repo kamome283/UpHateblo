@@ -15,26 +15,26 @@ public class DeserializeEntryTests
     [Fact]
     public void ItCanDeserializeFullSpecMarkdown()
     {
-        MaybeEntry expected = new(
-            Title: "FullSpecMarkdown",
-            Category: ["A", "B"],
-            Date: DateTime.Parse("2025-01-09T19:07:00+09:00"),
-            Content: """
-                     This is a test,
-                     and this is the second line of the content.
-                     """,
-            UrlPath: "test/url-path",
-            Draft: true,
-            Preview: false
-        );
+        MaybeEntry expected = new MaybeEntry
+        {
+            Title = "FullSpecMarkdown", Category = ["A", "B"],
+            Updated = DateTime.Parse("2025-01-09T19:07:00+09:00"),
+            Content = """
+                      This is a test,
+                      and this is the second line of the content.
+                      """,
+            CustomPath = "test/url-path",
+            Draft = true,
+            Preview = false
+        };
         string content = """
                          ---
                          Title: FullSpecMarkdown
                          Category: 
                            - A
                            - B
-                         Date: 2025-01-09T19:07:00+09:00
-                         UrlPath: test/url-path
+                         Updated: 2025-01-09T19:07:00+09:00
+                         CustomPath: test/url-path
                          Draft: true
                          Preview: false
                          ---
@@ -64,18 +64,13 @@ public class DeserializeEntryTests
                          Hello world!
                          This is body only.
                          """;
-        MaybeEntry expected = new(
-            Title: null,
-            Category: null,
-            Date: null,
-            Content: """
-                     Hello world!
-                     This is body only.
-                     """,
-            UrlPath: null,
-            Draft: null,
-            Preview: null
-        );
+        MaybeEntry expected = new MaybeEntry
+        {
+            Content = """
+                      Hello world!
+                      This is body only.
+                      """
+        };
         var actual = DeserializeEntry.Run(content);
         Assert.Equal(expected, actual);
     }
@@ -108,7 +103,7 @@ public class DeserializeEntryTests
         var actual = DeserializeEntry.Run(content);
         Assert.Null(actual.Title);
         Assert.Null(actual.Category);
-        Assert.Null(actual.Date);
+        Assert.Null(actual.Updated);
         Assert.Equal("""
                      ---
                      Title: ShouldNotBeParsed
@@ -140,7 +135,7 @@ public class DeserializeEntryTests
         string content = """
                          ---
                          Title: HasInvalids
-                         Date: not-a-date
+                         Updated: not-a-date
                          Draft: not-a-bool
                          Preview: maybe
                          ---
@@ -160,8 +155,8 @@ public class DeserializeEntryTests
                           Category: 
                             - A
                             - B
-                          Date: 2025-01-09T19:07:00+09:00
-                          UrlPath: test/url-path
+                          Updated: 2025-01-09T19:07:00+09:00
+                          CustomPath: test/url-path
                           Draft: true
                           Preview: false
                           ---

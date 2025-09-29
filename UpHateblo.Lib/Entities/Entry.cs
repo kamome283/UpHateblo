@@ -6,10 +6,9 @@ namespace UpHateblo.Lib.Entities;
 public partial record Entry(
     string Title,
     [property: HashSetEquality] HashSet<string> Category,
-    DateTime Date,
     string Content,
     string? CustomPath,
-    string? EntryId,
-    bool? Draft = null,
-    bool? Preview = null
+    DateTime? Updated,
+    bool? Draft,
+    bool? Preview
 );

@@ -2,16 +2,19 @@ using UpHateblo.Lib.Entities;
 
 namespace UpHateblo.Lib.Tests.Entities;
 
-public class EntryTests
+public class FetchedEntryTests
 {
-    private static readonly Entry BaseEntry = new(
-        Title: "Title",
+    private static readonly FetchedEntry BaseEntry = new(
+        EntryId: "entry-id",
+        Title: "Test Title",
         Category: ["tech", "c#"],
-        Content: "Content",
-        CustomPath: "/url",
-        Updated: DateTime.Parse("2023-10-01"),
-        Draft: false,
-        Preview: false
+        Content: "Test content",
+        AbsoluteCustomPath: "/test/custom/path",
+        AbsoluteUpdated: DateTime.Parse("2023-10-02"),
+        AbsoluteDraft: false,
+        AbsolutePreview: false,
+        Published: DateTime.Parse("2023-10-01"),
+        ContentType: "text/x-markdown"
     );
 
     [Fact]
