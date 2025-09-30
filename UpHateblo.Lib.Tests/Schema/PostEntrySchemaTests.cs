@@ -6,74 +6,82 @@ namespace UpHateblo.Lib.Tests.Schema;
 
 public class PostEntrySchemaTests
 {
-    private static Entry Entry => new(
-        Title: "テスト",
-        Category: ["Test"],
-        Content: """
-                 うまくいっているといいな
-                 複数行
-                 """,
-        CustomPath: "test-path",
-        Updated: DateTime.Parse("2025-09-23T21:29:00"),
-        Draft: true,
-        Preview: false
-    );
-
-    private static BlogConfig DefaultBlogConfig =>
+    private static readonly BlogConfig BlogConfig =
         new("kamome283.hatenablog.com", "Kamome283", "foobar");
 
-    private static string DefaultExpectedContent =>
-        """
-        <entry xmlns:app="http://www.w3.org/2007/app" xmlns:hatenablog="http://www.hatena.ne.jp/info/xmlns#hatenablog" xmlns="http://www.w3.org/2005/Atom">
-          <title>テスト</title>
-          <author>
-            <name>Kamome283</name>
-          </author>
-          <content type="text/plain">うまくいっているといいな
-        複数行</content>
-          <updated>2025-09-23T21:29:00</updated>
-          <category term="Test" />
-          <app:control>
-            <app:draft>yes</app:draft>
-            <app:preview>no</app:preview>
-          </app:control>
-          <hatenablog:custom-url>test-path</hatenablog:custom-url>
-        </entry>
-        """;
-
-    private static string ExpectedContentWhenUrlPathIsNull =>
-        """
-        <entry xmlns:app="http://www.w3.org/2007/app" xmlns:hatenablog="http://www.hatena.ne.jp/info/xmlns#hatenablog" xmlns="http://www.w3.org/2005/Atom">
-          <title>テスト</title>
-          <author>
-            <name>Kamome283</name>
-          </author>
-          <content type="text/plain">うまくいっているといいな
-        複数行</content>
-          <updated>2025-09-23T21:29:00</updated>
-          <category term="Test" />
-          <app:control>
-            <app:draft>yes</app:draft>
-            <app:preview>no</app:preview>
-          </app:control>
-        </entry>
-        """;
-
-    public static object[][] TestCases =>
-    [
-        [DefaultBlogConfig, Entry, DefaultExpectedContent],
-        [
-            DefaultBlogConfig, Entry with { CustomPath = null },
-            ExpectedContentWhenUrlPathIsNull
-        ]
-    ];
-
-    [Theory]
-    [MemberData(nameof(TestCases))]
-    public void SchemaIsValid(BlogConfig blog, Entry entry, string expectedContent)
+    [Fact]
+    public void IsValidWhenAllFieldsAreFulfilled()
     {
-        var expected = XDocument.Parse(expectedContent);
-        var actual = PostEntrySchema.Serialize(blog, entry);
+        var entry = new Entry(
+            Title: "Test",
+            Category: ["Category1", "Category2"],
+            Content: """
+                     First line.
+                     Second line.
+                     """,
+            CustomPath: "test/custom/path",
+            Updated: DateTime.Parse("2025-09-23T21:29:00"),
+            Draft: true,
+            Preview: false
+        );
+        const string expectedBody =
+            """
+            <entry xmlns:app="http://www.w3.org/2007/app" xmlns:hatenablog="http://www.hatena.ne.jp/info/xmlns#hatenablog" xmlns="http://www.w3.org/2005/Atom">
+              <title>Test</title>
+              <author>
+                <name>Kamome283</name>
+              </author>
+              <content type="text/plain">First line.
+            Second line.</content>
+              <updated>2025-09-23T21:29:00</updated>
+              <category term="Category1" />
+              <category term="Category2" />
+              <app:control>
+                <app:draft>yes</app:draft>
+                <app:preview>no</app:preview>
+              </app:control>
+              <hatenablog:custom-url>test/custom/path</hatenablog:custom-url>
+            </entry>
+            """;
+        var expected = XDocument.Parse(expectedBody);
+        var actual = PostEntrySchema.Serialize(BlogConfig, entry);
+        Assert.Equal(expected.ToString(), actual.ToString());
+    }
+
+    [Fact]
+    public void IsValidWhenNullableFieldsAreNull()
+    {
+        var entry = new Entry(
+            Title: "Test",
+            Category: ["Category1", "Category2"],
+            Content: """
+                     First line.
+                     Second line.
+                     """,
+            CustomPath: null,
+            Updated: null,
+            Draft: null,
+            Preview: null
+        );
+        const string expectedBody =
+            """
+            <entry xmlns:app="http://www.w3.org/2007/app" xmlns:hatenablog="http://www.hatena.ne.jp/info/xmlns#hatenablog" xmlns="http://www.w3.org/2005/Atom">
+              <title>Test</title>
+              <author>
+                <name>Kamome283</name>
+              </author>
+              <content type="text/plain">First line.
+            Second line.</content>
+              <category term="Category1" />
+              <category term="Category2" />
+              <app:control>
+                <app:draft>no</app:draft>
+                <app:preview>no</app:preview>
+              </app:control>
+            </entry>
+            """;
+        var expected = XDocument.Parse(expectedBody);
+        var actual = PostEntrySchema.Serialize(BlogConfig, entry);
         Assert.Equal(expected.ToString(), actual.ToString());
     }
 }

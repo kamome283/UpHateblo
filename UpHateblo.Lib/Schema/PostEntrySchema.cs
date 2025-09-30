@@ -24,7 +24,9 @@ internal static class PostEntrySchema
                     new XAttribute("type", "text/plain"),
                     new XText(entry.Content)
                 ),
-                new XElement(AtomNs + "updated", entry.Updated),
+                entry.Updated is not null
+                    ? new XElement(AtomNs + "updated", entry.Updated)
+                    : null,
                 entry.Category.Select(c => new XElement(AtomNs + "category",
                     new XAttribute("term", c))),
                 new XElement(AppNs + "control",
