@@ -5,7 +5,7 @@ namespace UpHateblo.Lib.Tests.Http;
 
 public class WsseTests
 {
-    internal static string ValidityTestExpected =>
+    private static string ValidityTestExpected =>
         """
         UsernameToken Username="Kamome283", PasswordDigest="EP4+VS7LZFZpfQJf7U3qvqxjW1Y=, Nonce="some-nonce", Created="2025-09-23T21:29:00"
         """;
@@ -14,13 +14,13 @@ public class WsseTests
         new("Kamome283", "password12", "some-nonce", DateTime.Parse("2025-09-23T21:29:00"));
 
     [Fact]
-    public void TokenIsValid()
+    public void IsValidToken()
     {
         Assert.Equal(ValidityTestExpected, ValidityTestInstance.GetToken());
     }
 
     [Fact]
-    public void ConstructWithEmptyNonceThrows()
+    public void ThrowsConstructionWithEmptyNonce()
     {
         Assert.Throws<ValidationException>(() =>
             {
