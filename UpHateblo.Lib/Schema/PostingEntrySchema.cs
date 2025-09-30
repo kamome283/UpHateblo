@@ -1,5 +1,6 @@
 using System.Xml.Linq;
 using UpHateblo.Lib.Entities;
+using static UpHateblo.Lib.Schema.SchemaNamespaces;
 
 namespace UpHateblo.Lib.Schema;
 
@@ -7,9 +8,9 @@ namespace UpHateblo.Lib.Schema;
 ///     Reference:
 ///     https://developer.hatena.ne.jp/ja/documents/blog/apis/atom/#%E3%83%96%E3%83%AD%E3%82%B0%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%81%AE%E6%8A%95%E7%A8%BF
 /// </remarks>
-internal class PostEntrySchema : EntrySchemaBase
+internal static class PostingEntrySchema
 {
-    public override XDocument Serialize(BlogConfig blog, Entry entry)
+    public static XDocument Serialize(BlogConfig blog, Entry entry)
     {
         return new XDocument(
             new XElement(AtomNs + "entry",
@@ -23,7 +24,9 @@ internal class PostEntrySchema : EntrySchemaBase
                     new XAttribute("type", "text/plain"),
                     new XText(entry.Content)
                 ),
-                new XElement(AtomNs + "updated", entry.Updated),
+                entry.Updated is not null
+                    ? new XElement(AtomNs + "updated", entry.Updated)
+                    : null,
                 entry.Category.Select(c => new XElement(AtomNs + "category",
                     new XAttribute("term", c))),
                 new XElement(AppNs + "control",

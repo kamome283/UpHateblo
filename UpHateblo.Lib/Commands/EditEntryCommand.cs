@@ -1,12 +1,11 @@
 using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Http;
 using UpHateblo.Lib.Schema;
 
 namespace UpHateblo.Lib.Commands;
 
 public static class EditEntryCommand
 {
-    private static readonly PostEntrySchema PostEntrySchema = new();
-
     public static async Task Run(
         HttpClient httpClient,
         BlogConfig blog,
@@ -15,10 +14,12 @@ public static class EditEntryCommand
         DateTime? wsseDateTime = null
     )
     {
-        var httpContent =
-            CommandHelper.GenHatenaContent(PostEntrySchema, blog, entry, wsseNonce, wsseDateTime);
-        var memberEndpoint = new Uri($"{blog.EntryEndPoint}/{entry.EntryId}");
-        var res = await httpClient.PutAsync(memberEndpoint, httpContent);
+        var endpoint = new Uri($"{blog.EntryEndPoint}/{entry.EntryId}");
+        var body = PostingEntrySchema.Serialize(blog, entry);
+        var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
+        var request = new HatenaRequest(HttpMethod.Put, endpoint, body, wsse);
+
+        var res = await httpClient.SendAsync(request);
         res.EnsureSuccessStatusCode();
     }
 }
