@@ -4,7 +4,7 @@ using UpHateblo.Lib.Schema;
 
 namespace UpHateblo.Lib.Tests.Schema;
 
-public class PostEntrySchemaTests
+public class PostingEntrySchemaTests
 {
     private static readonly BlogConfig BlogConfig =
         new("kamome283.hatenablog.com", "Kamome283", "foobar");
@@ -44,7 +44,7 @@ public class PostEntrySchemaTests
             </entry>
             """;
         var expected = XDocument.Parse(expectedBody);
-        var actual = PostEntrySchema.Serialize(BlogConfig, entry);
+        var actual = PostingEntrySchema.Serialize(BlogConfig, entry);
         Assert.Equal(expected.ToString(), actual.ToString());
     }
 
@@ -81,7 +81,7 @@ public class PostEntrySchemaTests
             </entry>
             """;
         var expected = XDocument.Parse(expectedBody);
-        var actual = PostEntrySchema.Serialize(BlogConfig, entry);
+        var actual = PostingEntrySchema.Serialize(BlogConfig, entry);
         Assert.Equal(expected.ToString(), actual.ToString());
     }
 }

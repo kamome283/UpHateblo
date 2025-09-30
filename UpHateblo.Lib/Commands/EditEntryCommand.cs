@@ -15,7 +15,7 @@ public static class EditEntryCommand
     )
     {
         var endpoint = new Uri($"{blog.EntryEndPoint}/{entry.EntryId}");
-        var body = PostEntrySchema.Serialize(blog, entry);
+        var body = PostingEntrySchema.Serialize(blog, entry);
         var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
         var request = new HatenaRequest(HttpMethod.Put, endpoint, body, wsse);
 

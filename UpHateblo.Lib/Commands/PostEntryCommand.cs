@@ -14,7 +14,7 @@ public static class PostEntryCommand
         DateTime? wsseDateTime = null
     )
     {
-        var body = PostEntrySchema.Serialize(blog, entry);
+        var body = PostingEntrySchema.Serialize(blog, entry);
         var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
         var request = new HatenaRequest(HttpMethod.Post, blog.EntryEndPoint, body, wsse);
 
