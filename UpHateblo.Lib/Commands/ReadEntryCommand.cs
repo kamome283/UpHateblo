@@ -1,18 +1,15 @@
+using System.Text;
 using System.Text.RegularExpressions;
 using UpHateblo.Lib.Entities;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
+using VYaml.Annotations;
+using VYaml.Serialization;
 
 namespace UpHateblo.Lib.Commands;
 
-// TODO: Source GeneratorベースのYAMLパーサーを導入
 public static class ReadEntryCommand
 {
-    private static readonly IDeserializer YamlDeserializer =
-        new DeserializerBuilder()
-            .WithNamingConvention(PascalCaseNamingConvention.Instance)
-            .IgnoreUnmatchedProperties()
-            .Build();
+    private static readonly YamlSerializerOptions YamlSerializerOptions =
+        new() { NamingConvention = NamingConvention.UpperCamelCase };
 
     private static readonly Regex FrontMatterRegex =
         new("""
@@ -41,6 +38,7 @@ public static class ReadEntryCommand
 
     private static MaybeEntry ParseFrontMatter(this string frontMatter)
     {
-        return YamlDeserializer.Deserialize<MaybeEntry>(frontMatter);
+        var bytes = Encoding.UTF8.GetBytes(frontMatter);
+        return YamlSerializer.Deserialize<MaybeEntry>(bytes, YamlSerializerOptions);
     }
 }

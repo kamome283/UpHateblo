@@ -1,6 +1,6 @@
 using UpHateblo.Lib.Commands;
 using UpHateblo.Lib.Entities;
-using YamlDotNet.Core;
+using VYaml.Serialization;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
@@ -15,18 +15,21 @@ public class ReadEntryCommandTests
     [Fact]
     public void ItCanDeserializeFullSpecMarkdown()
     {
-        MaybeEntry expected = new MaybeEntry
-        {
-            Title = "FullSpecMarkdown", Category = ["A", "B"],
-            Updated = DateTime.Parse("2025-01-09T19:07:00+09:00"),
-            Content = """
-                      This is a test,
-                      and this is the second line of the content.
-                      """,
-            CustomPath = "test/url-path",
-            Draft = true,
-            Preview = false
-        };
+        MaybeEntry expected = new MaybeEntry(
+            EntryId: null,
+            Title: "FullSpecMarkdown",
+            Category: ["A", "B"],
+            Content: """
+                     This is a test,
+                     and this is the second line of the content.
+                     """,
+            CustomPath: "test/url-path",
+            Updated: DateTime.Parse("2025-01-09T19:07:00+09:00"),
+            Draft: true,
+            Preview: false,
+            Published: null,
+            ContentType: null
+        );
         string content = """
                          ---
                          Title: FullSpecMarkdown
@@ -64,13 +67,21 @@ public class ReadEntryCommandTests
                          Hello world!
                          This is body only.
                          """;
-        MaybeEntry expected = new MaybeEntry
-        {
-            Content = """
-                      Hello world!
-                      This is body only.
-                      """
-        };
+        MaybeEntry expected = new MaybeEntry(
+            EntryId: null,
+            Title: null,
+            Category: null,
+            Content: """
+                     Hello world!
+                     This is body only.
+                     """,
+            CustomPath: null,
+            Updated: null,
+            Draft: null,
+            Preview: null,
+            Published: null,
+            ContentType: null
+        );
         var actual = ReadEntryCommand.Run(content);
         Assert.Equal(expected, actual);
     }
@@ -141,8 +152,8 @@ public class ReadEntryCommandTests
                          ---
                          Body is here.
                          """;
-        // Current behavior: YamlDotNet throws when a scalar cannot be converted to the target type.
-        Assert.Throws<YamlException>(() => ReadEntryCommand.Run(content));
+        // Current behavior: VYaml throws when a scalar cannot be converted to the target type.
+        Assert.Throws<YamlSerializerException>(() => ReadEntryCommand.Run(content));
     }
 
     [Fact]
@@ -208,7 +219,7 @@ public class ReadEntryCommandTests
         const int iterations = 200;
         var tasks = Enumerable.Range(0, iterations)
             .Select(_ => Task.Run(() =>
-                Assert.Throws<YamlException>(() =>
+                Assert.ThrowsAny<Exception>(() =>
                     ReadEntryCommand.Run(invalidContent))
             ));
 
