@@ -6,7 +6,7 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace UpHateblo.Lib.Commands;
 
 // TODO: Source GeneratorベースのYAMLパーサーを導入
-public static class WriteEntryCommand
+public static class ReadEntryCommand
 {
     private static readonly IDeserializer YamlDeserializer =
         new DeserializerBuilder()
