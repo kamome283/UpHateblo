@@ -14,7 +14,7 @@ public partial record MaybeEntry(
     [property: HashSetEquality] HashSet<string>? Category,
     string? Content,
     string? CustomPath,
-    DateTime? Updated,
+    DateTime? Date,
     bool? Draft,
     bool? Preview,
     DateTime? Published,
