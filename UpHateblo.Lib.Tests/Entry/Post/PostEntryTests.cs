@@ -3,7 +3,7 @@ using UpHateblo.Lib.Tests.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.Post;
 
-public class PostEntryCommandTests : WebRequestTestBase
+public class PostEntryTests : WebRequestTestBase
 {
     private static readonly HttpClient HttpClient = new();
 
@@ -23,6 +23,6 @@ public class PostEntryCommandTests : WebRequestTestBase
             Draft: true,
             Preview: false
         );
-        await PostEntryCommand.Run(HttpClient, BlogConfig, entry);
+        await PostEntry.Run(HttpClient, BlogConfig, entry);
     }
 }

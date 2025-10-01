@@ -5,7 +5,7 @@ using VYaml.Serialization;
 
 namespace UpHateblo.Lib.Entry.Read;
 
-public static class ReadEntryCommand
+public static class ReadEntry
 {
     private static readonly YamlSerializerOptions YamlSerializerOptions =
         new() { NamingConvention = NamingConvention.UpperCamelCase };

@@ -4,7 +4,7 @@ using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
 
 namespace UpHateblo.Lib.Tests.Entry.Edit;
 
-public class EditEntryCommandTests : WebRequestTestBase
+public class EditEntryTests : WebRequestTestBase
 {
     private static readonly HttpClient HttpClient = new();
 
@@ -25,6 +25,6 @@ public class EditEntryCommandTests : WebRequestTestBase
             Draft: true,
             Preview: false
         );
-        await EditEntryCommand.Run(HttpClient, BlogConfig, entry);
+        await EditEntry.Run(HttpClient, BlogConfig, entry);
     }
 }

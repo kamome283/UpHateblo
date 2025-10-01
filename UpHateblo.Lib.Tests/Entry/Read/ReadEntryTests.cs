@@ -10,7 +10,7 @@ namespace UpHateblo.Lib.Tests.Entry.Read;
 ///     Since our own processing handles the separation between front matter and body,
 ///     this part is the focus of testing.
 /// </summary>
-public class ReadEntryCommandTests
+public class ReadEntryTests
 {
     [Fact]
     public void ItCanDeserializeFullSpecMarkdown()
@@ -44,7 +44,7 @@ public class ReadEntryCommandTests
                          This is a test,
                          and this is the second line of the content.
                          """;
-        MaybeEntry actual = ReadEntryCommand.Run(content);
+        MaybeEntry actual = ReadEntry.Run(content);
         Assert.Equal(expected, actual);
     }
 
@@ -56,7 +56,7 @@ public class ReadEntryCommandTests
                          Category: InvalidCategory
                          ---
                          """;
-        var actual = ReadEntryCommand.Run(content);
+        var actual = ReadEntry.Run(content);
         Assert.Null(actual.Category);
     }
 
@@ -82,7 +82,7 @@ public class ReadEntryCommandTests
             Published: null,
             ContentType: null
         );
-        var actual = ReadEntryCommand.Run(content);
+        var actual = ReadEntry.Run(content);
         Assert.Equal(expected, actual);
     }
 
@@ -97,7 +97,7 @@ public class ReadEntryCommandTests
                          ---
                          Body goes here.
                          """;
-        var actual = ReadEntryCommand.Run(content);
+        var actual = ReadEntry.Run(content);
         Assert.Equal("Known Title", actual.Title);
         Assert.Equal("""
                      Body goes here.
@@ -111,7 +111,7 @@ public class ReadEntryCommandTests
                          ---
                          Title: ShouldNotBeParsed
                          """;
-        var actual = ReadEntryCommand.Run(content);
+        var actual = ReadEntry.Run(content);
         Assert.Null(actual.Title);
         Assert.Null(actual.Category);
         Assert.Null(actual.Date);
@@ -129,7 +129,7 @@ public class ReadEntryCommandTests
                          Title: Immediate
                          ---Content starts right away.
                          """;
-        var actual = ReadEntryCommand.Run(content);
+        var actual = ReadEntry.Run(content);
         // Current behavior: the separator must be on its own line. If content follows immediately,
         // the whole text is treated as body with no front matter parsed.
         Assert.Null(actual.Title);
@@ -153,7 +153,7 @@ public class ReadEntryCommandTests
                          Body is here.
                          """;
         // Current behavior: VYaml throws when a scalar cannot be converted to the target type.
-        Assert.Throws<YamlSerializerException>(() => ReadEntryCommand.Run(content));
+        Assert.Throws<YamlSerializerException>(() => ReadEntry.Run(content));
     }
 
     [Fact]
@@ -190,13 +190,13 @@ public class ReadEntryCommandTests
         string[] inputs = [fullSpec, bodyOnly, unknownFields];
 
         // Take single-threaded baselines to compare against
-        var baselines = inputs.Select(ReadEntryCommand.Run).ToArray();
+        var baselines = inputs.Select(ReadEntry.Run).ToArray();
 
         const int iterations = 200;
         var tasks = Enumerable.Range(0, iterations)
             .SelectMany(_ => inputs.Select((input, idx) => Task.Run(() =>
             {
-                var actual = ReadEntryCommand.Run(input);
+                var actual = ReadEntry.Run(input);
                 Assert.Equal(baselines[idx], actual);
             })));
 
@@ -220,7 +220,7 @@ public class ReadEntryCommandTests
         var tasks = Enumerable.Range(0, iterations)
             .Select(_ => Task.Run(() =>
                 Assert.ThrowsAny<Exception>(() =>
-                    ReadEntryCommand.Run(invalidContent))
+                    ReadEntry.Run(invalidContent))
             ));
 
         await Task.WhenAll(tasks);

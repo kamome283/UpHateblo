@@ -4,7 +4,7 @@ using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
 namespace UpHateblo.Lib.Entry.List;
 
-public static class ListEntryCommand
+public static class ListEntry
 {
     // TODO: ペジネーションに対応させる
     public static async Task<FetchedEntry[]> Run(
