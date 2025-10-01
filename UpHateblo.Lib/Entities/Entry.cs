@@ -12,7 +12,24 @@ public partial record Entry(
     DateTime? Date,
     bool? Draft,
     bool? Preview
-);
+)
+{
+    public static bool operator ==(Entry entry, FetchedEntry fetched)
+    {
+        return fetched == entry;
+    }
+
+    public static bool operator !=(Entry entry, FetchedEntry fetched) =>
+        !(entry == fetched);
+
+    public static bool operator ==(Entry entry, EditableEntry editable)
+    {
+        return editable == entry;
+    }
+
+    public static bool operator !=(Entry entry, EditableEntry editable) =>
+        !(entry == editable);
+}
 
 public static class EntryExtensions
 {

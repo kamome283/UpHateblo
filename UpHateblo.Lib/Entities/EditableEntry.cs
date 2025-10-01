@@ -15,7 +15,33 @@ public partial record EditableEntry(
     DateTime? Date,
     bool? Draft,
     bool? Preview
-) : Entry(Title, Category, Content, CustomPath, Date, Draft, Preview);
+) : Entry(Title, Category, Content, CustomPath, Date, Draft, Preview)
+{
+    public static bool operator ==(EditableEntry editable, FetchedEntry fetched)
+    {
+        return fetched == editable;
+    }
+
+    public static bool operator !=(EditableEntry editable, FetchedEntry fetched) =>
+        !(editable == fetched);
+
+    public static bool operator ==(EditableEntry editable, Entry entry)
+    {
+        var x = new Entry(
+            Title: editable.Title,
+            Category: editable.Category,
+            Content: editable.Content,
+            CustomPath: editable.CustomPath,
+            Date: editable.Date,
+            Draft: editable.Draft,
+            Preview: editable.Preview
+        );
+        return x == entry;
+    }
+
+    public static bool operator !=(EditableEntry editable, Entry entry) =>
+        !(editable == entry);
+}
 
 public static class EditableEntryExtensions
 {
