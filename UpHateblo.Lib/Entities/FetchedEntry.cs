@@ -20,4 +20,40 @@ public partial record FetchedEntry(
     DateTime Published,
     string ContentType
 ) : EditableEntry(EntryId, Title, Category, Content, AbsoluteCustomPath, AbsoluteDate,
-    AbsoluteDraft, AbsolutePreview);
+    AbsoluteDraft, AbsolutePreview)
+{
+    public static bool operator ==(FetchedEntry fetched, EditableEntry editable)
+    {
+        var x = new EditableEntry(
+            EntryId: fetched.EntryId,
+            Title: fetched.Title,
+            Category: fetched.Category,
+            Content: fetched.Content,
+            CustomPath: fetched.AbsoluteCustomPath,
+            Date: fetched.AbsoluteDate,
+            Draft: fetched.AbsoluteDraft,
+            Preview: fetched.AbsolutePreview
+        );
+        return x == editable;
+    }
+
+    public static bool operator !=(FetchedEntry fetched, EditableEntry editable) =>
+        !(fetched == editable);
+
+    public static bool operator ==(FetchedEntry fetched, Entry entry)
+    {
+        var x = new Entry(
+            Title: fetched.Title,
+            Category: fetched.Category,
+            Content: fetched.Content,
+            CustomPath: fetched.AbsoluteCustomPath,
+            Date: fetched.AbsoluteDate,
+            Draft: fetched.AbsoluteDraft,
+            Preview: fetched.AbsolutePreview
+        );
+        return x == entry;
+    }
+
+    public static bool operator !=(FetchedEntry fetched, Entry entry) =>
+        !(fetched == entry);
+}
