@@ -24,7 +24,7 @@ public class ReadEntryCommandTests
                      and this is the second line of the content.
                      """,
             CustomPath: "test/url-path",
-            Updated: DateTime.Parse("2025-01-09T19:07:00+09:00"),
+            Date: DateTime.Parse("2025-01-09T19:07:00+09:00"),
             Draft: true,
             Preview: false,
             Published: null,
@@ -36,7 +36,7 @@ public class ReadEntryCommandTests
                          Category: 
                            - A
                            - B
-                         Updated: 2025-01-09T19:07:00+09:00
+                         Date: 2025-01-09T19:07:00+09:00
                          CustomPath: test/url-path
                          Draft: true
                          Preview: false
@@ -76,7 +76,7 @@ public class ReadEntryCommandTests
                      This is body only.
                      """,
             CustomPath: null,
-            Updated: null,
+            Date: null,
             Draft: null,
             Preview: null,
             Published: null,
@@ -114,7 +114,7 @@ public class ReadEntryCommandTests
         var actual = ReadEntryCommand.Run(content);
         Assert.Null(actual.Title);
         Assert.Null(actual.Category);
-        Assert.Null(actual.Updated);
+        Assert.Null(actual.Date);
         Assert.Equal("""
                      ---
                      Title: ShouldNotBeParsed
@@ -146,7 +146,7 @@ public class ReadEntryCommandTests
         string content = """
                          ---
                          Title: HasInvalids
-                         Updated: not-a-date
+                         Date: not-a-date
                          Draft: not-a-bool
                          Preview: maybe
                          ---
@@ -166,7 +166,7 @@ public class ReadEntryCommandTests
                           Category: 
                             - A
                             - B
-                          Updated: 2025-01-09T19:07:00+09:00
+                          Date: 2025-01-09T19:07:00+09:00
                           CustomPath: test/url-path
                           Draft: true
                           Preview: false

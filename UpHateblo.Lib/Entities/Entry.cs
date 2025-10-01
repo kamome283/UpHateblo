@@ -8,7 +8,7 @@ public partial record Entry(
     [property: HashSetEquality] HashSet<string> Category,
     string Content,
     string? CustomPath,
-    DateTime? Updated,
+    DateTime? Date,
     bool? Draft,
     bool? Preview
 );

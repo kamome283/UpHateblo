@@ -19,7 +19,7 @@ public class PostEntryCommandTests : WebRequestTestBase
                       Posted at {updated}
                       """,
             CustomPath: null,
-            Updated: updated,
+            Date: updated,
             Draft: true,
             Preview: false
         );

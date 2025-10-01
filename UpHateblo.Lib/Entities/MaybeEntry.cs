@@ -9,13 +9,12 @@ namespace UpHateblo.Lib.Entities;
 [Equatable]
 [YamlObject]
 public partial record MaybeEntry(
-    // Inherited fields
     string? EntryId,
     string? Title,
     [property: HashSetEquality] HashSet<string>? Category,
     string? Content,
     string? CustomPath,
-    DateTime? Updated,
+    DateTime? Date,
     bool? Draft,
     bool? Preview,
     DateTime? Published,

@@ -10,7 +10,7 @@ public class FetchedEntryTests
         Category: ["tech", "c#"],
         Content: "Test content",
         AbsoluteCustomPath: "/test/custom/path",
-        AbsoluteUpdated: DateTime.Parse("2023-10-02"),
+        AbsoluteDate: DateTime.Parse("2023-10-02"),
         AbsoluteDraft: false,
         AbsolutePreview: false,
         Published: DateTime.Parse("2023-10-01"),
