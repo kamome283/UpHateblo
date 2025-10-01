@@ -20,7 +20,7 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => maybe.Materialize());
+        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Title", ex.Message);
     }
 
@@ -39,7 +39,7 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => maybe.Materialize());
+        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Category", ex.Message);
     }
 
@@ -58,7 +58,7 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => maybe.Materialize());
+        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Content", ex.Message);
     }
 
@@ -77,7 +77,7 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => maybe.Materialize());
+        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Title, Category, Content", ex.Message);
     }
 
@@ -97,7 +97,7 @@ public class EntryExtensionsTests
             Published: DateTime.Parse("2024-02-03T04:05:06Z").ToUniversalTime(),
             ContentType: "text/x-markdown");
 
-        var entry = maybe.Materialize();
+        var entry = EntryExtensions.Materialize(maybe);
 
         var expected = new Entry(
             Title: "My Title",
