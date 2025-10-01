@@ -1,4 +1,5 @@
 using Equatable.Attributes;
+using VYaml.Annotations;
 
 namespace UpHateblo.Lib.Entities;
 
@@ -6,6 +7,7 @@ namespace UpHateblo.Lib.Entities;
 ///     ファイルやCLIのパラメーターから読み出すエントリーの断片
 /// </summary>
 [Equatable]
+[YamlObject]
 public partial record MaybeEntry(
     // Inherited fields
     string? EntryId,
@@ -18,9 +20,4 @@ public partial record MaybeEntry(
     bool? Preview,
     DateTime? Published,
     string? ContentType
-)
-{
-    public MaybeEntry() : this(null, null, null, null, null, null, null, null, null, null)
-    {
-    }
-}
+);
