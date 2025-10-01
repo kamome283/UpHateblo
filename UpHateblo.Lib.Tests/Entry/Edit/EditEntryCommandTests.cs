@@ -1,7 +1,8 @@
 using UpHateblo.Lib.Entry.Edit;
+using UpHateblo.Lib.Tests.Shared;
 using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
 
-namespace UpHateblo.Lib.Tests.Commands;
+namespace UpHateblo.Lib.Tests.Entry.Edit;
 
 public class EditEntryCommandTests : WebRequestTestBase
 {

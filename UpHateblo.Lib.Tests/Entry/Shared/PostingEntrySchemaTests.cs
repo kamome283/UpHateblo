@@ -2,7 +2,7 @@ using System.Xml.Linq;
 using UpHateblo.Lib.Entry.Shared;
 using UpHateblo.Lib.Shared;
 
-namespace UpHateblo.Lib.Tests.Schema;
+namespace UpHateblo.Lib.Tests.Entry.Shared;
 
 public class PostingEntrySchemaTests
 {
@@ -12,7 +12,7 @@ public class PostingEntrySchemaTests
     [Fact]
     public void IsValidWhenAllFieldsAreFulfilled()
     {
-        var entry = new Entry.Post.Entry(
+        var entry = new Lib.Entry.Post.Entry(
             Title: "Test",
             Category: ["Category1", "Category2"],
             Content: """
@@ -51,7 +51,7 @@ public class PostingEntrySchemaTests
     [Fact]
     public void IsValidWhenNullableFieldsAreNull()
     {
-        var entry = new Entry.Post.Entry(
+        var entry = new Lib.Entry.Post.Entry(
             Title: "Test",
             Category: ["Category1", "Category2"],
             Content: """

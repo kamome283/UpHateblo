@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.List;
 using static UpHateblo.Lib.Shared.SchemaNamespaces;
 using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
-namespace UpHateblo.Lib.Tests.Schema;
+namespace UpHateblo.Lib.Tests.Entry.List;
 
 public class FetchedEntrySchemaTest
 {

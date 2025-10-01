@@ -1,20 +1,18 @@
-using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
+using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
 
-namespace UpHateblo.Lib.Tests.Entities;
+namespace UpHateblo.Lib.Tests.Entry.Edit;
 
-public class FetchedEntryTests
+public class EditableEntryTests
 {
-    private static readonly FetchedEntry BaseEntry = new(
+    private static readonly EditableEntry BaseEntry = new(
         EntryId: "entry-id",
-        Title: "Test Title",
+        Title: "Title",
         Category: ["tech", "c#"],
-        Content: "Test content",
-        AbsoluteCustomPath: "/test/custom/path",
-        AbsoluteDate: DateTime.Parse("2023-10-02"),
-        AbsoluteDraft: false,
-        AbsolutePreview: false,
-        Published: DateTime.Parse("2023-10-01"),
-        ContentType: "text/x-markdown"
+        Content: "Content",
+        CustomPath: "/url",
+        Date: DateTime.Parse("2023-10-01"),
+        Draft: false,
+        Preview: false
     );
 
     [Fact]

@@ -1,18 +1,20 @@
-using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
+using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
-namespace UpHateblo.Lib.Tests.Entities;
+namespace UpHateblo.Lib.Tests.Entry.Read;
 
-public class EditableEntryTests
+public class MaybeEntryTests
 {
-    private static readonly EditableEntry BaseEntry = new(
+    private static readonly MaybeEntry BaseEntry = new(
         EntryId: "entry-id",
         Title: "Title",
         Category: ["tech", "c#"],
         Content: "Content",
         CustomPath: "/url",
-        Date: DateTime.Parse("2023-10-01"),
+        Date: DateTime.Parse("2023-10-02"),
         Draft: false,
-        Preview: false
+        Preview: false,
+        Published: DateTime.Parse("2023-10-01"),
+        ContentType: "text/html"
     );
 
     [Fact]

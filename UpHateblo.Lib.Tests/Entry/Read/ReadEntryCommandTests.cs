@@ -2,7 +2,7 @@ using UpHateblo.Lib.Entry.Read;
 using VYaml.Serialization;
 using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
-namespace UpHateblo.Lib.Tests.Commands;
+namespace UpHateblo.Lib.Tests.Entry.Read;
 
 /// <summary>
 ///     YAML parsing in the front matter follows the behavior of

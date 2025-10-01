@@ -1,20 +1,20 @@
-using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
+using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
-namespace UpHateblo.Lib.Tests.Entities;
+namespace UpHateblo.Lib.Tests.Entry.List;
 
-public class MaybeEntryTests
+public class FetchedEntryTests
 {
-    private static readonly MaybeEntry BaseEntry = new(
+    private static readonly FetchedEntry BaseEntry = new(
         EntryId: "entry-id",
-        Title: "Title",
+        Title: "Test Title",
         Category: ["tech", "c#"],
-        Content: "Content",
-        CustomPath: "/url",
-        Date: DateTime.Parse("2023-10-02"),
-        Draft: false,
-        Preview: false,
+        Content: "Test content",
+        AbsoluteCustomPath: "/test/custom/path",
+        AbsoluteDate: DateTime.Parse("2023-10-02"),
+        AbsoluteDraft: false,
+        AbsolutePreview: false,
         Published: DateTime.Parse("2023-10-01"),
-        ContentType: "text/html"
+        ContentType: "text/x-markdown"
     );
 
     [Fact]

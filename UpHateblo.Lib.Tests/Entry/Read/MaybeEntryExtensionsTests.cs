@@ -1,7 +1,7 @@
 using UpHateblo.Lib.Entry.Read;
 using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
-namespace UpHateblo.Lib.Tests.Entities;
+namespace UpHateblo.Lib.Tests.Entry.Read;
 
 public class MaybeEntryExtensionsTests
 {

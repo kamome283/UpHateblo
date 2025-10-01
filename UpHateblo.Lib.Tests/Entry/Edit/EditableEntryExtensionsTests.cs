@@ -3,7 +3,7 @@ using UpHateblo.Lib.Entry.Edit;
 using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
 using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
-namespace UpHateblo.Lib.Tests.Entities;
+namespace UpHateblo.Lib.Tests.Entry.Edit;
 
 public class EditableEntryExtensionsTests
 {

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using UpHateblo.Lib.Entry.Post;
 using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
-namespace UpHateblo.Lib.Tests.Entities;
+namespace UpHateblo.Lib.Tests.Entry.Post;
 
 public class EntryExtensionsTests
 {
@@ -100,7 +100,7 @@ public class EntryExtensionsTests
 
         var entry = EntryExtensions.Materialize(maybe);
 
-        var expected = new Entry.Post.Entry(
+        var expected = new Lib.Entry.Post.Entry(
             Title: "My Title",
             Category: categories,
             Content: "Hello",

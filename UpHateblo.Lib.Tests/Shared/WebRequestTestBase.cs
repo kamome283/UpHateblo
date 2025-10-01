@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using UpHateblo.Lib.Shared;
 
-namespace UpHateblo.Lib.Tests.Commands;
+namespace UpHateblo.Lib.Tests.Shared;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 // ReSharper disable once NotAccessedPositionalProperty.Global

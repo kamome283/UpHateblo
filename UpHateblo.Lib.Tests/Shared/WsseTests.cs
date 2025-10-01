@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using UpHateblo.Lib.Shared;
 
-namespace UpHateblo.Lib.Tests.Http;
+namespace UpHateblo.Lib.Tests.Shared;
 
 public class WsseTests
 {

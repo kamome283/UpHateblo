@@ -1,6 +1,7 @@
 using UpHateblo.Lib.Entry.List;
+using UpHateblo.Lib.Tests.Shared;
 
-namespace UpHateblo.Lib.Tests.Commands;
+namespace UpHateblo.Lib.Tests.Entry.List;
 
 public class ListEntryCommandTests : WebRequestTestBase
 {

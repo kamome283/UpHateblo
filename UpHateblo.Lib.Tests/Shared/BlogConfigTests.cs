@@ -1,6 +1,6 @@
 using UpHateblo.Lib.Shared;
 
-namespace UpHateblo.Lib.Tests.Entities;
+namespace UpHateblo.Lib.Tests.Shared;
 
 public class BlogConfigTests
 {
