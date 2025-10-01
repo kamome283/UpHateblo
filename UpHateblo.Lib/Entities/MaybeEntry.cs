@@ -20,3 +20,30 @@ public partial record MaybeEntry(
     DateTime? Published,
     string? ContentType
 );
+
+public static class MaybeEntryExtensions
+{
+    public static MaybeEntry Merge(this MaybeEntry entry, params MaybeEntry[] mergedEntries)
+    {
+        var result = entry;
+        foreach (var e in mergedEntries)
+        {
+            var entryId = result.EntryId ?? e.EntryId;
+            var title = result.Title ?? e.Title;
+            var category = result.Category ?? e.Category;
+            var content = result.Content ?? e.Content;
+            var customPath = result.CustomPath ?? e.CustomPath;
+            var date = result.Date ?? e.Date;
+            var draft = result.Draft ?? e.Draft;
+            var preview = result.Preview ?? e.Preview;
+            var published = result.Published ?? e.Published;
+            var contentType = result.ContentType ?? e.ContentType;
+
+            result = new MaybeEntry(EntryId: entryId, Title: title, Category: category,
+                Content: content, CustomPath: customPath, Date: date, Draft: draft,
+                Preview: preview, Published: published, ContentType: contentType);
+        }
+
+        return result;
+    }
+}
