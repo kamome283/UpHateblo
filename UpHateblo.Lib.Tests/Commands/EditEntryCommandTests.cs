@@ -20,7 +20,7 @@ public class EditEntryCommandTests : WebRequestTestBase
                       Updated at {updated}
                       """,
             CustomPath: null,
-            Updated: updated,
+            Date: updated,
             Draft: true,
             Preview: false
         );

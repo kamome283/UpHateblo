@@ -24,7 +24,7 @@ internal static class FetchedEntrySchema
                 Category: entryElement.ParseCategory(),
                 Content: content,
                 AbsoluteCustomPath: entryElement.ParseCustomPath(),
-                AbsoluteUpdated: entryElement.ParseUpdated(),
+                AbsoluteDate: entryElement.ParseUpdated(),
                 AbsoluteDraft: entryElement.ParseDraft(),
                 AbsolutePreview: entryElement.ParseAbsolutePreview(),
                 Published: entryElement.ParsePublished(),

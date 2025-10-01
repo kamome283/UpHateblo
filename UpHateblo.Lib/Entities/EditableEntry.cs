@@ -11,7 +11,7 @@ public partial record EditableEntry(
     HashSet<string> Category,
     string Content,
     string? CustomPath,
-    DateTime? Updated,
+    DateTime? Date,
     bool? Draft,
     bool? Preview
-) : Entry(Title, Category, Content, CustomPath, Updated, Draft, Preview);
+) : Entry(Title, Category, Content, CustomPath, Date, Draft, Preview);

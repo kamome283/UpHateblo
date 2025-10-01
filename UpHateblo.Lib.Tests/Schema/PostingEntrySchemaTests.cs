@@ -20,7 +20,7 @@ public class PostingEntrySchemaTests
                      Second line.
                      """,
             CustomPath: "test/custom/path",
-            Updated: DateTime.Parse("2025-09-23T21:29:00"),
+            Date: DateTime.Parse("2025-09-23T21:29:00"),
             Draft: true,
             Preview: false
         );
@@ -59,7 +59,7 @@ public class PostingEntrySchemaTests
                      Second line.
                      """,
             CustomPath: null,
-            Updated: null,
+            Date: null,
             Draft: null,
             Preview: null
         );

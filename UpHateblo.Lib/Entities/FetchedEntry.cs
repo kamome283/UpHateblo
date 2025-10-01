@@ -13,11 +13,11 @@ public partial record FetchedEntry(
     string Content,
     // Fields that have been made non-nullable from optional fields in the base class
     string AbsoluteCustomPath,
-    DateTime AbsoluteUpdated,
+    DateTime AbsoluteDate,
     bool AbsoluteDraft,
     bool AbsolutePreview,
     // Newly defined fields
     DateTime Published,
     string ContentType
-) : EditableEntry(EntryId, Title, Category, Content, AbsoluteCustomPath, AbsoluteUpdated,
+) : EditableEntry(EntryId, Title, Category, Content, AbsoluteCustomPath, AbsoluteDate,
     AbsoluteDraft, AbsolutePreview);

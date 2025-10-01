@@ -10,7 +10,7 @@ public class EditableEntryTests
         Category: ["tech", "c#"],
         Content: "Content",
         CustomPath: "/url",
-        Updated: DateTime.Parse("2023-10-01"),
+        Date: DateTime.Parse("2023-10-01"),
         Draft: false,
         Preview: false
     );
