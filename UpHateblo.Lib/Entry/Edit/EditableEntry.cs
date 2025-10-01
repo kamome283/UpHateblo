@@ -18,7 +18,7 @@ public partial record EditableEntry(
     DateTime? Date,
     bool? Draft,
     bool? Preview
-) : Post.Entry(Title, Category, Content, CustomPath, Date, Draft, Preview)
+) : PostableEntry(Title, Category, Content, CustomPath, Date, Draft, Preview)
 {
     public static bool operator ==(EditableEntry editable, FetchedEntry fetched)
     {
@@ -28,9 +28,9 @@ public partial record EditableEntry(
     public static bool operator !=(EditableEntry editable, FetchedEntry fetched) =>
         !(editable == fetched);
 
-    public static bool operator ==(EditableEntry editable, Post.Entry entry)
+    public static bool operator ==(EditableEntry editable, PostableEntry postable)
     {
-        var x = new Post.Entry(
+        var x = new PostableEntry(
             Title: editable.Title,
             Category: editable.Category,
             Content: editable.Content,
@@ -39,11 +39,11 @@ public partial record EditableEntry(
             Draft: editable.Draft,
             Preview: editable.Preview
         );
-        return x == entry;
+        return x == postable;
     }
 
-    public static bool operator !=(EditableEntry editable, Post.Entry entry) =>
-        !(editable == entry);
+    public static bool operator !=(EditableEntry editable, PostableEntry postable) =>
+        !(editable == postable);
 }
 
 public static class EditableEntryExtensions
@@ -70,7 +70,7 @@ public static class EditableEntryExtensions
 
     private static List<string> LackingProperties(MaybeEntry maybeEntry)
     {
-        var entryLackingProperties = EntryExtensions.LackingProperties(maybeEntry);
+        var entryLackingProperties = PostableEntryExtensions.LackingProperties(maybeEntry);
         if (maybeEntry.EntryId == null) entryLackingProperties.Add("EntryId");
         return entryLackingProperties;
     }

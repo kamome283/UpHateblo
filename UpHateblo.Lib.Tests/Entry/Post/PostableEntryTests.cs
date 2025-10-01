@@ -1,8 +1,10 @@
+using UpHateblo.Lib.Entry.Post;
+
 namespace UpHateblo.Lib.Tests.Entry.Post;
 
-public class EntryTests
+public class PostableEntryTests
 {
-    private static readonly Lib.Entry.Post.Entry BaseEntry = new(
+    private static readonly PostableEntry BaseEntry = new(
         Title: "Title",
         Category: ["tech", "c#"],
         Content: "Content",

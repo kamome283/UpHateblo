@@ -4,7 +4,7 @@ using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
 namespace UpHateblo.Lib.Tests.Entry.Post;
 
-public class EntryExtensionsTests
+public class PostableEntryExtensionsTests
 {
     [Fact]
     public void MaterializeThrowsWhenTitleIsMissing()
@@ -21,7 +21,8 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
+        var ex =
+            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Title", ex.Message);
     }
 
@@ -40,7 +41,8 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
+        var ex =
+            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Category", ex.Message);
     }
 
@@ -59,7 +61,8 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
+        var ex =
+            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Content", ex.Message);
     }
 
@@ -78,7 +81,8 @@ public class EntryExtensionsTests
             Published: null,
             ContentType: null);
 
-        var ex = Assert.Throws<ValidationException>(() => EntryExtensions.Materialize(maybe));
+        var ex =
+            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
         Assert.Equal("Missing properties: Title, Category, Content", ex.Message);
     }
 
@@ -98,9 +102,9 @@ public class EntryExtensionsTests
             Published: DateTime.Parse("2024-02-03T04:05:06Z").ToUniversalTime(),
             ContentType: "text/x-markdown");
 
-        var entry = EntryExtensions.Materialize(maybe);
+        var entry = PostableEntryExtensions.Materialize(maybe);
 
-        var expected = new Lib.Entry.Post.Entry(
+        var expected = new PostableEntry(
             Title: "My Title",
             Category: categories,
             Content: "Hello",

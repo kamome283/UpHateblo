@@ -11,7 +11,7 @@ public class PostEntryCommandTests : WebRequestTestBase
     public async Task ItCanPostEntry()
     {
         var updated = DateTime.Now;
-        Lib.Entry.Post.Entry entry = new(
+        PostableEntry entry = new(
             Title: "PostCommandTest",
             Category: ["UpHateblo", "Post", "Test"],
             Content: $"""

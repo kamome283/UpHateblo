@@ -1,3 +1,4 @@
+using UpHateblo.Lib.Entry.Post;
 using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
 using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
@@ -59,7 +60,7 @@ public class EditableEntryOperatorTests
     [Fact]
     public void EditableEqualsEntry_WhenBaseFieldsMatch()
     {
-        var entry = new Lib.Entry.Post.Entry(
+        var entry = new PostableEntry(
             Title: BaseEditable.Title,
             Category: [.. BaseEditable.Category],
             Content: BaseEditable.Content,
@@ -76,7 +77,7 @@ public class EditableEntryOperatorTests
     [Fact]
     public void EditableNotEqualsEntry_WhenBaseFieldDiffers()
     {
-        var entryDifferentTitle = new Lib.Entry.Post.Entry(
+        var entryDifferentTitle = new PostableEntry(
             Title: BaseEditable.Title + "!",
             Category: [.. BaseEditable.Category],
             Content: BaseEditable.Content,
@@ -113,7 +114,7 @@ public class EditableEntryOperatorTests
     [Fact]
     public void EditableEqualsEntry_WhenCategoryOrderDiffers()
     {
-        var entry = new Lib.Entry.Post.Entry(
+        var entry = new PostableEntry(
             Title: BaseEditable.Title,
             Category: ["c#", "tech"],
             Content: BaseEditable.Content,

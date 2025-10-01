@@ -1,5 +1,6 @@
 using Equatable.Attributes;
 using UpHateblo.Lib.Entry.Edit;
+using UpHateblo.Lib.Entry.Post;
 
 namespace UpHateblo.Lib.Entry.List;
 
@@ -41,9 +42,9 @@ public partial record FetchedEntry(
     public static bool operator !=(FetchedEntry fetched, EditableEntry editable) =>
         !(fetched == editable);
 
-    public static bool operator ==(FetchedEntry fetched, Post.Entry entry)
+    public static bool operator ==(FetchedEntry fetched, PostableEntry postable)
     {
-        var x = new Post.Entry(
+        var x = new PostableEntry(
             Title: fetched.Title,
             Category: fetched.Category,
             Content: fetched.Content,
@@ -52,9 +53,9 @@ public partial record FetchedEntry(
             Draft: fetched.AbsoluteDraft,
             Preview: fetched.AbsolutePreview
         );
-        return x == entry;
+        return x == postable;
     }
 
-    public static bool operator !=(FetchedEntry fetched, Post.Entry entry) =>
-        !(fetched == entry);
+    public static bool operator !=(FetchedEntry fetched, PostableEntry postable) =>
+        !(fetched == postable);
 }

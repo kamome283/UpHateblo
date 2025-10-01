@@ -1,4 +1,5 @@
 using System.Xml.Linq;
+using UpHateblo.Lib.Entry.Post;
 using UpHateblo.Lib.Shared;
 using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
@@ -10,7 +11,7 @@ namespace UpHateblo.Lib.Entry.Shared;
 /// </remarks>
 internal static class PostingEntrySchema
 {
-    public static XDocument Serialize(BlogConfig blog, Post.Entry entry)
+    public static XDocument Serialize(BlogConfig blog, PostableEntry entry)
     {
         return new XDocument(
             new XElement(AtomNs + "entry",

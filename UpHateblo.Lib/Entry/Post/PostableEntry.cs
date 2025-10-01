@@ -7,7 +7,7 @@ using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 namespace UpHateblo.Lib.Entry.Post;
 
 [Equatable]
-public partial record Entry(
+public partial record PostableEntry(
     string Title,
     [property: HashSetEquality] HashSet<string> Category,
     string Content,
@@ -17,26 +17,26 @@ public partial record Entry(
     bool? Preview
 )
 {
-    public static bool operator ==(Entry entry, FetchedEntry fetched)
+    public static bool operator ==(PostableEntry postable, FetchedEntry fetched)
     {
-        return fetched == entry;
+        return fetched == postable;
     }
 
-    public static bool operator !=(Entry entry, FetchedEntry fetched) =>
-        !(entry == fetched);
+    public static bool operator !=(PostableEntry postable, FetchedEntry fetched) =>
+        !(postable == fetched);
 
-    public static bool operator ==(Entry entry, EditableEntry editable)
+    public static bool operator ==(PostableEntry postable, EditableEntry editable)
     {
-        return editable == entry;
+        return editable == postable;
     }
 
-    public static bool operator !=(Entry entry, EditableEntry editable) =>
-        !(entry == editable);
+    public static bool operator !=(PostableEntry postable, EditableEntry editable) =>
+        !(postable == editable);
 }
 
-public static class EntryExtensions
+public static class PostableEntryExtensions
 {
-    public static Entry Materialize(this MaybeEntry maybeEntry)
+    public static PostableEntry Materialize(this MaybeEntry maybeEntry)
     {
         var lackingProperties = LackingProperties(maybeEntry);
         if (lackingProperties.Count != 0)
@@ -44,7 +44,7 @@ public static class EntryExtensions
                 "Missing properties: " + string.Join(", ", lackingProperties)
             );
 
-        return new Entry(
+        return new PostableEntry(
             maybeEntry.Title!,
             maybeEntry.Category!,
             maybeEntry.Content!,
