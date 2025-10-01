@@ -1,7 +1,4 @@
-using UpHateblo.Lib.Entities;
-using UpHateblo.Lib.Http;
-
-namespace UpHateblo.Lib.Commands;
+namespace UpHateblo.Lib.Shared;
 
 internal static class CommandHelper
 {

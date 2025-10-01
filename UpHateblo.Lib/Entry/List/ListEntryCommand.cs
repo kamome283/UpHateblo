@@ -1,10 +1,8 @@
 using System.Xml.Linq;
-using UpHateblo.Lib.Entities;
-using UpHateblo.Lib.Http;
-using UpHateblo.Lib.Schema;
-using static UpHateblo.Lib.Schema.SchemaNamespaces;
+using UpHateblo.Lib.Shared;
+using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
-namespace UpHateblo.Lib.Commands;
+namespace UpHateblo.Lib.Entry.List;
 
 public static class ListEntryCommand
 {

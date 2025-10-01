@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Shared;
 
 namespace UpHateblo.Lib.Tests.Commands;
 

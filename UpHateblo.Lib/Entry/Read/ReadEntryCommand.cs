@@ -1,10 +1,9 @@
 using System.Text;
 using System.Text.RegularExpressions;
-using UpHateblo.Lib.Entities;
 using VYaml.Annotations;
 using VYaml.Serialization;
 
-namespace UpHateblo.Lib.Commands;
+namespace UpHateblo.Lib.Entry.Read;
 
 public static class ReadEntryCommand
 {

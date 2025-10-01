@@ -1,7 +1,7 @@
 using Equatable.Attributes;
 using VYaml.Annotations;
 
-namespace UpHateblo.Lib.Entities;
+namespace UpHateblo.Lib.Entry.Read;
 
 /// <summary>
 ///     ファイルやCLIのパラメーターから読み出すエントリーの断片

@@ -1,8 +1,8 @@
 using System.Xml.Linq;
-using UpHateblo.Lib.Entities;
-using static UpHateblo.Lib.Schema.SchemaNamespaces;
+using UpHateblo.Lib.Shared;
+using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
-namespace UpHateblo.Lib.Schema;
+namespace UpHateblo.Lib.Entry.Shared;
 
 /// <remarks>
 ///     Reference:
@@ -10,7 +10,7 @@ namespace UpHateblo.Lib.Schema;
 /// </remarks>
 internal static class PostingEntrySchema
 {
-    public static XDocument Serialize(BlogConfig blog, Entry entry)
+    public static XDocument Serialize(BlogConfig blog, Post.Entry entry)
     {
         return new XDocument(
             new XElement(AtomNs + "entry",

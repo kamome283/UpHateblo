@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using UpHateblo.Lib.Http;
+using UpHateblo.Lib.Shared;
 
 namespace UpHateblo.Lib.Tests.Http;
 

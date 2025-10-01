@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UpHateblo.Lib.Http;
+namespace UpHateblo.Lib.Shared;
 
 /// <summary>
 ///     WSSE認証の認証用文字列を作成するためのクラス

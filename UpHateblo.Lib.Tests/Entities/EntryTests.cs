@@ -1,10 +1,8 @@
-using UpHateblo.Lib.Entities;
-
 namespace UpHateblo.Lib.Tests.Entities;
 
 public class EntryTests
 {
-    private static readonly Entry BaseEntry = new(
+    private static readonly Entry.Post.Entry BaseEntry = new(
         Title: "Title",
         Category: ["tech", "c#"],
         Content: "Content",

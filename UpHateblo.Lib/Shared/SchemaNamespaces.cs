@@ -1,6 +1,6 @@
 using System.Xml.Linq;
 
-namespace UpHateblo.Lib.Schema;
+namespace UpHateblo.Lib.Shared;
 
 internal static class SchemaNamespaces
 {

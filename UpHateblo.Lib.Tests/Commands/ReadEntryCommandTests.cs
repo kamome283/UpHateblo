@@ -1,6 +1,6 @@
-using UpHateblo.Lib.Commands;
-using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Entry.Read;
 using VYaml.Serialization;
+using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
 namespace UpHateblo.Lib.Tests.Commands;
 

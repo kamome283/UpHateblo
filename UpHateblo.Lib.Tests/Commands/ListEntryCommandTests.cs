@@ -1,4 +1,4 @@
-using UpHateblo.Lib.Commands;
+using UpHateblo.Lib.Entry.List;
 
 namespace UpHateblo.Lib.Tests.Commands;
 

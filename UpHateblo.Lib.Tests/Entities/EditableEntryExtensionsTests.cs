@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Entry.Edit;
+using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
+using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
 namespace UpHateblo.Lib.Tests.Entities;
 

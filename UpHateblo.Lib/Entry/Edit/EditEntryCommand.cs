@@ -1,8 +1,7 @@
-using UpHateblo.Lib.Entities;
-using UpHateblo.Lib.Http;
-using UpHateblo.Lib.Schema;
+using UpHateblo.Lib.Entry.Shared;
+using UpHateblo.Lib.Shared;
 
-namespace UpHateblo.Lib.Commands;
+namespace UpHateblo.Lib.Entry.Edit;
 
 public static class EditEntryCommand
 {

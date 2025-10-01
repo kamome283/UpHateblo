@@ -1,10 +1,9 @@
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
-using UpHateblo.Lib.Entities;
-using static UpHateblo.Lib.Schema.SchemaNamespaces;
+using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
-namespace UpHateblo.Lib.Schema;
+namespace UpHateblo.Lib.Entry.List;
 
 internal static class FetchedEntrySchema
 {

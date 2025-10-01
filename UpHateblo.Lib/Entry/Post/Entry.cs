@@ -1,7 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Equatable.Attributes;
+using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
+using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
+using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
-namespace UpHateblo.Lib.Entities;
+namespace UpHateblo.Lib.Entry.Post;
 
 [Equatable]
 public partial record Entry(

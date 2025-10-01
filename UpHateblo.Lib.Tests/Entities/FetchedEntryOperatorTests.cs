@@ -1,4 +1,5 @@
-using UpHateblo.Lib.Entities;
+using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
+using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
 namespace UpHateblo.Lib.Tests.Entities;
 
@@ -56,7 +57,7 @@ public class FetchedEntryOperatorTests
     [Fact]
     public void FetchedEqualsEntry_WhenBaseFieldsMatch()
     {
-        var entry = new Entry(
+        var entry = new Entry.Post.Entry(
             Title: BaseFetched.Title,
             Category: [.. BaseFetched.Category],
             Content: BaseFetched.Content,
@@ -73,7 +74,7 @@ public class FetchedEntryOperatorTests
     [Fact]
     public void FetchedNotEqualsEntry_WhenBaseFieldDiffers()
     {
-        var entryDifferentTitle = new Entry(
+        var entryDifferentTitle = new Entry.Post.Entry(
             Title: BaseFetched.Title + "!",
             Category: [.. BaseFetched.Category],
             Content: BaseFetched.Content,
@@ -108,7 +109,7 @@ public class FetchedEntryOperatorTests
     [Fact]
     public void FetchedEqualsEntry_WhenCategoryOrderDiffers()
     {
-        var entry = new Entry(
+        var entry = new Entry.Post.Entry(
             Title: BaseFetched.Title,
             Category: ["c#", "tech"],
             Content: BaseFetched.Content,

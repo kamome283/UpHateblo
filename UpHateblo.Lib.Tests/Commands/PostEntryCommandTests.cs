@@ -1,5 +1,4 @@
-using UpHateblo.Lib.Commands;
-using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Entry.Post;
 
 namespace UpHateblo.Lib.Tests.Commands;
 
@@ -11,7 +10,7 @@ public class PostEntryCommandTests : WebRequestTestBase
     public async Task ItCanPostEntry()
     {
         var updated = DateTime.Now;
-        Entry entry = new(
+        Entry.Post.Entry entry = new(
             Title: "PostCommandTest",
             Category: ["UpHateblo", "Post", "Test"],
             Content: $"""

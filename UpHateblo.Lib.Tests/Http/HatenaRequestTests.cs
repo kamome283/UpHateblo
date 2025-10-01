@@ -1,5 +1,5 @@
 using System.Xml.Linq;
-using UpHateblo.Lib.Http;
+using UpHateblo.Lib.Shared;
 
 namespace UpHateblo.Lib.Tests.Http;
 

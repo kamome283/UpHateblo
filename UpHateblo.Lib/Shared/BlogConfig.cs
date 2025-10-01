@@ -1,4 +1,4 @@
-namespace UpHateblo.Lib.Entities;
+namespace UpHateblo.Lib.Shared;
 
 public record BlogConfig(
     string BlogId,

@@ -1,5 +1,5 @@
-using UpHateblo.Lib.Commands;
-using UpHateblo.Lib.Entities;
+using UpHateblo.Lib.Entry.Edit;
+using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
 
 namespace UpHateblo.Lib.Tests.Commands;
 

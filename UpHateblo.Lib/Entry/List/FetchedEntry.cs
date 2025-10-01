@@ -1,6 +1,7 @@
 using Equatable.Attributes;
+using UpHateblo.Lib.Entry.Edit;
 
-namespace UpHateblo.Lib.Entities;
+namespace UpHateblo.Lib.Entry.List;
 
 // 基底クラスではnullableなフィールドを派生クラスでnon-nullableなフィールドとして再定義することは許可されていない
 // そのため基底クラスではnullableなフィールドのnon-nullableなバージョンを`Absolute...`として定義している
@@ -40,9 +41,9 @@ public partial record FetchedEntry(
     public static bool operator !=(FetchedEntry fetched, EditableEntry editable) =>
         !(fetched == editable);
 
-    public static bool operator ==(FetchedEntry fetched, Entry entry)
+    public static bool operator ==(FetchedEntry fetched, Post.Entry entry)
     {
-        var x = new Entry(
+        var x = new Post.Entry(
             Title: fetched.Title,
             Category: fetched.Category,
             Content: fetched.Content,
@@ -54,6 +55,6 @@ public partial record FetchedEntry(
         return x == entry;
     }
 
-    public static bool operator !=(FetchedEntry fetched, Entry entry) =>
+    public static bool operator !=(FetchedEntry fetched, Post.Entry entry) =>
         !(fetched == entry);
 }

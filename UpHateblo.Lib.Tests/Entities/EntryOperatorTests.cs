@@ -1,10 +1,11 @@
-using UpHateblo.Lib.Entities;
+using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
+using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
 namespace UpHateblo.Lib.Tests.Entities;
 
 public class EntryOperatorTests
 {
-    private static readonly Entry BaseEntry = new(
+    private static readonly Entry.Post.Entry BaseEntry = new(
         Title: "Test Title",
         Category: ["tech", "c#"],
         Content: "Test content",

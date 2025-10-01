@@ -2,7 +2,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Xml.Linq;
 
-namespace UpHateblo.Lib.Http;
+namespace UpHateblo.Lib.Shared;
 
 internal class HatenaRequest : HttpRequestMessage
 {

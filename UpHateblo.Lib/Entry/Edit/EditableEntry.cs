@@ -1,7 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Equatable.Attributes;
+using UpHateblo.Lib.Entry.Post;
+using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
+using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
-namespace UpHateblo.Lib.Entities;
+namespace UpHateblo.Lib.Entry.Edit;
 
 [Equatable]
 public partial record EditableEntry(
@@ -15,7 +18,7 @@ public partial record EditableEntry(
     DateTime? Date,
     bool? Draft,
     bool? Preview
-) : Entry(Title, Category, Content, CustomPath, Date, Draft, Preview)
+) : Post.Entry(Title, Category, Content, CustomPath, Date, Draft, Preview)
 {
     public static bool operator ==(EditableEntry editable, FetchedEntry fetched)
     {
@@ -25,9 +28,9 @@ public partial record EditableEntry(
     public static bool operator !=(EditableEntry editable, FetchedEntry fetched) =>
         !(editable == fetched);
 
-    public static bool operator ==(EditableEntry editable, Entry entry)
+    public static bool operator ==(EditableEntry editable, Post.Entry entry)
     {
-        var x = new Entry(
+        var x = new Post.Entry(
             Title: editable.Title,
             Category: editable.Category,
             Content: editable.Content,
@@ -39,7 +42,7 @@ public partial record EditableEntry(
         return x == entry;
     }
 
-    public static bool operator !=(EditableEntry editable, Entry entry) =>
+    public static bool operator !=(EditableEntry editable, Post.Entry entry) =>
         !(editable == entry);
 }
 

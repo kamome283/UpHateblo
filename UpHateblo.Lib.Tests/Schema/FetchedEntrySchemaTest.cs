@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
-using UpHateblo.Lib.Entities;
-using UpHateblo.Lib.Schema;
-using static UpHateblo.Lib.Schema.SchemaNamespaces;
+using UpHateblo.Lib.Entry.List;
+using static UpHateblo.Lib.Shared.SchemaNamespaces;
+using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
 namespace UpHateblo.Lib.Tests.Schema;
 
