@@ -5,8 +5,6 @@ namespace UpHateblo.Lib.Tests.Entry.List;
 
 public class ListEntryTests : WebRequestTestBase
 {
-    private static readonly HttpClient HttpClient = new();
-
     [Fact]
     public async Task ItCanListEntries()
     {

@@ -13,6 +13,7 @@ public abstract class WebRequestTestBase
     // TODO: このプロパティはEntryのコマンドに関するものなので、より適切な場所に移動させたい
     // この名前空間のテストは結合テストでないので、テスト対象のエントリーは決め打ちにしている
     protected const string FixedTargetEntryId = "6802888565257240236";
+    protected static readonly HttpClient HttpClient = new();
 
     protected WebRequestTestBase()
     {

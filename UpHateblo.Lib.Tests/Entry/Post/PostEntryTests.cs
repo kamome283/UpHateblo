@@ -6,8 +6,6 @@ namespace UpHateblo.Lib.Tests.Entry.Post;
 
 public class PostEntryTests : WebRequestTestBase
 {
-    private static readonly HttpClient HttpClient = new();
-
     [Fact]
     public async Task ItCanPostEntry()
     {

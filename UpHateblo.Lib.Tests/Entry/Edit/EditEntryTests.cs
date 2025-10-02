@@ -5,8 +5,6 @@ namespace UpHateblo.Lib.Tests.Entry.Edit;
 
 public class EditEntryTests : WebRequestTestBase
 {
-    private static readonly HttpClient HttpClient = new();
-
     [Fact]
     public async Task ItCanEditEntry()
     {

@@ -7,8 +7,6 @@ namespace UpHateblo.Lib.Tests.Entry.Delete;
 
 public class DeleteEntryTests : WebRequestTestBase
 {
-    private static readonly HttpClient HttpClient = new();
-
     [Fact]
     public async Task ItCanDeleteEntry()
     {
