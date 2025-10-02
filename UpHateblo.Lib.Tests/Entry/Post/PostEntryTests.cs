@@ -11,6 +11,7 @@ public class PostEntryTests : WebRequestTestBase
     {
         var entry = EntityExamples.PostableEntryExample();
         var fetched = await PostEntry.Run(HttpClient, BlogConfig, entry);
+        EntryIdsToDispose.Enqueue(fetched.EntryId);
 
         Assert.Equal(entry.Title, fetched.Title);
         Assert.Equal(entry.Category, fetched.Category);
