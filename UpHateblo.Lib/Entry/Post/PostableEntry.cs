@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Equatable.Attributes;
-using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
-using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
-using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
+using UpHateblo.Lib.Entry.Edit;
+using UpHateblo.Lib.Entry.List;
+using UpHateblo.Lib.Entry.Read;
 
 namespace UpHateblo.Lib.Entry.Post;
 

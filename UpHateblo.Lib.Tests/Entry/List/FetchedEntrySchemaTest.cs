@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using UpHateblo.Lib.Entry.List;
 using static UpHateblo.Lib.Shared.SchemaNamespaces;
-using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
 namespace UpHateblo.Lib.Tests.Entry.List;
 

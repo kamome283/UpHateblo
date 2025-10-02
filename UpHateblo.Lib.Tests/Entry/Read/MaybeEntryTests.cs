@@ -1,4 +1,4 @@
-using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
+using UpHateblo.Lib.Entry.Read;
 
 namespace UpHateblo.Lib.Tests.Entry.Read;
 

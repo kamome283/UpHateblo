@@ -1,4 +1,4 @@
-using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
+using UpHateblo.Lib.Entry.List;
 
 namespace UpHateblo.Lib.Tests.Entry.List;
 

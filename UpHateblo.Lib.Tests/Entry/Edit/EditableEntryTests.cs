@@ -1,4 +1,4 @@
-using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
+using UpHateblo.Lib.Entry.Edit;
 
 namespace UpHateblo.Lib.Tests.Entry.Edit;
 
