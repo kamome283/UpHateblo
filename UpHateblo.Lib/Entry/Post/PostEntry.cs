@@ -1,5 +1,4 @@
 using System.Xml.Linq;
-using UpHateblo.Lib.Entry.List;
 using UpHateblo.Lib.Entry.Shared;
 using UpHateblo.Lib.Shared;
 

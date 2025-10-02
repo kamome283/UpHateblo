@@ -2,7 +2,7 @@ using Equatable.Attributes;
 using UpHateblo.Lib.Entry.Edit;
 using UpHateblo.Lib.Entry.Post;
 
-namespace UpHateblo.Lib.Entry.List;
+namespace UpHateblo.Lib.Entry.Shared;
 
 [Equatable]
 public partial record FetchedEntry(
