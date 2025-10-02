@@ -1,4 +1,5 @@
 using System.Xml.Linq;
+using UpHateblo.Lib.Entry.Shared;
 using UpHateblo.Lib.Shared;
 using static UpHateblo.Lib.Shared.SchemaNamespaces;
 

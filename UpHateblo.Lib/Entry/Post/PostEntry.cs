@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using UpHateblo.Lib.Entry.Shared;
 using UpHateblo.Lib.Shared;
 
@@ -5,7 +6,8 @@ namespace UpHateblo.Lib.Entry.Post;
 
 public static class PostEntry
 {
-    public static async Task Run(
+    /// <remarks>下書きではないエントリに対してプレビューフラグを指定しても無効。</remarks>
+    public static async Task<FetchedEntry> Run(
         HttpClient httpClient,
         BlogConfig blog,
         PostableEntry entry,
@@ -19,5 +21,11 @@ public static class PostEntry
 
         var res = await httpClient.SendAsync(request);
         res.EnsureSuccessStatusCode();
+
+        var content = await res.Content.ReadAsStringAsync();
+        var xml = XDocument.Parse(content);
+        var root = xml.Root!;
+        var fetchedEntry = FetchedEntrySchema.Deserialize(root);
+        return fetchedEntry;
     }
 }

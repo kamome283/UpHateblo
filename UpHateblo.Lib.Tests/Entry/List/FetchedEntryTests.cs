@@ -1,4 +1,4 @@
-using UpHateblo.Lib.Entry.List;
+using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.List;
 

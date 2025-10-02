@@ -3,7 +3,7 @@ using System.Xml;
 using System.Xml.Linq;
 using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
-namespace UpHateblo.Lib.Entry.List;
+namespace UpHateblo.Lib.Entry.Shared;
 
 internal static class FetchedEntrySchema
 {

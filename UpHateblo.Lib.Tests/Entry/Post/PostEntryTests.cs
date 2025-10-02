@@ -18,11 +18,20 @@ public class PostEntryTests : WebRequestTestBase
                       This is a test content of post command.
                       Posted at {updated}
                       """,
-            CustomPath: null,
+            CustomPath: Guid.CreateVersion7().ToString(),
             Date: updated,
             Draft: true,
             Preview: false
         );
-        await PostEntry.Run(HttpClient, BlogConfig, entry);
+        var fetched = await PostEntry.Run(HttpClient, BlogConfig, entry);
+
+        Assert.Equal(entry.Title, fetched.Title);
+        Assert.Equal(entry.Category, fetched.Category);
+        Assert.Equal(entry.Content, fetched.Content);
+        Assert.Equal(entry.CustomPath, fetched.CustomPath);
+        Assert.Equal(entry.Date, fetched.Date);
+        Assert.Equal(entry.Draft, fetched.Draft);
+        Assert.Equal(entry.Preview, fetched.Preview);
+        Assert.NotEmpty(fetched.EntryId);
     }
 }

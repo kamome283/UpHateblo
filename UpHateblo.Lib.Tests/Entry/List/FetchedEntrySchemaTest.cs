@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
-using UpHateblo.Lib.Entry.List;
+using UpHateblo.Lib.Entry.Shared;
 using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
 namespace UpHateblo.Lib.Tests.Entry.List;

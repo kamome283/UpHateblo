@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using UpHateblo.Lib.Entry.Shared;
 using UpHateblo.Lib.Shared;
 
@@ -5,7 +6,9 @@ namespace UpHateblo.Lib.Entry.Edit;
 
 public static class EditEntry
 {
-    public static async Task Run(
+    /// <remarks>下書きではないエントリに対してプレビューフラグを指定しても無効。</remarks>
+    /// <remarks>一度プレビューフラグを有効にした場合、API経由でプレビューを無効にすることはできない。</remarks>
+    public static async Task<FetchedEntry> Run(
         HttpClient httpClient,
         BlogConfig blog,
         EditableEntry entry,
@@ -20,5 +23,11 @@ public static class EditEntry
 
         var res = await httpClient.SendAsync(request);
         res.EnsureSuccessStatusCode();
+
+        var content = await res.Content.ReadAsStringAsync();
+        var xml = XDocument.Parse(content);
+        var root = xml.Root!;
+        var fetchedEntry = FetchedEntrySchema.Deserialize(root);
+        return fetchedEntry;
     }
 }
