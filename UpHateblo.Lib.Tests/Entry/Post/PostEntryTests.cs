@@ -1,4 +1,5 @@
 using UpHateblo.Lib.Entry.Post;
+using UpHateblo.Lib.Tests.Entry.Shared;
 using UpHateblo.Lib.Tests.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.Post;
@@ -10,19 +11,7 @@ public class PostEntryTests : WebRequestTestBase
     [Fact]
     public async Task ItCanPostEntry()
     {
-        var updated = DateTime.Now;
-        PostableEntry entry = new(
-            Title: "PostCommandTest",
-            Category: ["UpHateblo", "Post", "Test"],
-            Content: $"""
-                      This is a test content of post command.
-                      Posted at {updated}
-                      """,
-            CustomPath: Guid.CreateVersion7().ToString(),
-            Date: updated,
-            Draft: true,
-            Preview: false
-        );
+        var entry = EntityExamples.PostableEntryExample();
         var fetched = await PostEntry.Run(HttpClient, BlogConfig, entry);
 
         Assert.Equal(entry.Title, fetched.Title);
