@@ -122,6 +122,8 @@ public class FetchedEntrySchemaTest
             Assert.True(entry.Preview);
             Assert.Equal(DateTime.Parse("2022-09-27T15:55:17+09:00"), entry.Published);
             Assert.Equal("text/x-markdown", entry.ContentType);
+            Assert.Equal("https://kamome283.hatenablog.com/draft/entry/qESFitds1djAmaB3ZhwO8qCWhT4",
+                entry.PreviewUrl);
         }
 
         void TestHasCategories(FetchedEntry entry) =>

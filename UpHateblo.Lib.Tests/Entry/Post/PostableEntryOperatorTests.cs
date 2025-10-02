@@ -29,7 +29,8 @@ public class PostableEntryOperatorTests
             Draft: BaseEntry.Draft!.Value,
             Preview: BaseEntry.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
-            ContentType: "text/x-markdown"
+            ContentType: "text/x-markdown",
+            PreviewUrl: null
         );
 
         Assert.True(BaseEntry == fetched);
@@ -49,7 +50,8 @@ public class PostableEntryOperatorTests
             Draft: BaseEntry.Draft!.Value,
             Preview: BaseEntry.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
-            ContentType: "text/x-markdown"
+            ContentType: "text/x-markdown",
+            PreviewUrl: null
         );
 
         Assert.False(BaseEntry == fetchedDifferentCategory);
@@ -105,7 +107,8 @@ public class PostableEntryOperatorTests
             Draft: BaseEntry.Draft!.Value,
             Preview: BaseEntry.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
-            ContentType: "text/x-markdown"
+            ContentType: "text/x-markdown",
+            PreviewUrl: null
         );
 
         Assert.True(BaseEntry == fetched);
