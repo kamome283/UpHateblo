@@ -19,11 +19,20 @@ public class EditEntryTests : WebRequestTestBase
                       This is a test content of edit command.
                       Updated at {updated}
                       """,
-            CustomPath: null,
+            CustomPath: Guid.CreateVersion7().ToString(),
             Date: updated,
             Draft: true,
-            Preview: false
+            Preview: true
         );
-        await EditEntry.Run(HttpClient, BlogConfig, entry);
+        var fetched = await EditEntry.Run(HttpClient, BlogConfig, entry);
+
+        Assert.Equal(entry.EntryId, fetched.EntryId);
+        Assert.Equal(entry.Title, fetched.Title);
+        Assert.Equal(entry.Category, fetched.Category);
+        Assert.Equal(entry.Content, fetched.Content);
+        Assert.Equal(entry.CustomPath, fetched.CustomPath);
+        Assert.Equal(entry.Date, fetched.Date);
+        Assert.Equal(entry.Draft, fetched.Draft);
+        Assert.Equal(entry.Preview, fetched.Preview);
     }
 }

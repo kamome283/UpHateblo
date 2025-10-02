@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+using UpHateblo.Lib.Entry.List;
 using UpHateblo.Lib.Entry.Shared;
 using UpHateblo.Lib.Shared;
 
@@ -6,6 +8,7 @@ namespace UpHateblo.Lib.Entry.Edit;
 public static class EditEntry
 {
     public static async Task Run(
+    public static async Task<FetchedEntry> Run(
         HttpClient httpClient,
         BlogConfig blog,
         EditableEntry entry,
@@ -20,5 +23,11 @@ public static class EditEntry
 
         var res = await httpClient.SendAsync(request);
         res.EnsureSuccessStatusCode();
+
+        var content = await res.Content.ReadAsStringAsync();
+        var xml = XDocument.Parse(content);
+        var root = xml.Root!;
+        var fetchedEntry = FetchedEntrySchema.Deserialize(root);
+        return fetchedEntry;
     }
 }
