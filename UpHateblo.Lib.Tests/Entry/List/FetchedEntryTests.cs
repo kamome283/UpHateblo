@@ -14,7 +14,8 @@ public class FetchedEntryTests
         Draft: false,
         Preview: false,
         Published: DateTime.Parse("2023-10-01"),
-        ContentType: "text/x-markdown"
+        ContentType: "text/x-markdown",
+        PreviewUrl: null
     );
 
     [Fact]

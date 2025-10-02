@@ -17,7 +17,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var right = new MaybeEntry(
             EntryId: null,
@@ -29,7 +31,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var merged = left.Merge(right);
 
@@ -50,7 +54,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var e1 = new MaybeEntry(
             EntryId: null,
@@ -62,7 +68,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var e2 = new MaybeEntry(
             EntryId: null,
@@ -74,7 +82,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var e3 = new MaybeEntry(
             EntryId: null,
@@ -86,7 +96,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var merged = left.Merge(e1, e2, e3);
 
@@ -106,7 +118,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var e1 = new MaybeEntry(
             EntryId: null,
@@ -118,7 +132,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var e2 = new MaybeEntry(
             EntryId: null,
@@ -130,7 +146,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var merged = left.Merge(e1, e2);
 
@@ -150,7 +168,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var e1 = new MaybeEntry(
             EntryId: "id-1",
@@ -162,7 +182,9 @@ public class MaybeEntryExtensionsTests
             Draft: true,
             Preview: null,
             Published: null,
-            ContentType: "text/x-markdown");
+            ContentType: "text/x-markdown",
+            PreviewUrl: "https://example.com/preview"
+        );
 
         var e2 = new MaybeEntry(
             EntryId: null,
@@ -174,7 +196,9 @@ public class MaybeEntryExtensionsTests
             Draft: null,
             Preview: true,
             Published: DateTime.Parse("2024-01-01"),
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var merged = left.Merge(e1, e2);
 
@@ -188,5 +212,6 @@ public class MaybeEntryExtensionsTests
         Assert.True(merged.Preview);
         Assert.Equal(DateTime.Parse("2024-01-01"), merged.Published);
         Assert.Equal("text/x-markdown", merged.ContentType);
+        Assert.Equal("https://example.com/preview", merged.PreviewUrl);
     }
 }

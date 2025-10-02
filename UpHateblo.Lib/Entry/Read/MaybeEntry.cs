@@ -18,7 +18,8 @@ public partial record MaybeEntry(
     bool? Draft,
     bool? Preview,
     DateTime? Published,
-    string? ContentType
+    string? ContentType,
+    string? PreviewUrl
 );
 
 public static class MaybeEntryExtensions
@@ -38,10 +39,12 @@ public static class MaybeEntryExtensions
             var preview = result.Preview ?? e.Preview;
             var published = result.Published ?? e.Published;
             var contentType = result.ContentType ?? e.ContentType;
+            var previewUrl = result.PreviewUrl ?? e.PreviewUrl;
 
             result = new MaybeEntry(EntryId: entryId, Title: title, Category: category,
                 Content: content, CustomPath: customPath, Date: date, Draft: draft,
-                Preview: preview, Published: published, ContentType: contentType);
+                Preview: preview, Published: published, ContentType: contentType,
+                PreviewUrl: previewUrl);
         }
 
         return result;

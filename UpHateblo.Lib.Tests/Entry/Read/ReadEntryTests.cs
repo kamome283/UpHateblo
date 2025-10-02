@@ -25,9 +25,10 @@ public class ReadEntryTests
             CustomPath: "test/url-path",
             Date: DateTime.Parse("2025-01-09T19:07:00+09:00"),
             Draft: true,
-            Preview: false,
+            Preview: true,
             Published: null,
-            ContentType: null
+            ContentType: null,
+            PreviewUrl: "https://example.com/preview/url"
         );
         string content = """
                          ---
@@ -38,7 +39,8 @@ public class ReadEntryTests
                          Date: 2025-01-09T19:07:00+09:00
                          CustomPath: test/url-path
                          Draft: true
-                         Preview: false
+                         Preview: true
+                         PreviewUrl: https://example.com/preview/url
                          ---
                          This is a test,
                          and this is the second line of the content.
@@ -79,7 +81,8 @@ public class ReadEntryTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null
+            ContentType: null,
+            PreviewUrl: null
         );
         var actual = ReadEntry.Run(content);
         Assert.Equal(expected, actual);

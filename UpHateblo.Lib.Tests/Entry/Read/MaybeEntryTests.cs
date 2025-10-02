@@ -14,7 +14,8 @@ public class MaybeEntryTests
         Draft: false,
         Preview: false,
         Published: DateTime.Parse("2023-10-01"),
-        ContentType: "text/html"
+        ContentType: "text/html",
+        PreviewUrl: null
     );
 
     [Fact]

@@ -27,7 +27,8 @@ internal static class FetchedEntrySchema
                 Draft: entryElement.ParseDraft(),
                 Preview: entryElement.ParseAbsolutePreview(),
                 Published: entryElement.ParsePublished(),
-                ContentType: contentType
+                ContentType: contentType,
+                PreviewUrl: entryElement.ParsePreviewUrl()
             );
             return entry;
         }
@@ -83,6 +84,13 @@ internal static class FetchedEntrySchema
     private static DateTime ParsePublished(this XElement root)
     {
         return DateTime.Parse(root.Element(AtomNs + "published")!.Value);
+    }
+
+    private static string? ParsePreviewUrl(this XElement root)
+    {
+        var node = root.Elements(AtomNs + "link")
+            .FirstOrDefault(x => x.Attribute("rel")?.Value == "preview");
+        return node?.Attribute("href")!.Value;
     }
 
     private static (string Content, string ContentType) ParseContentAndType(this XElement root)

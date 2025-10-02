@@ -19,7 +19,9 @@ public class PostableEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var ex =
             Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
@@ -39,7 +41,9 @@ public class PostableEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var ex =
             Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
@@ -59,7 +63,9 @@ public class PostableEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var ex =
             Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
@@ -79,7 +85,9 @@ public class PostableEntryExtensionsTests
             Draft: null,
             Preview: null,
             Published: null,
-            ContentType: null);
+            ContentType: null,
+            PreviewUrl: null
+        );
 
         var ex =
             Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
@@ -100,7 +108,9 @@ public class PostableEntryExtensionsTests
             Draft: true,
             Preview: false,
             Published: DateTime.Parse("2024-02-03T04:05:06Z").ToUniversalTime(),
-            ContentType: "text/x-markdown");
+            ContentType: "text/x-markdown",
+            PreviewUrl: null
+        );
 
         var entry = PostableEntryExtensions.Materialize(maybe);
 

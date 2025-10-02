@@ -15,7 +15,8 @@ public partial record FetchedEntry(
     bool Draft,
     bool Preview,
     DateTime Published,
-    string ContentType
+    string ContentType,
+    string? PreviewUrl
 )
 {
     public static bool operator ==(FetchedEntry fetched, EditableEntry editable)

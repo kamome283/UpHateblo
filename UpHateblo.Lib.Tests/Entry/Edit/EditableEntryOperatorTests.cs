@@ -30,7 +30,8 @@ public class EditableEntryOperatorTests
             Draft: BaseEditable.Draft!.Value,
             Preview: BaseEditable.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
-            ContentType: "text/x-markdown"
+            ContentType: "text/x-markdown",
+            PreviewUrl: null
         );
 
         Assert.True(BaseEditable == fetched);
@@ -50,7 +51,8 @@ public class EditableEntryOperatorTests
             Draft: BaseEditable.Draft!.Value,
             Preview: BaseEditable.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
-            ContentType: "text/x-markdown"
+            ContentType: "text/x-markdown",
+            PreviewUrl: null
         );
 
         Assert.False(BaseEditable == fetchedDifferentCategory);
@@ -104,7 +106,8 @@ public class EditableEntryOperatorTests
             Draft: BaseEditable.Draft!.Value,
             Preview: BaseEditable.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
-            ContentType: "text/x-markdown"
+            ContentType: "text/x-markdown",
+            PreviewUrl: null
         );
 
         Assert.True(BaseEditable == fetched);
