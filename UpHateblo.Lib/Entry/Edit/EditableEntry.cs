@@ -6,6 +6,7 @@ using MaybeEntry = UpHateblo.Lib.Entry.Read.MaybeEntry;
 
 namespace UpHateblo.Lib.Entry.Edit;
 
+/// <remarks>PostingEntrySchemaを使うためにPostableEntryのサブクラスにしている</remarks>
 [Equatable]
 public partial record EditableEntry(
     // Newly defined fields
