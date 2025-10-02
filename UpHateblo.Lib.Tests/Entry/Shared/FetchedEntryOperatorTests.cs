@@ -2,7 +2,7 @@ using UpHateblo.Lib.Entry.Edit;
 using UpHateblo.Lib.Entry.Post;
 using UpHateblo.Lib.Entry.Shared;
 
-namespace UpHateblo.Lib.Tests.Entry.List;
+namespace UpHateblo.Lib.Tests.Entry.Shared;
 
 public class FetchedEntryOperatorTests
 {

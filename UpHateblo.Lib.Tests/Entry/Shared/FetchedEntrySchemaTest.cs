@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using UpHateblo.Lib.Entry.Shared;
 using static UpHateblo.Lib.Shared.SchemaNamespaces;
 
-namespace UpHateblo.Lib.Tests.Entry.List;
+namespace UpHateblo.Lib.Tests.Entry.Shared;
 
 public class FetchedEntrySchemaTest
 {
