@@ -7,7 +7,8 @@ namespace UpHateblo.Lib.Entry.Edit;
 
 public static class EditEntry
 {
-    public static async Task Run(
+    /// <remarks>下書きではないエントリに対してプレビューフラグを指定しても無効。</remarks>
+    /// <remarks>一度プレビューフラグを有効にした場合、API経由でプレビューを無効にすることはできない。</remarks>
     public static async Task<FetchedEntry> Run(
         HttpClient httpClient,
         BlogConfig blog,

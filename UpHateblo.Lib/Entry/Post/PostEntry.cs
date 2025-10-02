@@ -7,7 +7,7 @@ namespace UpHateblo.Lib.Entry.Post;
 
 public static class PostEntry
 {
-    public static async Task Run(
+    /// <remarks>下書きではないエントリに対してプレビューフラグを指定しても無効。</remarks>
     public static async Task<FetchedEntry> Run(
         HttpClient httpClient,
         BlogConfig blog,
