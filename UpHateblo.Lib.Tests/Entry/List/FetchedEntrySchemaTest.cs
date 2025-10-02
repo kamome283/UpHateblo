@@ -117,10 +117,10 @@ public class FetchedEntrySchemaTest
                          First line.
                          Second line.
                          """, entry.Content);
-            Assert.Equal("01998a00-4a65-7eb1-9d79-ddb822fc17b5", entry.AbsoluteCustomPath);
-            Assert.Equal(DateTime.Parse("2023-01-01T00:00:00+09:00"), entry.AbsoluteDate);
-            Assert.True(entry.AbsoluteDraft);
-            Assert.True(entry.AbsolutePreview);
+            Assert.Equal("01998a00-4a65-7eb1-9d79-ddb822fc17b5", entry.CustomPath);
+            Assert.Equal(DateTime.Parse("2023-01-01T00:00:00+09:00"), entry.Date);
+            Assert.True(entry.Draft);
+            Assert.True(entry.Preview);
             Assert.Equal(DateTime.Parse("2022-09-27T15:55:17+09:00"), entry.Published);
             Assert.Equal("text/x-markdown", entry.ContentType);
         }

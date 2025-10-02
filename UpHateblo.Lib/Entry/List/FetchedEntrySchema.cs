@@ -22,10 +22,10 @@ internal static class FetchedEntrySchema
                 Title: entryElement.ParseTitle(),
                 Category: entryElement.ParseCategory(),
                 Content: content,
-                AbsoluteCustomPath: entryElement.ParseCustomPath(),
-                AbsoluteDate: entryElement.ParseUpdated(),
-                AbsoluteDraft: entryElement.ParseDraft(),
-                AbsolutePreview: entryElement.ParseAbsolutePreview(),
+                CustomPath: entryElement.ParseCustomPath(),
+                Date: entryElement.ParseUpdated(),
+                Draft: entryElement.ParseDraft(),
+                Preview: entryElement.ParseAbsolutePreview(),
                 Published: entryElement.ParsePublished(),
                 ContentType: contentType
             );

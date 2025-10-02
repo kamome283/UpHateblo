@@ -9,10 +9,10 @@ public class FetchedEntryTests
         Title: "Test Title",
         Category: ["tech", "c#"],
         Content: "Test content",
-        AbsoluteCustomPath: "/test/custom/path",
-        AbsoluteDate: DateTime.Parse("2023-10-02"),
-        AbsoluteDraft: false,
-        AbsolutePreview: false,
+        CustomPath: "/test/custom/path",
+        Date: DateTime.Parse("2023-10-02"),
+        Draft: false,
+        Preview: false,
         Published: DateTime.Parse("2023-10-01"),
         ContentType: "text/x-markdown"
     );

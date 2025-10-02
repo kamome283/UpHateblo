@@ -25,10 +25,10 @@ public class EditableEntryOperatorTests
             Title: BaseEditable.Title,
             Category: [.. BaseEditable.Category],
             Content: BaseEditable.Content,
-            AbsoluteCustomPath: BaseEditable.CustomPath!,
-            AbsoluteDate: BaseEditable.Date!.Value,
-            AbsoluteDraft: BaseEditable.Draft!.Value,
-            AbsolutePreview: BaseEditable.Preview!.Value,
+            CustomPath: BaseEditable.CustomPath!,
+            Date: BaseEditable.Date!.Value,
+            Draft: BaseEditable.Draft!.Value,
+            Preview: BaseEditable.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
             ContentType: "text/x-markdown"
         );
@@ -45,10 +45,10 @@ public class EditableEntryOperatorTests
             Title: BaseEditable.Title,
             Category: ["c#", "dotnet"],
             Content: BaseEditable.Content,
-            AbsoluteCustomPath: BaseEditable.CustomPath!,
-            AbsoluteDate: BaseEditable.Date!.Value,
-            AbsoluteDraft: BaseEditable.Draft!.Value,
-            AbsolutePreview: BaseEditable.Preview!.Value,
+            CustomPath: BaseEditable.CustomPath!,
+            Date: BaseEditable.Date!.Value,
+            Draft: BaseEditable.Draft!.Value,
+            Preview: BaseEditable.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
             ContentType: "text/x-markdown"
         );
@@ -99,10 +99,10 @@ public class EditableEntryOperatorTests
             Title: BaseEditable.Title,
             Category: ["c#", "tech"],
             Content: BaseEditable.Content,
-            AbsoluteCustomPath: BaseEditable.CustomPath!,
-            AbsoluteDate: BaseEditable.Date!.Value,
-            AbsoluteDraft: BaseEditable.Draft!.Value,
-            AbsolutePreview: BaseEditable.Preview!.Value,
+            CustomPath: BaseEditable.CustomPath!,
+            Date: BaseEditable.Date!.Value,
+            Draft: BaseEditable.Draft!.Value,
+            Preview: BaseEditable.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
             ContentType: "text/x-markdown"
         );
