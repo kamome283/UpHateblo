@@ -11,10 +11,10 @@ public class FetchedEntryOperatorTests
         Title: "Test Title",
         Category: ["tech", "c#"],
         Content: "Test content",
-        AbsoluteCustomPath: "/test/custom/path",
-        AbsoluteDate: DateTime.Parse("2023-10-02"),
-        AbsoluteDraft: false,
-        AbsolutePreview: false,
+        CustomPath: "/test/custom/path",
+        Date: DateTime.Parse("2023-10-02"),
+        Draft: false,
+        Preview: false,
         Published: DateTime.Parse("2023-10-01"),
         ContentType: "text/x-markdown"
     );
@@ -45,10 +45,10 @@ public class FetchedEntryOperatorTests
             Title: BaseFetched.Title,
             Category: ["c#", "dotnet"],
             Content: BaseFetched.Content,
-            CustomPath: BaseFetched.AbsoluteCustomPath,
-            Date: BaseFetched.AbsoluteDate,
-            Draft: BaseFetched.AbsoluteDraft,
-            Preview: BaseFetched.AbsolutePreview
+            CustomPath: BaseFetched.CustomPath,
+            Date: BaseFetched.Date,
+            Draft: BaseFetched.Draft,
+            Preview: BaseFetched.Preview
         );
 
         Assert.False(BaseFetched == editableDifferentCategory);
@@ -62,10 +62,10 @@ public class FetchedEntryOperatorTests
             Title: BaseFetched.Title,
             Category: [.. BaseFetched.Category],
             Content: BaseFetched.Content,
-            CustomPath: BaseFetched.AbsoluteCustomPath,
-            Date: BaseFetched.AbsoluteDate,
-            Draft: BaseFetched.AbsoluteDraft,
-            Preview: BaseFetched.AbsolutePreview
+            CustomPath: BaseFetched.CustomPath,
+            Date: BaseFetched.Date,
+            Draft: BaseFetched.Draft,
+            Preview: BaseFetched.Preview
         );
 
         Assert.True(BaseFetched == entry);
@@ -79,10 +79,10 @@ public class FetchedEntryOperatorTests
             Title: BaseFetched.Title + "!",
             Category: [.. BaseFetched.Category],
             Content: BaseFetched.Content,
-            CustomPath: BaseFetched.AbsoluteCustomPath,
-            Date: BaseFetched.AbsoluteDate,
-            Draft: BaseFetched.AbsoluteDraft,
-            Preview: BaseFetched.AbsolutePreview
+            CustomPath: BaseFetched.CustomPath,
+            Date: BaseFetched.Date,
+            Draft: BaseFetched.Draft,
+            Preview: BaseFetched.Preview
         );
 
         Assert.False(BaseFetched == entryDifferentTitle);
@@ -97,10 +97,10 @@ public class FetchedEntryOperatorTests
             Title: BaseFetched.Title,
             Category: ["c#", "tech"],
             Content: BaseFetched.Content,
-            CustomPath: BaseFetched.AbsoluteCustomPath,
-            Date: BaseFetched.AbsoluteDate,
-            Draft: BaseFetched.AbsoluteDraft,
-            Preview: BaseFetched.AbsolutePreview
+            CustomPath: BaseFetched.CustomPath,
+            Date: BaseFetched.Date,
+            Draft: BaseFetched.Draft,
+            Preview: BaseFetched.Preview
         );
 
         Assert.True(BaseFetched == editable);
@@ -114,10 +114,10 @@ public class FetchedEntryOperatorTests
             Title: BaseFetched.Title,
             Category: ["c#", "tech"],
             Content: BaseFetched.Content,
-            CustomPath: BaseFetched.AbsoluteCustomPath,
-            Date: BaseFetched.AbsoluteDate,
-            Draft: BaseFetched.AbsoluteDraft,
-            Preview: BaseFetched.AbsolutePreview
+            CustomPath: BaseFetched.CustomPath,
+            Date: BaseFetched.Date,
+            Draft: BaseFetched.Draft,
+            Preview: BaseFetched.Preview
         );
 
         Assert.True(BaseFetched == entry);

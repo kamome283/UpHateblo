@@ -24,10 +24,10 @@ public class PostableEntryOperatorTests
             Title: BaseEntry.Title,
             Category: [.. BaseEntry.Category],
             Content: BaseEntry.Content,
-            AbsoluteCustomPath: BaseEntry.CustomPath!,
-            AbsoluteDate: BaseEntry.Date!.Value,
-            AbsoluteDraft: BaseEntry.Draft!.Value,
-            AbsolutePreview: BaseEntry.Preview!.Value,
+            CustomPath: BaseEntry.CustomPath!,
+            Date: BaseEntry.Date!.Value,
+            Draft: BaseEntry.Draft!.Value,
+            Preview: BaseEntry.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
             ContentType: "text/x-markdown"
         );
@@ -44,10 +44,10 @@ public class PostableEntryOperatorTests
             Title: BaseEntry.Title,
             Category: ["c#", "dotnet"],
             Content: BaseEntry.Content,
-            AbsoluteCustomPath: BaseEntry.CustomPath!,
-            AbsoluteDate: BaseEntry.Date!.Value,
-            AbsoluteDraft: BaseEntry.Draft!.Value,
-            AbsolutePreview: BaseEntry.Preview!.Value,
+            CustomPath: BaseEntry.CustomPath!,
+            Date: BaseEntry.Date!.Value,
+            Draft: BaseEntry.Draft!.Value,
+            Preview: BaseEntry.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
             ContentType: "text/x-markdown"
         );
@@ -100,10 +100,10 @@ public class PostableEntryOperatorTests
             Title: BaseEntry.Title,
             Category: ["c#", "tech"],
             Content: BaseEntry.Content,
-            AbsoluteCustomPath: BaseEntry.CustomPath!,
-            AbsoluteDate: BaseEntry.Date!.Value,
-            AbsoluteDraft: BaseEntry.Draft!.Value,
-            AbsolutePreview: BaseEntry.Preview!.Value,
+            CustomPath: BaseEntry.CustomPath!,
+            Date: BaseEntry.Date!.Value,
+            Draft: BaseEntry.Draft!.Value,
+            Preview: BaseEntry.Preview!.Value,
             Published: DateTime.Parse("2023-10-01"),
             ContentType: "text/x-markdown"
         );
