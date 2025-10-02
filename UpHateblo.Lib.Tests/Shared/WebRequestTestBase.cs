@@ -7,6 +7,7 @@ namespace UpHateblo.Lib.Tests.Shared;
 // ReSharper disable once NotAccessedPositionalProperty.Global
 public record BlogConfigSecrets(BlogConfig Blog);
 
+[Collection("WebRequest")]
 [Trait("Category", "WebRequest")]
 public abstract class WebRequestTestBase
 {
