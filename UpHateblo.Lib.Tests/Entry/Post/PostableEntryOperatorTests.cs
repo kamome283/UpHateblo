@@ -1,6 +1,6 @@
+using UpHateblo.Lib.Entry.Edit;
+using UpHateblo.Lib.Entry.List;
 using UpHateblo.Lib.Entry.Post;
-using EditableEntry = UpHateblo.Lib.Entry.Edit.EditableEntry;
-using FetchedEntry = UpHateblo.Lib.Entry.List.FetchedEntry;
 
 namespace UpHateblo.Lib.Tests.Entry.Post;
 
