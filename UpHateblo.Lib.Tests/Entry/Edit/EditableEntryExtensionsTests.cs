@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using UpHateblo.Lib.Entry.Edit;
-using UpHateblo.Lib.Entry.Read;
+using UpHateblo.Lib.Entry.Parse;
 
 namespace UpHateblo.Lib.Tests.Entry.Edit;
 

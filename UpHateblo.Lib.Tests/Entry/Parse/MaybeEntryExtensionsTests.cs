@@ -1,6 +1,6 @@
-using UpHateblo.Lib.Entry.Read;
+using UpHateblo.Lib.Entry.Parse;
 
-namespace UpHateblo.Lib.Tests.Entry.Read;
+namespace UpHateblo.Lib.Tests.Entry.Parse;
 
 public class MaybeEntryExtensionsTests
 {

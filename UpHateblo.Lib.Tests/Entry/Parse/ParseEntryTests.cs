@@ -1,7 +1,7 @@
-using UpHateblo.Lib.Entry.Read;
+using UpHateblo.Lib.Entry.Parse;
 using VYaml.Serialization;
 
-namespace UpHateblo.Lib.Tests.Entry.Read;
+namespace UpHateblo.Lib.Tests.Entry.Parse;
 
 /// <summary>
 ///     YAML parsing in the front matter follows the behavior of
@@ -9,7 +9,7 @@ namespace UpHateblo.Lib.Tests.Entry.Read;
 ///     Since our own processing handles the separation between front matter and body,
 ///     this part is the focus of testing.
 /// </summary>
-public class ReadEntryTests
+public class ParseEntryTests
 {
     [Fact]
     public void ItCanDeserializeFullSpecMarkdown()
@@ -45,7 +45,7 @@ public class ReadEntryTests
                          This is a test,
                          and this is the second line of the content.
                          """;
-        MaybeEntry actual = ReadEntry.Run(content);
+        MaybeEntry actual = ParseEntry.Run(content);
         Assert.Equal(expected, actual);
     }
 
@@ -57,7 +57,7 @@ public class ReadEntryTests
                          Category: InvalidCategory
                          ---
                          """;
-        var actual = ReadEntry.Run(content);
+        var actual = ParseEntry.Run(content);
         Assert.Null(actual.Category);
     }
 
@@ -84,7 +84,7 @@ public class ReadEntryTests
             ContentType: null,
             PreviewUrl: null
         );
-        var actual = ReadEntry.Run(content);
+        var actual = ParseEntry.Run(content);
         Assert.Equal(expected, actual);
     }
 
@@ -99,7 +99,7 @@ public class ReadEntryTests
                          ---
                          Body goes here.
                          """;
-        var actual = ReadEntry.Run(content);
+        var actual = ParseEntry.Run(content);
         Assert.Equal("Known Title", actual.Title);
         Assert.Equal("""
                      Body goes here.
@@ -113,7 +113,7 @@ public class ReadEntryTests
                          ---
                          Title: ShouldNotBeParsed
                          """;
-        var actual = ReadEntry.Run(content);
+        var actual = ParseEntry.Run(content);
         Assert.Null(actual.Title);
         Assert.Null(actual.Category);
         Assert.Null(actual.Date);
@@ -131,7 +131,7 @@ public class ReadEntryTests
                          Title: Immediate
                          ---Content starts right away.
                          """;
-        var actual = ReadEntry.Run(content);
+        var actual = ParseEntry.Run(content);
         // Current behavior: the separator must be on its own line. If content follows immediately,
         // the whole text is treated as body with no front matter parsed.
         Assert.Null(actual.Title);
@@ -155,7 +155,7 @@ public class ReadEntryTests
                          Body is here.
                          """;
         // Current behavior: VYaml throws when a scalar cannot be converted to the target type.
-        Assert.Throws<YamlSerializerException>(() => ReadEntry.Run(content));
+        Assert.Throws<YamlSerializerException>(() => ParseEntry.Run(content));
     }
 
     [Fact]
@@ -192,13 +192,13 @@ public class ReadEntryTests
         string[] inputs = [fullSpec, bodyOnly, unknownFields];
 
         // Take single-threaded baselines to compare against
-        var baselines = inputs.Select(ReadEntry.Run).ToArray();
+        var baselines = inputs.Select(ParseEntry.Run).ToArray();
 
         const int iterations = 200;
         var tasks = Enumerable.Range(0, iterations)
             .SelectMany(_ => inputs.Select((input, idx) => Task.Run(() =>
             {
-                var actual = ReadEntry.Run(input);
+                var actual = ParseEntry.Run(input);
                 Assert.Equal(baselines[idx], actual);
             })));
 
@@ -222,7 +222,7 @@ public class ReadEntryTests
         var tasks = Enumerable.Range(0, iterations)
             .Select(_ => Task.Run(() =>
                 Assert.ThrowsAny<Exception>(() =>
-                    ReadEntry.Run(invalidContent))
+                    ParseEntry.Run(invalidContent))
             ));
 
         await Task.WhenAll(tasks);

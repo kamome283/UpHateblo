@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Equatable.Attributes;
+using UpHateblo.Lib.Entry.Parse;
 using UpHateblo.Lib.Entry.Post;
-using UpHateblo.Lib.Entry.Read;
 using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Entry.Edit;
