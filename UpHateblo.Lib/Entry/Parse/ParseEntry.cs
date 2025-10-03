@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 using VYaml.Annotations;
 using VYaml.Serialization;
 
-namespace UpHateblo.Lib.Entry.Read;
+namespace UpHateblo.Lib.Entry.Parse;
 
-public static class ReadEntry
+public static class ParseEntry
 {
     private static readonly YamlSerializerOptions YamlSerializerOptions =
         new() { NamingConvention = NamingConvention.UpperCamelCase };
