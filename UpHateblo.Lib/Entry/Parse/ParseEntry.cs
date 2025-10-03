@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
+using UpHateblo.Lib.Entry.Shared;
 using VYaml.Annotations;
 using VYaml.Serialization;
 
@@ -7,6 +8,7 @@ namespace UpHateblo.Lib.Entry.Parse;
 
 public static class ParseEntry
 {
+    /// <remarks>StringifyEntryでも同じコードを書いているけど2箇所なら共通化しなくてもいいや</remarks>
     private static readonly YamlSerializerOptions YamlSerializerOptions =
         new() { NamingConvention = NamingConvention.UpperCamelCase };
 

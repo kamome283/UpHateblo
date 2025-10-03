@@ -1,4 +1,5 @@
 using UpHateblo.Lib.Entry.Parse;
+using UpHateblo.Lib.Entry.Shared;
 using VYaml.Serialization;
 
 namespace UpHateblo.Lib.Tests.Entry.Parse;
