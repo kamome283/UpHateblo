@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
+using UpHateblo.Lib.Entry.Shared;
 using VYaml.Annotations;
 using VYaml.Serialization;
 

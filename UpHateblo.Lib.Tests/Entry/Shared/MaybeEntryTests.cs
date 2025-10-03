@@ -1,6 +1,6 @@
-using UpHateblo.Lib.Entry.Parse;
+using UpHateblo.Lib.Entry.Shared;
 
-namespace UpHateblo.Lib.Tests.Entry.Parse;
+namespace UpHateblo.Lib.Tests.Entry.Shared;
 
 public class MaybeEntryTests
 {
