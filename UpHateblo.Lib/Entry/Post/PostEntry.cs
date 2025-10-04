@@ -17,7 +17,7 @@ public static class PostEntry
     )
     {
         var body = PostingEntrySchema.Serialize(blog, entry);
-        var wsse = WsseHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
+        var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
         var request = new HatenaRequest(HttpMethod.Post, blog.EntryEndPoint, body, wsse);
 
         var res = await httpClient.SendAsync(request);

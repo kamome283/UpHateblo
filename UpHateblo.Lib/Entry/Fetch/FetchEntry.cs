@@ -14,7 +14,7 @@ public static class FetchEntry
         DateTime? wsseDatetime = null)
     {
         var endpoint = new Uri($"{blog.EntryEndPoint}/{entryId}");
-        var wsse = WsseHelper.GenerateWsse(blog, wsseNonce, wsseDatetime);
+        var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDatetime);
         var request = new HatenaRequest(HttpMethod.Get, endpoint, null, wsse);
 
         var res = await httpClient.SendAsync(request);

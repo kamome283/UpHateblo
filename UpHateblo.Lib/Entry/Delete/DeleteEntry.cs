@@ -11,7 +11,7 @@ public static class DeleteEntry
         string? wsseNonce = null,
         DateTime? wsseDatetime = null)
     {
-        var wsse = WsseHelper.GenerateWsse(blog, wsseNonce, wsseDatetime);
+        var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDatetime);
         var endpoint = new Uri($"{blog.EntryEndPoint}/{entryId}");
         var request = new HatenaRequest(HttpMethod.Delete, endpoint, null, wsse);
 
