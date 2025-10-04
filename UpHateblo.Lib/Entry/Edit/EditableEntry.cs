@@ -9,7 +9,7 @@ namespace UpHateblo.Lib.Entry.Edit;
 [Equatable]
 public partial record EditableEntry(
     // Newly defined fields
-    string EntryId,
+    [property: Required] string EntryId,
     // Inherited fields
     string Title,
     HashSet<string> Category,
@@ -50,28 +50,23 @@ public static class EditableEntryExtensions
 {
     public static EditableEntry Materialize(this MaybeEntry maybeEntry)
     {
-        var lackingProperties = LackingProperties(maybeEntry);
-        if (lackingProperties.Count != 0)
-            throw new ValidationException(
-                "Missing properties: " + string.Join(", ", lackingProperties)
-            );
-
-        return new EditableEntry(
-            maybeEntry.EntryId!,
-            maybeEntry.Title!,
-            maybeEntry.Category!,
-            maybeEntry.Content!,
-            maybeEntry.CustomPath,
-            maybeEntry.Date,
-            maybeEntry.Draft,
-            maybeEntry.Preview
+        var editable = new EditableEntry(
+            EntryId: maybeEntry.EntryId!,
+            Title: maybeEntry.Title!,
+            Category: maybeEntry.Category!,
+            Content: maybeEntry.Content!,
+            CustomPath: maybeEntry.CustomPath,
+            Date: maybeEntry.Date,
+            Draft: maybeEntry.Draft,
+            Preview: maybeEntry.Preview
         );
-    }
 
-    private static List<string> LackingProperties(MaybeEntry maybeEntry)
-    {
-        var entryLackingProperties = PostableEntryExtensions.LackingProperties(maybeEntry);
-        if (maybeEntry.EntryId == null) entryLackingProperties.Add("EntryId");
-        return entryLackingProperties;
+        var missingProps = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(editable, new ValidationContext(editable),
+            missingProps, true);
+        if (isValid) return editable;
+
+        var concatenated = string.Join(", ", missingProps.Select(x => x.MemberNames.First()));
+        throw new ValidationException($"Missing properties: {concatenated}");
     }
 }

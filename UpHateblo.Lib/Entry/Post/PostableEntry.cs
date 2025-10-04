@@ -7,9 +7,9 @@ namespace UpHateblo.Lib.Entry.Post;
 
 [Equatable]
 public partial record PostableEntry(
-    string Title,
-    [property: HashSetEquality] HashSet<string> Category,
-    string Content,
+    [property: Required] string Title,
+    [property: Required, HashSetEquality] HashSet<string> Category,
+    [property: Required] string Content,
     string? CustomPath,
     DateTime? Date,
     bool? Draft,
@@ -37,29 +37,22 @@ public static class PostableEntryExtensions
 {
     public static PostableEntry Materialize(this MaybeEntry maybeEntry)
     {
-        var lackingProperties = LackingProperties(maybeEntry);
-        if (lackingProperties.Count != 0)
-            throw new ValidationException(
-                "Missing properties: " + string.Join(", ", lackingProperties)
-            );
-
-        return new PostableEntry(
-            maybeEntry.Title!,
-            maybeEntry.Category!,
-            maybeEntry.Content!,
-            maybeEntry.CustomPath,
-            maybeEntry.Date,
-            maybeEntry.Draft,
-            maybeEntry.Preview
+        var postable = new PostableEntry(
+            Title: maybeEntry.Title!,
+            Category: maybeEntry.Category!,
+            Content: maybeEntry.Content!,
+            CustomPath: maybeEntry.CustomPath,
+            Date: maybeEntry.Date,
+            Draft: maybeEntry.Draft,
+            Preview: maybeEntry.Preview
         );
-    }
 
-    internal static List<string> LackingProperties(MaybeEntry maybeEntry)
-    {
-        var properties = new List<string>();
-        if (maybeEntry.Title == null) properties.Add("Title");
-        if (maybeEntry.Category == null) properties.Add("Category");
-        if (maybeEntry.Content == null) properties.Add("Content");
-        return properties;
+        var missingProps = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(postable, new ValidationContext(postable),
+            missingProps, true);
+        if (isValid) return postable;
+
+        var concatenated = string.Join(", ", missingProps.Select(x => x.MemberNames.First()));
+        throw new ValidationException($"Missing properties: {concatenated}");
     }
 }
