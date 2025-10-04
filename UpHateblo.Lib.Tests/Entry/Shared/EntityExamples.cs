@@ -6,7 +6,9 @@ public static class EntityExamples
 {
     public static PostableEntry PostableEntryExample()
     {
-        var updated = DateTime.Now;
+        var now = DateTime.Now;
+        var updated = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second,
+            0);
         return new PostableEntry(
             Title: "PostCommandTest",
             Category: ["UpHateblo", "Post", "Test"],
