@@ -5,21 +5,31 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Entry.Edit;
 
-/// <remarks>PostingEntrySchemaを使うためにPostableEntryのサブクラスにしている</remarks>
 [Equatable]
 public partial record EditableEntry(
-    // Newly defined fields
     [property: Required] string EntryId,
-    // Inherited fields
-    string Title,
-    HashSet<string> Category,
-    string Content,
+    [property: Required] string Title,
+    [property: Required, HashSetEquality] HashSet<string> Category,
+    [property: Required] string Content,
     string? CustomPath,
     DateTime? Date,
     bool? Draft,
     bool? Preview
-) : PostableEntry(Title, Category, Content, CustomPath, Date, Draft, Preview)
+)
 {
+    public static implicit operator PostableEntry(EditableEntry editable)
+    {
+        return new PostableEntry(
+            Title: editable.Title,
+            Category: editable.Category,
+            Content: editable.Content,
+            CustomPath: editable.CustomPath,
+            Date: editable.Date,
+            Draft: editable.Draft,
+            Preview: editable.Preview
+        );
+    }
+
     public static bool operator ==(EditableEntry editable, FetchedEntry fetched)
     {
         return fetched == editable;
