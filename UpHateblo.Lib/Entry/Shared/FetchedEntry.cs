@@ -19,6 +19,23 @@ public partial record FetchedEntry(
     string? PreviewUrl
 )
 {
+    public static implicit operator MaybeEntry(FetchedEntry fetched)
+    {
+        return new MaybeEntry(
+            EntryId: fetched.EntryId,
+            Title: fetched.Title,
+            Category: fetched.Category,
+            Content: fetched.Content,
+            CustomPath: fetched.CustomPath,
+            Date: fetched.Date,
+            Draft: fetched.Draft,
+            Preview: fetched.Preview,
+            Published: fetched.Published,
+            ContentType: fetched.ContentType,
+            PreviewUrl: fetched.PreviewUrl
+        );
+    }
+
     public static bool operator ==(FetchedEntry fetched, EditableEntry editable)
     {
         var x = new EditableEntry(

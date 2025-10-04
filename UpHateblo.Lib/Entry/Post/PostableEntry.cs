@@ -37,6 +37,23 @@ public partial record PostableEntry(
         throw new ValidationException($"Missing properties: {concatenated}");
     }
 
+    public static implicit operator MaybeEntry(PostableEntry postable)
+    {
+        return new MaybeEntry(
+            EntryId: null,
+            Title: postable.Title,
+            Category: postable.Category,
+            Content: postable.Content,
+            CustomPath: postable.CustomPath,
+            Date: postable.Date,
+            Draft: postable.Draft,
+            Preview: postable.Preview,
+            Published: null,
+            ContentType: null,
+            PreviewUrl: null
+        );
+    }
+
     public static bool operator ==(PostableEntry postable, FetchedEntry fetched)
     {
         return fetched == postable;

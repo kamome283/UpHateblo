@@ -39,6 +39,23 @@ public partial record EditableEntry(
         throw new ValidationException($"Missing properties: {concatenated}");
     }
 
+    public static implicit operator MaybeEntry(EditableEntry editable)
+    {
+        return new MaybeEntry(
+            EntryId: editable.EntryId,
+            Title: editable.Title,
+            Category: editable.Category,
+            Content: editable.Content,
+            CustomPath: editable.CustomPath,
+            Date: editable.Date,
+            Draft: editable.Draft,
+            Preview: editable.Preview,
+            Published: null,
+            ContentType: null,
+            PreviewUrl: null
+        );
+    }
+
     public static implicit operator PostableEntry(EditableEntry editable)
     {
         return new PostableEntry(
