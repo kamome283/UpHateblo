@@ -20,14 +20,12 @@ public partial record MaybeEntry(
     DateTime? Published,
     string? ContentType,
     string? PreviewUrl
-);
-
-public static class MaybeEntryExtensions
+)
 {
-    public static MaybeEntry Merge(this MaybeEntry entry, params MaybeEntry[] mergedEntries)
+    public MaybeEntry Merge(params MaybeEntry[] merged)
     {
-        var result = entry;
-        foreach (var e in mergedEntries)
+        var result = this;
+        foreach (var e in merged)
         {
             var entryId = result.EntryId ?? e.EntryId;
             var title = result.Title ?? e.Title;
