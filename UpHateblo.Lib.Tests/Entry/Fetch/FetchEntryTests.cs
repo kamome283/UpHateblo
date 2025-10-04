@@ -11,7 +11,7 @@ public class FetchEntryTests : WebRequestTestBase
     public async Task ItCanFetchEntry()
     {
         var posted =
-            await PostEntry.Run(HttpClient, BlogConfig, EntityExamples.PostableEntryExample());
+            await PostEntry.Run(HttpClient, BlogConfig, EntryExamples.PostableEntry());
         EntryIdsToDispose.Enqueue(posted.EntryId);
         var fetched = await FetchEntry.Run(HttpClient, BlogConfig, posted.EntryId);
         Assert.Equal(posted, fetched);
