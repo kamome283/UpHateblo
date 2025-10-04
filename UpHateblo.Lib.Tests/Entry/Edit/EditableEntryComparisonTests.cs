@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.Edit;
 
-public class EditableEntryOperatorTests
+public class EditableEntryComparisonTests
 {
     private static readonly EditableEntry BaseEditable = new(
         EntryId: "entry-id",

@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.Post;
 
-public class PostableEntryOperatorTests
+public class PostableEntryComparisonTests
 {
     private static readonly PostableEntry BaseEntry = new(
         Title: "Test Title",
