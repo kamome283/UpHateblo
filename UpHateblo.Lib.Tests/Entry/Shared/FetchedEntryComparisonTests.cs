@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.Shared;
 
-public class FetchedEntryOperatorTests
+public class FetchedEntryComparisonTests
 {
     private static readonly FetchedEntry BaseFetched = new(
         EntryId: "entry-id",

@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.Edit;
 
-public class EditableEntryExtensionsTests
+public class EditableEntryConversionTests
 {
     [Fact]
     public void MaterializeThrowsWhenEntryIdIsMissing()

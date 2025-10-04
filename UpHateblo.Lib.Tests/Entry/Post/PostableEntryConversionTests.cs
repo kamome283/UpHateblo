@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Lib.Tests.Entry.Post;
 
-public class PostableEntryExtensionsTests
+public class PostableEntryConversionTests
 {
     [Fact]
     public void MaterializeThrowsWhenTitleIsMissing()
