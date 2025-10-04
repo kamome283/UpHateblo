@@ -7,6 +7,7 @@ namespace UpHateblo.Lib.Entry.Post;
 public static class PostEntry
 {
     /// <remarks>下書きではないエントリに対してプレビューフラグを指定しても無効。</remarks>
+    /// <remarks>Dateプロパティのミリ秒部分は無視される</remarks>
     public static async Task<FetchedEntry> Run(
         HttpClient httpClient,
         BlogConfig blog,
