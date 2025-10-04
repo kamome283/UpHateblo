@@ -3,9 +3,7 @@ using VYaml.Annotations;
 
 namespace UpHateblo.Lib.Entry.Shared;
 
-/// <summary>
-///     ファイルやCLIのパラメーターから読み出すエントリーの断片
-/// </summary>
+/// <summary>ファイルやCLIのパラメーターから読み出すエントリーの断片</summary>
 [Equatable]
 [YamlObject]
 public partial record MaybeEntry(
