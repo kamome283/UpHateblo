@@ -19,9 +19,26 @@ public partial record FetchedEntry(
     string? PreviewUrl
 )
 {
-    public static bool operator ==(FetchedEntry fetched, EditableEntry editable)
+    public static implicit operator MaybeEntry(FetchedEntry fetched)
     {
-        var x = new EditableEntry(
+        return new MaybeEntry(
+            EntryId: fetched.EntryId,
+            Title: fetched.Title,
+            Category: fetched.Category,
+            Content: fetched.Content,
+            CustomPath: fetched.CustomPath,
+            Date: fetched.Date,
+            Draft: fetched.Draft,
+            Preview: fetched.Preview,
+            Published: fetched.Published,
+            ContentType: fetched.ContentType,
+            PreviewUrl: fetched.PreviewUrl
+        );
+    }
+
+    public static implicit operator EditableEntry(FetchedEntry fetched)
+    {
+        return new EditableEntry(
             EntryId: fetched.EntryId,
             Title: fetched.Title,
             Category: fetched.Category,
@@ -31,26 +48,20 @@ public partial record FetchedEntry(
             Draft: fetched.Draft,
             Preview: fetched.Preview
         );
-        return x == editable;
     }
 
-    public static bool operator !=(FetchedEntry fetched, EditableEntry editable) =>
-        !(fetched == editable);
+    public static implicit operator PostableEntry(FetchedEntry fetched)
+        => (EditableEntry)fetched;
+
+    public static bool operator ==(FetchedEntry fetched, EditableEntry editable)
+        => (EditableEntry)fetched == editable;
+
+    public static bool operator !=(FetchedEntry fetched, EditableEntry editable)
+        => !(fetched == editable);
 
     public static bool operator ==(FetchedEntry fetched, PostableEntry postable)
-    {
-        var x = new PostableEntry(
-            Title: fetched.Title,
-            Category: fetched.Category,
-            Content: fetched.Content,
-            CustomPath: fetched.CustomPath,
-            Date: fetched.Date,
-            Draft: fetched.Draft,
-            Preview: fetched.Preview
-        );
-        return x == postable;
-    }
+        => (PostableEntry)fetched == postable;
 
-    public static bool operator !=(FetchedEntry fetched, PostableEntry postable) =>
-        !(fetched == postable);
+    public static bool operator !=(FetchedEntry fetched, PostableEntry postable)
+        => !(fetched == postable);
 }

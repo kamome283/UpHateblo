@@ -24,7 +24,7 @@ public class PostableEntryExtensionsTests
         );
 
         var ex =
-            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
+            Assert.Throws<ValidationException>(() => (PostableEntry)maybe);
         Assert.Equal("Missing properties: Title", ex.Message);
     }
 
@@ -46,7 +46,7 @@ public class PostableEntryExtensionsTests
         );
 
         var ex =
-            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
+            Assert.Throws<ValidationException>(() => (PostableEntry)maybe);
         Assert.Equal("Missing properties: Category", ex.Message);
     }
 
@@ -68,7 +68,7 @@ public class PostableEntryExtensionsTests
         );
 
         var ex =
-            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
+            Assert.Throws<ValidationException>(() => (PostableEntry)maybe);
         Assert.Equal("Missing properties: Content", ex.Message);
     }
 
@@ -90,7 +90,7 @@ public class PostableEntryExtensionsTests
         );
 
         var ex =
-            Assert.Throws<ValidationException>(() => PostableEntryExtensions.Materialize(maybe));
+            Assert.Throws<ValidationException>(() => (PostableEntry)maybe);
         Assert.Equal("Missing properties: Title, Category, Content", ex.Message);
     }
 
@@ -112,7 +112,7 @@ public class PostableEntryExtensionsTests
             PreviewUrl: null
         );
 
-        var entry = PostableEntryExtensions.Materialize(maybe);
+        var entry = (PostableEntry)maybe;
 
         var expected = new PostableEntry(
             Title: "My Title",
