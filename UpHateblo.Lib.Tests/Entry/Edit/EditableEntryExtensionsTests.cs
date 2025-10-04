@@ -45,7 +45,7 @@ public class EditableEntryExtensionsTests
         );
 
         var ex = Assert.Throws<ValidationException>(() => maybe.MaterializeEditable());
-        Assert.Equal("Missing properties: Title, Category, Content, EntryId", ex.Message);
+        Assert.Equal("Missing properties: EntryId, Title, Category, Content", ex.Message);
     }
 
     [Fact]
