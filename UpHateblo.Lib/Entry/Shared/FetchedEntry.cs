@@ -36,6 +36,24 @@ public partial record FetchedEntry(
         );
     }
 
+    public static implicit operator EditableEntry(FetchedEntry fetched)
+    {
+        return new EditableEntry(
+            EntryId: fetched.EntryId,
+            Title: fetched.Title,
+            Category: fetched.Category,
+            Content: fetched.Content,
+            CustomPath: fetched.CustomPath,
+            Date: fetched.Date,
+            Draft: fetched.Draft,
+            Preview: fetched.Preview
+        );
+    }
+
+    public static implicit operator PostableEntry(FetchedEntry fetched)
+        => (EditableEntry)fetched;
+
+
     public static bool operator ==(FetchedEntry fetched, EditableEntry editable)
     {
         var x = new EditableEntry(
