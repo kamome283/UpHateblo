@@ -53,39 +53,15 @@ public partial record FetchedEntry(
     public static implicit operator PostableEntry(FetchedEntry fetched)
         => (EditableEntry)fetched;
 
-
     public static bool operator ==(FetchedEntry fetched, EditableEntry editable)
-    {
-        var x = new EditableEntry(
-            EntryId: fetched.EntryId,
-            Title: fetched.Title,
-            Category: fetched.Category,
-            Content: fetched.Content,
-            CustomPath: fetched.CustomPath,
-            Date: fetched.Date,
-            Draft: fetched.Draft,
-            Preview: fetched.Preview
-        );
-        return x == editable;
-    }
+        => (EditableEntry)fetched == editable;
 
-    public static bool operator !=(FetchedEntry fetched, EditableEntry editable) =>
-        !(fetched == editable);
+    public static bool operator !=(FetchedEntry fetched, EditableEntry editable)
+        => !(fetched == editable);
 
     public static bool operator ==(FetchedEntry fetched, PostableEntry postable)
-    {
-        var x = new PostableEntry(
-            Title: fetched.Title,
-            Category: fetched.Category,
-            Content: fetched.Content,
-            CustomPath: fetched.CustomPath,
-            Date: fetched.Date,
-            Draft: fetched.Draft,
-            Preview: fetched.Preview
-        );
-        return x == postable;
-    }
+        => (PostableEntry)fetched == postable;
 
-    public static bool operator !=(FetchedEntry fetched, PostableEntry postable) =>
-        !(fetched == postable);
+    public static bool operator !=(FetchedEntry fetched, PostableEntry postable)
+        => !(fetched == postable);
 }

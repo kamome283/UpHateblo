@@ -70,27 +70,14 @@ public partial record EditableEntry(
     }
 
     public static bool operator ==(EditableEntry editable, FetchedEntry fetched)
-    {
-        return fetched == editable;
-    }
+        => fetched == editable;
 
-    public static bool operator !=(EditableEntry editable, FetchedEntry fetched) =>
-        !(editable == fetched);
+    public static bool operator !=(EditableEntry editable, FetchedEntry fetched)
+        => fetched != editable;
 
     public static bool operator ==(EditableEntry editable, PostableEntry postable)
-    {
-        var x = new PostableEntry(
-            Title: editable.Title,
-            Category: editable.Category,
-            Content: editable.Content,
-            CustomPath: editable.CustomPath,
-            Date: editable.Date,
-            Draft: editable.Draft,
-            Preview: editable.Preview
-        );
-        return x == postable;
-    }
+        => (PostableEntry)editable == postable;
 
-    public static bool operator !=(EditableEntry editable, PostableEntry postable) =>
-        !(editable == postable);
+    public static bool operator !=(EditableEntry editable, PostableEntry postable)
+        => !(editable == postable);
 }

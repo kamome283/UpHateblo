@@ -55,18 +55,14 @@ public partial record PostableEntry(
     }
 
     public static bool operator ==(PostableEntry postable, FetchedEntry fetched)
-    {
-        return fetched == postable;
-    }
+        => fetched == postable;
 
-    public static bool operator !=(PostableEntry postable, FetchedEntry fetched) =>
-        !(postable == fetched);
+    public static bool operator !=(PostableEntry postable, FetchedEntry fetched)
+        => fetched != postable;
 
     public static bool operator ==(PostableEntry postable, EditableEntry editable)
-    {
-        return editable == postable;
-    }
+        => editable == postable;
 
-    public static bool operator !=(PostableEntry postable, EditableEntry editable) =>
-        !(postable == editable);
+    public static bool operator !=(PostableEntry postable, EditableEntry editable)
+        => editable != postable;
 }
