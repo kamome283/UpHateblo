@@ -23,7 +23,7 @@ public class EditableEntryExtensionsTests
             PreviewUrl: null
         );
 
-        var ex = Assert.Throws<ValidationException>(() => maybe.MaterializeEditable());
+        var ex = Assert.Throws<ValidationException>(() => (EditableEntry)maybe);
         Assert.Equal("Missing properties: EntryId", ex.Message);
     }
 
@@ -44,7 +44,7 @@ public class EditableEntryExtensionsTests
             PreviewUrl: null
         );
 
-        var ex = Assert.Throws<ValidationException>(() => maybe.MaterializeEditable());
+        var ex = Assert.Throws<ValidationException>(() => (EditableEntry)maybe);
         Assert.Equal("Missing properties: EntryId, Title, Category, Content", ex.Message);
     }
 
@@ -66,7 +66,7 @@ public class EditableEntryExtensionsTests
             PreviewUrl: null
         );
 
-        var editable = maybe.MaterializeEditable();
+        var editable = (EditableEntry)maybe;
 
         Assert.Equal("entry-123", editable.EntryId);
         Assert.Equal("My Title", editable.Title);
@@ -77,11 +77,4 @@ public class EditableEntryExtensionsTests
         Assert.True(editable.Draft);
         Assert.False(editable.Preview);
     }
-}
-
-internal static class EditableEntryTestHelpers
-{
-    // Provide an extension to disambiguate which Materialize we call from MaybeEntry
-    public static EditableEntry MaterializeEditable(this MaybeEntry maybe) =>
-        EditableEntryExtensions.Materialize(maybe);
 }

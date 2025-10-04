@@ -17,6 +17,28 @@ public partial record EditableEntry(
     bool? Preview
 )
 {
+    public static explicit operator EditableEntry(MaybeEntry maybe)
+    {
+        var editable = new EditableEntry(
+            EntryId: maybe.EntryId!,
+            Title: maybe.Title!,
+            Category: maybe.Category!,
+            Content: maybe.Content!,
+            CustomPath: maybe.CustomPath,
+            Date: maybe.Date,
+            Draft: maybe.Draft,
+            Preview: maybe.Preview
+        );
+
+        var missingProps = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(editable, new ValidationContext(editable),
+            missingProps, true);
+        if (isValid) return editable;
+
+        var concatenated = string.Join(", ", missingProps.Select(x => x.MemberNames.First()));
+        throw new ValidationException($"Missing properties: {concatenated}");
+    }
+
     public static implicit operator PostableEntry(EditableEntry editable)
     {
         return new PostableEntry(
@@ -54,29 +76,4 @@ public partial record EditableEntry(
 
     public static bool operator !=(EditableEntry editable, PostableEntry postable) =>
         !(editable == postable);
-}
-
-public static class EditableEntryExtensions
-{
-    public static EditableEntry Materialize(this MaybeEntry maybeEntry)
-    {
-        var editable = new EditableEntry(
-            EntryId: maybeEntry.EntryId!,
-            Title: maybeEntry.Title!,
-            Category: maybeEntry.Category!,
-            Content: maybeEntry.Content!,
-            CustomPath: maybeEntry.CustomPath,
-            Date: maybeEntry.Date,
-            Draft: maybeEntry.Draft,
-            Preview: maybeEntry.Preview
-        );
-
-        var missingProps = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(editable, new ValidationContext(editable),
-            missingProps, true);
-        if (isValid) return editable;
-
-        var concatenated = string.Join(", ", missingProps.Select(x => x.MemberNames.First()));
-        throw new ValidationException($"Missing properties: {concatenated}");
-    }
 }

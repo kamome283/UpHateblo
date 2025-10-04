@@ -16,6 +16,27 @@ public partial record PostableEntry(
     bool? Preview
 )
 {
+    public static explicit operator PostableEntry(MaybeEntry maybe)
+    {
+        var postable = new PostableEntry(
+            Title: maybe.Title!,
+            Category: maybe.Category!,
+            Content: maybe.Content!,
+            CustomPath: maybe.CustomPath,
+            Date: maybe.Date,
+            Draft: maybe.Draft,
+            Preview: maybe.Preview
+        );
+
+        var missingProps = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(postable, new ValidationContext(postable),
+            missingProps, true);
+        if (isValid) return postable;
+
+        var concatenated = string.Join(", ", missingProps.Select(x => x.MemberNames.First()));
+        throw new ValidationException($"Missing properties: {concatenated}");
+    }
+
     public static bool operator ==(PostableEntry postable, FetchedEntry fetched)
     {
         return fetched == postable;
@@ -31,28 +52,4 @@ public partial record PostableEntry(
 
     public static bool operator !=(PostableEntry postable, EditableEntry editable) =>
         !(postable == editable);
-}
-
-public static class PostableEntryExtensions
-{
-    public static PostableEntry Materialize(this MaybeEntry maybeEntry)
-    {
-        var postable = new PostableEntry(
-            Title: maybeEntry.Title!,
-            Category: maybeEntry.Category!,
-            Content: maybeEntry.Content!,
-            CustomPath: maybeEntry.CustomPath,
-            Date: maybeEntry.Date,
-            Draft: maybeEntry.Draft,
-            Preview: maybeEntry.Preview
-        );
-
-        var missingProps = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(postable, new ValidationContext(postable),
-            missingProps, true);
-        if (isValid) return postable;
-
-        var concatenated = string.Join(", ", missingProps.Select(x => x.MemberNames.First()));
-        throw new ValidationException($"Missing properties: {concatenated}");
-    }
 }
