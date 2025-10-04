@@ -47,14 +47,3 @@ internal class Wsse(string username, string password, string nonce, DateTime cre
         return Convert.ToBase64String(digest);
     }
 }
-
-internal static class WsseHelper
-{
-    public static Wsse GenerateWsse(BlogConfig blog, string? nonce, DateTime? dateTime) =>
-        new(
-            blog.Username,
-            blog.Password,
-            nonce ?? Guid.CreateVersion7().ToString(),
-            dateTime ?? DateTime.Now
-        );
-}

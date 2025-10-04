@@ -9,7 +9,7 @@ public class PostEntryTests : WebRequestTestBase
     [Fact]
     public async Task ItCanPostEntry()
     {
-        var entry = EntityExamples.PostableEntryExample();
+        var entry = EntryExamples.PostableEntry();
         var fetched = await PostEntry.Run(HttpClient, BlogConfig, entry);
         EntryIdsToDispose.Enqueue(fetched.EntryId);
 

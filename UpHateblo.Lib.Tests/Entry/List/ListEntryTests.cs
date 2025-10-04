@@ -24,7 +24,7 @@ public class ListEntryTests : WebRequestTestBase
 
     private async Task PostAndQueueEntry()
     {
-        var entry = EntityExamples.PostableEntryExample();
+        var entry = EntryExamples.PostableEntry();
         var res = await PostEntry.Run(HttpClient, BlogConfig, entry);
         EntryIdsToDispose.Enqueue(res.EntryId);
     }

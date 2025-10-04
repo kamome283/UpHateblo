@@ -10,7 +10,7 @@ public class DeleteEntryTests : WebRequestTestBase
     [Fact]
     public async Task ItCanDeleteEntry()
     {
-        var entry = EntityExamples.PostableEntryExample();
+        var entry = EntryExamples.PostableEntry();
         var res = await PostEntry.Run(HttpClient, BlogConfig, entry);
         await DeleteEntry.Run(HttpClient, BlogConfig, res.EntryId);
     }

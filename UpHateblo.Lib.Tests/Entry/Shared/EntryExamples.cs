@@ -2,9 +2,9 @@ using UpHateblo.Lib.Entry.Post;
 
 namespace UpHateblo.Lib.Tests.Entry.Shared;
 
-public static class EntityExamples
+public static class EntryExamples
 {
-    public static PostableEntry PostableEntryExample()
+    public static PostableEntry PostableEntry()
     {
         var now = DateTime.Now;
         var updated = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second,

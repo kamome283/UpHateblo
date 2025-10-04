@@ -34,7 +34,7 @@ public static class ListEntry
         DateTime? wsseDateTime = null
     )
     {
-        var wsse = WsseHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
+        var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
         var request = new HatenaRequest(HttpMethod.Get, endpoint, null, wsse);
 
         var res = await httpClient.SendAsync(request);
