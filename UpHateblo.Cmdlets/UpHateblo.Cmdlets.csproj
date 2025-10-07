@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <LangVersion>13</LangVersion>
+        <PackageId>Kamome283.UpHateblo.Cmdlets</PackageId>
+        <Version>0.1</Version>
+        <Title>UpHateblo</Title>
+        <Authors>kamome283</Authors>
+        <Description>A PowerShell cmdlets for managing Hatena Blog entries.</Description>
+        <Copyright>Copyright (c) kamome283 2025</Copyright>
+        <PackageProjectUrl>https://github.com/kamome283/UpHateblo</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/kamome283/UpHateblo/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/kamome283/UpHateblo</RepositoryUrl>
+        <PackageTags>PowerShell, Hatena, HatenaBlog</PackageTags>
+        <RootNamespace>UpHateblo.Pwsh</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UpHateblo.Lib\UpHateblo.Lib.csproj"/>
+    </ItemGroup>
+
+</Project>
