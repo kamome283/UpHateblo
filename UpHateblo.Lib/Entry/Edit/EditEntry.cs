@@ -13,6 +13,7 @@ public static class EditEntry
         HttpClient httpClient,
         BlogConfig blog,
         EditableEntry entry,
+        CancellationToken cancellationToken = default,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
@@ -22,10 +23,10 @@ public static class EditEntry
         var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
         var request = new HatenaRequest(HttpMethod.Put, endpoint, body, wsse);
 
-        var res = await httpClient.SendAsync(request);
+        var res = await httpClient.SendAsync(request, cancellationToken);
         res.EnsureSuccessStatusCode();
 
-        var content = await res.Content.ReadAsStringAsync();
+        var content = await res.Content.ReadAsStringAsync(cancellationToken);
         var xml = XDocument.Parse(content);
         var root = xml.Root!;
         var fetchedEntry = FetchedEntrySchema.Deserialize(root);
