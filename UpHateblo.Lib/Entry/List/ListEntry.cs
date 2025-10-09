@@ -10,15 +10,17 @@ public static class ListEntry
     public static async Task<List<FetchedEntry>> Run(
         HttpClient httpClient,
         BlogConfig blog,
+        CancellationToken cancellationToken = default,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
     {
         Uri? next = blog.EntryEndPoint;
         List<FetchedEntry> results = [];
-        while (next != null)
+        while (next != null && !cancellationToken.IsCancellationRequested)
         {
-            var (n, e) = await RunSingleIteration(next, httpClient, blog, wsseNonce, wsseDateTime);
+            var (n, e) = await RunSingleIteration(next, httpClient, blog, cancellationToken,
+                wsseNonce, wsseDateTime);
             next = n;
             results.AddRange(e);
         }
@@ -30,6 +32,7 @@ public static class ListEntry
         Uri endpoint,
         HttpClient httpClient,
         BlogConfig blog,
+        CancellationToken cancellationToken = default,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
@@ -37,10 +40,10 @@ public static class ListEntry
         var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
         var request = new HatenaRequest(HttpMethod.Get, endpoint, null, wsse);
 
-        var res = await httpClient.SendAsync(request);
+        var res = await httpClient.SendAsync(request, cancellationToken);
         res.EnsureSuccessStatusCode();
 
-        var content = await res.Content.ReadAsStringAsync();
+        var content = await res.Content.ReadAsStringAsync(cancellationToken);
         var xml = XDocument.Parse(content);
         var root = xml.Root!;
         var next = NextUriSchema.Deserialize(root);

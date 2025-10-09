@@ -8,6 +8,7 @@ public static class DeleteEntry
         HttpClient httpClient,
         BlogConfig blog,
         string entryId,
+        CancellationToken cancellationToken = default,
         string? wsseNonce = null,
         DateTime? wsseDatetime = null)
     {
@@ -15,7 +16,7 @@ public static class DeleteEntry
         var endpoint = new Uri($"{blog.EntryEndPoint}/{entryId}");
         var request = new HatenaRequest(HttpMethod.Delete, endpoint, null, wsse);
 
-        var res = await httpClient.SendAsync(request);
+        var res = await httpClient.SendAsync(request, cancellationToken);
         res.EnsureSuccessStatusCode();
     }
 }

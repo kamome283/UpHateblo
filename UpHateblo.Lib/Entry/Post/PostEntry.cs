@@ -12,6 +12,7 @@ public static class PostEntry
         HttpClient httpClient,
         BlogConfig blog,
         PostableEntry entry,
+        CancellationToken cancellationToken = default,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
@@ -20,10 +21,10 @@ public static class PostEntry
         var wsse = CommandHelper.GenerateWsse(blog, wsseNonce, wsseDateTime);
         var request = new HatenaRequest(HttpMethod.Post, blog.EntryEndPoint, body, wsse);
 
-        var res = await httpClient.SendAsync(request);
+        var res = await httpClient.SendAsync(request, cancellationToken);
         res.EnsureSuccessStatusCode();
 
-        var content = await res.Content.ReadAsStringAsync();
+        var content = await res.Content.ReadAsStringAsync(cancellationToken);
         var xml = XDocument.Parse(content);
         var root = xml.Root!;
         var fetchedEntry = FetchedEntrySchema.Deserialize(root);
