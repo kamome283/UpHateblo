@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using UpHateblo.Lib.Entry.Shared;
 using UpHateblo.Lib.Shared;
@@ -7,25 +8,25 @@ namespace UpHateblo.Lib.Entry.List;
 
 public static class ListEntry
 {
-    public static async Task<List<FetchedEntry>> Run(
+    public static async IAsyncEnumerable<FetchedEntry> Run(
         HttpClient httpClient,
         BlogConfig blog,
-        CancellationToken cancellationToken = default,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default,
         string? wsseNonce = null,
         DateTime? wsseDateTime = null
     )
     {
         Uri? next = blog.EntryEndPoint;
-        List<FetchedEntry> results = [];
         while (next != null && !cancellationToken.IsCancellationRequested)
         {
-            var (n, e) = await RunSingleIteration(next, httpClient, blog, cancellationToken,
+            var (n, entries) = await RunSingleIteration(next, httpClient, blog, cancellationToken,
                 wsseNonce, wsseDateTime);
             next = n;
-            results.AddRange(e);
+            foreach (var entry in entries)
+            {
+                yield return entry;
+            }
         }
-
-        return results;
     }
 
     private static async Task<(Uri? next, IEnumerable<FetchedEntry> entries)> RunSingleIteration(

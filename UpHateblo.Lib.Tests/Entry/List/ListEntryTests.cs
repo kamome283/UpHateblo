@@ -16,10 +16,11 @@ public class ListEntryTests : WebRequestTestBase
     }
 
     [Fact]
-    public async Task ItCanListEntries()
+    public Task ItCanListEntries()
     {
-        var entries = await ListEntry.Run(HttpClient, BlogConfig);
+        var entries = ListEntry.Run(HttpClient, BlogConfig);
         Assert.Contains(entries, e => e.EntryId == FixedTargetEntryId);
+        return Task.CompletedTask;
     }
 
     private async Task PostAndQueueEntry()
