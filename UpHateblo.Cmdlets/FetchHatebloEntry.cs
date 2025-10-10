@@ -1,0 +1,50 @@
+using System.Management.Automation;
+using UpHateblo.Lib.Entry.Fetch;
+using UpHateblo.Lib.Entry.Shared;
+
+namespace UpHateblo.Pwsh;
+
+[Cmdlet("Fetch", "HatebloEntry"), OutputType(typeof(FetchedEntry))]
+public class FetchHatebloEntry : WebRequestingCmdletBase
+{
+    private AsyncTaskHandler<string, FetchedEntry, Exception> _taskHandler;
+    [Parameter(ValueFromPipeline = true, ValueFromPipelineByPropertyName = true, Mandatory = true)]
+    public string[] EntryId { get; set; }
+    [Parameter] public int Parallel { get; set; } = 1;
+
+    protected override void BeginProcessing()
+    {
+        base.BeginProcessing();
+        _taskHandler = new AsyncTaskHandler<string, FetchedEntry, Exception>()
+        {
+            ParallelOptions = new ParallelOptions()
+            {
+                CancellationToken = CancellationToken,
+                MaxDegreeOfParallelism = Parallel
+            },
+            Body = async (entryId, token) =>
+                await FetchEntry.Run(HttpClient, BlogConfig, entryId, token)
+        };
+        _taskHandler.StartProcessing();
+    }
+
+    protected override void ProcessRecord()
+    {
+        foreach (var entryId in EntryId)
+        {
+            _taskHandler.Add(entryId);
+        }
+    }
+
+    protected override void EndProcessing()
+    {
+        _taskHandler.CompleteAdding();
+        foreach (var (entryId, fetched, ex) in _taskHandler.BlockingOutEnumerable)
+        {
+            if (ex is not null)
+                WriteError(
+                    new ErrorRecord(ex, ex.GetType().Name, ErrorCategory.NotSpecified, entryId));
+            else WriteObject(fetched);
+        }
+    }
+}
