@@ -17,17 +17,16 @@ internal class AsyncTaskHandler<TSource, TResult, TFailure> where TFailure : Exc
         Channel.CreateUnbounded<(TSource source, TResult result, TFailure exception)>();
     public required ParallelOptions ParallelOptions { get; init; }
     public required Func<TSource, CancellationToken, Task<TResult>> Body { private get; init; }
-    public IEnumerable<(TSource source, TResult result, TFailure exception)>
-        BlockingOutEnumerable =>
+    public IEnumerable<(TSource source, TResult result, TFailure exception)> BlockingOut =>
         _outChannel.Reader.ReadAllAsync(CancellationToken).ToBlockingEnumerable();
     private CancellationToken CancellationToken => ParallelOptions.CancellationToken;
 
-    public void Add(TSource source)
+    public void Write(TSource source)
     {
         _inChannel.Writer.TryWrite(source);
     }
 
-    public void CompleteAdding()
+    public void Complete()
     {
         _inChannel.Writer.Complete();
     }

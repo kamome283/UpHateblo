@@ -32,14 +32,14 @@ public class FetchHatebloEntry : WebRequestingCmdletBase
     {
         foreach (var entryId in EntryId)
         {
-            _taskHandler.Add(entryId);
+            _taskHandler.Write(entryId);
         }
     }
 
     protected override void EndProcessing()
     {
-        _taskHandler.CompleteAdding();
-        foreach (var (entryId, fetched, ex) in _taskHandler.BlockingOutEnumerable)
+        _taskHandler.Complete();
+        foreach (var (entryId, fetched, ex) in _taskHandler.BlockingOut)
         {
             if (ex is not null)
                 WriteError(

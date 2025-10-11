@@ -33,7 +33,7 @@ public class EditHatebloEntry : WebRequestingCmdletBase
             try
             {
                 var editable = (EditableEntry)entry;
-                _taskHandler.Add(editable);
+                _taskHandler.Write(editable);
             }
             catch (Exception ex)
             {
@@ -45,8 +45,8 @@ public class EditHatebloEntry : WebRequestingCmdletBase
 
     protected override void EndProcessing()
     {
-        _taskHandler.CompleteAdding();
-        foreach (var (editable, fetched, ex) in _taskHandler.BlockingOutEnumerable)
+        _taskHandler.Complete();
+        foreach (var (editable, fetched, ex) in _taskHandler.BlockingOut)
         {
             if (ex is not null)
                 WriteError(

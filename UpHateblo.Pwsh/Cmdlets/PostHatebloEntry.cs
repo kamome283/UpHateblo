@@ -35,7 +35,7 @@ public class PostHatebloEntry : WebRequestingCmdletBase
             try
             {
                 var postable = (PostableEntry)entry;
-                _taskHandler.Add(postable);
+                _taskHandler.Write(postable);
             }
             catch (ValidationException ex)
             {
@@ -47,8 +47,8 @@ public class PostHatebloEntry : WebRequestingCmdletBase
 
     protected override void EndProcessing()
     {
-        _taskHandler.CompleteAdding();
-        foreach (var (postable, fetched, ex) in _taskHandler.BlockingOutEnumerable)
+        _taskHandler.Complete();
+        foreach (var (postable, fetched, ex) in _taskHandler.BlockingOut)
         {
             if (ex is not null)
                 WriteError(new ErrorRecord(ex, ex.GetType().Name, ErrorCategory.InvalidOperation,

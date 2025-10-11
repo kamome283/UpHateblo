@@ -34,14 +34,14 @@ public class DeleteHatebloEntry : WebRequestingCmdletBase
     {
         foreach (var entryId in EntryId)
         {
-            _taskHandler.Add(entryId);
+            _taskHandler.Write(entryId);
         }
     }
 
     protected override void EndProcessing()
     {
-        _taskHandler.CompleteAdding();
-        foreach (var (entryId, _, ex) in _taskHandler.BlockingOutEnumerable)
+        _taskHandler.Complete();
+        foreach (var (entryId, _, ex) in _taskHandler.BlockingOut)
         {
             if (ex is not null)
                 WriteError(
