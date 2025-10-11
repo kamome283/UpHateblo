@@ -20,6 +20,12 @@ public partial record MaybeEntry(
     string? PreviewUrl
 )
 {
+    public static MaybeEntry Construct(string? entryId, string? title,
+        IEnumerable<string>? category, string? content, string? customPath, DateTime? date,
+        bool? draft, bool? preview, DateTime? published, string? contentType, string? previewUrl
+    ) => new(entryId, title, category?.ToHashSet(), content, customPath, date, draft, preview,
+        published, contentType, previewUrl);
+
     public MaybeEntry Merge(params MaybeEntry[] merged)
     {
         var result = this;

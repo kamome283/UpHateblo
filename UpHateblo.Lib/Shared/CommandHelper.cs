@@ -6,7 +6,7 @@ internal static class CommandHelper
         new(
             blog.Username,
             blog.Password,
-            nonce ?? Guid.CreateVersion7().ToString(),
+            nonce ?? Guid.NewGuid().ToString(),
             dateTime ?? DateTime.Now
         );
 }
