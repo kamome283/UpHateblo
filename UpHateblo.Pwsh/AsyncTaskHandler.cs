@@ -31,9 +31,10 @@ internal class AsyncTaskHandler<TSource, TResult, TFailure> where TFailure : Exc
         _inChannel.Writer.Complete();
     }
 
-    public void StartProcessing()
+    public AsyncTaskHandler<TSource, TResult, TFailure> StartProcessing()
     {
         Task.Run(StartProcessingAsync, CancellationToken);
+        return this;
     }
 
     private async Task StartProcessingAsync()

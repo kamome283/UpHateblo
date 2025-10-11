@@ -16,16 +16,16 @@ public class FetchHatebloEntry : WebRequestingCmdletBase
     {
         base.BeginProcessing();
         _taskHandler = new AsyncTaskHandler<string, FetchedEntry, Exception>()
-        {
-            ParallelOptions = new ParallelOptions()
             {
-                CancellationToken = CancellationToken,
-                MaxDegreeOfParallelism = Parallel
-            },
-            Body = async (entryId, token) =>
-                await FetchEntry.Run(HttpClient, BlogConfig, entryId, token)
-        };
-        _taskHandler.StartProcessing();
+                ParallelOptions = new ParallelOptions()
+                {
+                    CancellationToken = CancellationToken,
+                    MaxDegreeOfParallelism = Parallel
+                },
+                Body = async (entryId, token) =>
+                    await FetchEntry.Run(HttpClient, BlogConfig, entryId, token)
+            }
+            .StartProcessing();
     }
 
     protected override void ProcessRecord()

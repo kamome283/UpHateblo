@@ -15,19 +15,19 @@ public class DeleteHatebloEntry : WebRequestingCmdletBase
     {
         base.BeginProcessing();
         _taskHandler = new AsyncTaskHandler<string, object, Exception>()
-        {
-            ParallelOptions = new ParallelOptions()
             {
-                CancellationToken = CancellationToken,
-                MaxDegreeOfParallelism = Parallel
-            },
-            Body = async (entryId, token) =>
-            {
-                await DeleteEntry.Run(HttpClient, BlogConfig, entryId, token);
-                return null;
+                ParallelOptions = new ParallelOptions()
+                {
+                    CancellationToken = CancellationToken,
+                    MaxDegreeOfParallelism = Parallel
+                },
+                Body = async (entryId, token) =>
+                {
+                    await DeleteEntry.Run(HttpClient, BlogConfig, entryId, token);
+                    return null;
+                }
             }
-        };
-        _taskHandler.StartProcessing();
+            .StartProcessing();
     }
 
     protected override void ProcessRecord()

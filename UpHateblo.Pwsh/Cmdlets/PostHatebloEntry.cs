@@ -17,15 +17,16 @@ public class PostHatebloEntry : WebRequestingCmdletBase
     {
         base.BeginProcessing();
         _taskHandler = new AsyncTaskHandler<PostableEntry, FetchedEntry, Exception>()
-        {
-            ParallelOptions = new ParallelOptions()
             {
-                MaxDegreeOfParallelism = Parallel,
-                CancellationToken = CancellationToken
-            },
-            Body = async (entry, token) => await PostEntry.Run(HttpClient, BlogConfig, entry, token)
-        };
-        _taskHandler.StartProcessing();
+                ParallelOptions = new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = Parallel,
+                    CancellationToken = CancellationToken
+                },
+                Body = async (entry, token) =>
+                    await PostEntry.Run(HttpClient, BlogConfig, entry, token)
+            }
+            .StartProcessing();
     }
 
     protected override void ProcessRecord()

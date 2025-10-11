@@ -16,14 +16,16 @@ public class EditHatebloEntry : WebRequestingCmdletBase
     {
         base.BeginProcessing();
         _taskHandler = new AsyncTaskHandler<EditableEntry, FetchedEntry, Exception>()
-        {
-            ParallelOptions = new ParallelOptions()
             {
-                MaxDegreeOfParallelism = Parallel,
-                CancellationToken = CancellationToken
-            },
-            Body = async (entry, token) => await EditEntry.Run(HttpClient, BlogConfig, entry, token)
-        };
+                ParallelOptions = new ParallelOptions()
+                {
+                    MaxDegreeOfParallelism = Parallel,
+                    CancellationToken = CancellationToken
+                },
+                Body = async (entry, token) =>
+                    await EditEntry.Run(HttpClient, BlogConfig, entry, token)
+            }
+            .StartProcessing();
     }
 
     protected override void ProcessRecord()
