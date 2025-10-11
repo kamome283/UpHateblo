@@ -5,17 +5,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <LangVersion>13</LangVersion>
-        <PackageId>Kamome283.UpHateblo.Cmdlets</PackageId>
-        <Version>0.1</Version>
         <Title>UpHateblo</Title>
-        <Authors>kamome283</Authors>
-        <Description>A PowerShell cmdlets for managing Hatena Blog entries.</Description>
-        <Copyright>Copyright (c) kamome283 2025</Copyright>
-        <PackageProjectUrl>https://github.com/kamome283/UpHateblo</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/kamome283/UpHateblo/blob/main/LICENSE</PackageLicenseUrl>
-        <RepositoryUrl>https://github.com/kamome283/UpHateblo</RepositoryUrl>
-        <PackageTags>PowerShell, Hatena, HatenaBlog</PackageTags>
-        <RootNamespace>UpHateblo.Pwsh</RootNamespace>
+        <PublishDir>bin/$(Title)</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,4 +17,33 @@
         <ProjectReference Include="..\UpHateblo.Lib\UpHateblo.Lib.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <ManifestOption Include="Path" Value="$(Title).psd1"/>
+        <ManifestOption Include="Guid" Value="eeb08b6f-08de-43fe-9ed7-bd01c229868d"/>
+        <ManifestOption Include="ModuleVersion" Value="0.1.0"/>
+        <ManifestOption Include="Description"
+                        Value="'A PowerShell module for managing Hatena Blog entries.'"/>
+        <ManifestOption Include="Tags" Value="Hatena, HatenaBlog"/>
+        <ManifestOption Include="Author" Value="kamome283"/>
+        <ManifestOption Include="Copyright" Value="'Copyright 2025 kamome283.'"/>
+        <ManifestOption Include="ProjectUri" Value="'https://github.com/kamome283/UpHateblo'"/>
+        <ManifestOption Include="LicenseUri"
+                        Value="'https://github.com/kamome283/UpHateblo/blob/main/LICENSE'"/>
+        <ManifestOption Include="PowerShellVersion" Value="7.4"/>
+        <ManifestOption Include="RootModule" Value="$(AssemblyName)$(TargetExt)"/>
+        <ManifestOption Include="CmdletsToExport" Value="*"/>
+    </ItemGroup>
+
+    <Target Name="MakeModuleManifest" AfterTargets="Publish">
+        <PropertyGroup>
+            <ScriptOptions>@(ManifestOption->'-%(Identity) %(Value)', ' ')</ScriptOptions>
+            <Script>New-ModuleManifest $(ScriptOptions)</Script>
+            <Command>pwsh -Command "$(Script)"</Command>
+        </PropertyGroup>
+
+        <!-- Add '-v:d' to the build options to display run command -->
+        <Message Text="$(Command)" Importance="high"/>
+
+        <Exec Command="$(Command)" WorkingDirectory="$(PublishDir)"/>
+    </Target>
 </Project>
