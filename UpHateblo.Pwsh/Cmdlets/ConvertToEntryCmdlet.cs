@@ -5,7 +5,7 @@ using UpHateblo.Lib.Entry.Shared;
 namespace UpHateblo.Pwsh.Cmdlets;
 
 [Cmdlet("ConvertTo", "Entry"), OutputType(typeof(MaybeEntry))]
-public class ConvertToHatebloEntry : Cmdlet
+public class ConvertToEntryCmdlet : Cmdlet
 {
     private MaybeEntry _propBasedMaybeEntry;
     [Parameter(ValueFromPipeline = true)] public string[] Body { get; set; }

@@ -6,7 +6,7 @@ using UpHateblo.Lib.Entry.Shared;
 namespace UpHateblo.Pwsh.Cmdlets;
 
 [Cmdlet("Post", "Entry"), OutputType(typeof(FetchedEntry))]
-public class PostHatebloEntry : WebRequestingCmdletBase
+public class PostEntryCmdlet : WebRequestingCmdletBase
 {
     private AsyncTaskHandler<PostableEntry, FetchedEntry, Exception> _taskHandler;
     [Parameter(ValueFromPipeline = true, Mandatory = true)]
