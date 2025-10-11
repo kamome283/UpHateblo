@@ -2,7 +2,7 @@ using System.Management.Automation;
 using UpHateblo.Lib.Entry.Edit;
 using UpHateblo.Lib.Entry.Shared;
 
-namespace UpHateblo.Pwsh;
+namespace UpHateblo.Pwsh.Cmdlets;
 
 [Cmdlet("Edit", "HatebloEntry")]
 public class EditHatebloEntry : WebRequestingCmdletBase

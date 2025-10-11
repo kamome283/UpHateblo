@@ -3,7 +3,7 @@ using System.Management.Automation;
 using UpHateblo.Lib.Entry.Post;
 using UpHateblo.Lib.Entry.Shared;
 
-namespace UpHateblo.Pwsh;
+namespace UpHateblo.Pwsh.Cmdlets;
 
 [Cmdlet("Post", "HatebloEntry"), OutputType(typeof(FetchedEntry))]
 public class PostHatebloEntry : WebRequestingCmdletBase

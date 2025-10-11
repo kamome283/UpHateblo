@@ -1,13 +1,12 @@
 using System.Management.Automation;
-using UpHateblo.Lib.Entry.Fetch;
-using UpHateblo.Lib.Entry.Shared;
+using UpHateblo.Lib.Entry.Delete;
 
-namespace UpHateblo.Pwsh;
+namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("Fetch", "HatebloEntry"), OutputType(typeof(FetchedEntry))]
-public class FetchHatebloEntry : WebRequestingCmdletBase
+[Cmdlet("Delete", "HatebloEntry")]
+public class DeleteHatebloEntry : WebRequestingCmdletBase
 {
-    private AsyncTaskHandler<string, FetchedEntry, Exception> _taskHandler;
+    private AsyncTaskHandler<string, object, Exception> _taskHandler;
     [Parameter(ValueFromPipeline = true, ValueFromPipelineByPropertyName = true, Mandatory = true)]
     public string[] EntryId { get; set; }
     [Parameter] public int Parallel { get; set; } = 1;
@@ -15,7 +14,7 @@ public class FetchHatebloEntry : WebRequestingCmdletBase
     protected override void BeginProcessing()
     {
         base.BeginProcessing();
-        _taskHandler = new AsyncTaskHandler<string, FetchedEntry, Exception>()
+        _taskHandler = new AsyncTaskHandler<string, object, Exception>()
         {
             ParallelOptions = new ParallelOptions()
             {
@@ -23,7 +22,10 @@ public class FetchHatebloEntry : WebRequestingCmdletBase
                 MaxDegreeOfParallelism = Parallel
             },
             Body = async (entryId, token) =>
-                await FetchEntry.Run(HttpClient, BlogConfig, entryId, token)
+            {
+                await DeleteEntry.Run(HttpClient, BlogConfig, entryId, token);
+                return null;
+            }
         };
         _taskHandler.StartProcessing();
     }
@@ -39,12 +41,11 @@ public class FetchHatebloEntry : WebRequestingCmdletBase
     protected override void EndProcessing()
     {
         _taskHandler.CompleteAdding();
-        foreach (var (entryId, fetched, ex) in _taskHandler.BlockingOutEnumerable)
+        foreach (var (entryId, _, ex) in _taskHandler.BlockingOutEnumerable)
         {
             if (ex is not null)
                 WriteError(
                     new ErrorRecord(ex, ex.GetType().Name, ErrorCategory.NotSpecified, entryId));
-            else WriteObject(fetched);
         }
     }
 }

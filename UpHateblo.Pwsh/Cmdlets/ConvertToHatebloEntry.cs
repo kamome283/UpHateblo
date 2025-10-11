@@ -2,7 +2,7 @@ using System.Management.Automation;
 using UpHateblo.Lib.Entry.Parse;
 using UpHateblo.Lib.Entry.Shared;
 
-namespace UpHateblo.Pwsh;
+namespace UpHateblo.Pwsh.Cmdlets;
 
 [Cmdlet("ConvertTo", "HatebloEntry"), OutputType(typeof(MaybeEntry))]
 public class ConvertToHatebloEntry : Cmdlet
