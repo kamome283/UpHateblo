@@ -4,8 +4,8 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("Fetch", "HatebloEntry"), OutputType(typeof(FetchedEntry))]
-public class FetchHatebloEntry : WebRequestingCmdletBase
+[Cmdlet("Fetch", "Entry"), OutputType(typeof(FetchedEntry))]
+public class FetchEntryCmdlet : WebRequestingCmdletBase
 {
     private AsyncTaskHandler<string, FetchedEntry, Exception> _taskHandler;
     [Parameter(ValueFromPipeline = true, ValueFromPipelineByPropertyName = true, Mandatory = true)]

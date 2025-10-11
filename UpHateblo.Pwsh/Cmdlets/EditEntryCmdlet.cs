@@ -1,14 +1,13 @@
-using System.ComponentModel.DataAnnotations;
 using System.Management.Automation;
-using UpHateblo.Lib.Entry.Post;
+using UpHateblo.Lib.Entry.Edit;
 using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("Post", "HatebloEntry"), OutputType(typeof(FetchedEntry))]
-public class PostHatebloEntry : WebRequestingCmdletBase
+[Cmdlet("Edit", "Entry")]
+public class EditEntryCmdlet : WebRequestingCmdletBase
 {
-    private AsyncTaskHandler<PostableEntry, FetchedEntry, Exception> _taskHandler;
+    private AsyncTaskHandler<EditableEntry, FetchedEntry, Exception> _taskHandler;
     [Parameter(ValueFromPipeline = true, Mandatory = true)]
     public MaybeEntry[] Entry { get; set; } = [];
     [Parameter] public int Parallel { get; set; } = 1;
@@ -16,7 +15,7 @@ public class PostHatebloEntry : WebRequestingCmdletBase
     protected override void BeginProcessing()
     {
         base.BeginProcessing();
-        _taskHandler = new AsyncTaskHandler<PostableEntry, FetchedEntry, Exception>
+        _taskHandler = new AsyncTaskHandler<EditableEntry, FetchedEntry, Exception>
             {
                 ParallelOptions = new ParallelOptions
                 {
@@ -24,7 +23,7 @@ public class PostHatebloEntry : WebRequestingCmdletBase
                     CancellationToken = CancellationToken
                 },
                 Body = async (entry, token) =>
-                    await PostEntry.Run(HttpClient, BlogConfig, entry, token)
+                    await EditEntry.Run(HttpClient, BlogConfig, entry, token)
             }
             .StartProcessing();
     }
@@ -35,13 +34,13 @@ public class PostHatebloEntry : WebRequestingCmdletBase
         {
             try
             {
-                var postable = (PostableEntry)entry;
-                _taskHandler.Write(postable);
+                var editable = (EditableEntry)entry;
+                _taskHandler.Write(editable);
             }
-            catch (ValidationException ex)
+            catch (Exception ex)
             {
                 WriteError(
-                    new ErrorRecord(ex, ex.GetType().Name, ErrorCategory.InvalidData, entry));
+                    new ErrorRecord(ex, ex.GetType().Name, ErrorCategory.NotSpecified, entry));
             }
         }
     }
@@ -49,11 +48,11 @@ public class PostHatebloEntry : WebRequestingCmdletBase
     protected override void EndProcessing()
     {
         _taskHandler.Complete();
-        foreach (var (postable, fetched, ex) in _taskHandler.BlockingOut)
+        foreach (var (editable, fetched, ex) in _taskHandler.BlockingOut)
         {
             if (ex is not null)
-                WriteError(new ErrorRecord(ex, ex.GetType().Name, ErrorCategory.InvalidOperation,
-                    postable));
+                WriteError(
+                    new ErrorRecord(ex, ex.GetType().Name, ErrorCategory.NotSpecified, editable));
             else WriteObject(fetched);
         }
     }
