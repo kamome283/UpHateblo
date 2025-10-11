@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpHateblo.Lib", "UpHateblo.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpHateblo.Lib.Tests", "UpHateblo.Lib.Tests\UpHateblo.Lib.Tests.csproj", "{5B804CBD-560F-4741-9E18-E4972E0DAFFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpHateblo.Cmdlets", "UpHateblo.Cmdlets\UpHateblo.Cmdlets.csproj", "{6B08B00B-0FE4-4473-A28D-A443C1855551}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpHateblo.Pwsh", "UpHateblo.Pwsh\UpHateblo.Pwsh.csproj", "{6B08B00B-0FE4-4473-A28D-A443C1855551}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

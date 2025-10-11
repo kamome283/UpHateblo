@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <LangVersion>13</LangVersion>
+        <Title>UpHateblo</Title>
+        <PublishDir>bin/$(Title)</PublishDir>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UpHateblo.Lib\UpHateblo.Lib.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="Path" Value="$(Title).psd1"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="Guid" Value="eeb08b6f-08de-43fe-9ed7-bd01c229868d"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="ModuleVersion" Value="0.1.0"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="Description"
+                        Value="'A PowerShell module for managing Hatena Blog entries.'"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="Tags" Value="Hatena, HatenaBlog"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="Author" Value="kamome283"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="Copyright" Value="'Copyright 2025 kamome283.'"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="ProjectUri" Value="'https://github.com/kamome283/UpHateblo'"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="LicenseUri"
+                        Value="'https://github.com/kamome283/UpHateblo/blob/main/LICENSE'"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="PowerShellVersion" Value="7.4"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="RootModule" Value="$(AssemblyName)$(TargetExt)"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="CmdletsToExport" Value="*"/>
+    </ItemGroup>
+
+    <Target Name="MakeModuleManifest" AfterTargets="Publish">
+        <PropertyGroup>
+            <ScriptOptions>@(ManifestOption->'-%(Key) %(Value)', ' ')</ScriptOptions>
+            <Script>New-ModuleManifest $(ScriptOptions)</Script>
+            <Command>pwsh -Command "$(Script)"</Command>
+        </PropertyGroup>
+
+        <!-- Add '-v:d' to the build options to display run command -->
+        <Message Text="$(Command)" Importance="high"/>
+
+        <Exec Command="$(Command)" WorkingDirectory="$(PublishDir)"/>
+    </Target>
+</Project>
