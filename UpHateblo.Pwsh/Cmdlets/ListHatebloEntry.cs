@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("List", "HatebloEntry"), OutputType(typeof(FetchedEntry))]
+[Cmdlet("List", "Entry"), OutputType(typeof(FetchedEntry))]
 public class ListHatebloEntry : WebRequestingCmdletBase
 {
     protected override void EndProcessing()

@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("ConvertTo", "HatebloEntry"), OutputType(typeof(MaybeEntry))]
+[Cmdlet("ConvertTo", "Entry"), OutputType(typeof(MaybeEntry))]
 public class ConvertToHatebloEntry : Cmdlet
 {
     private MaybeEntry _propBasedMaybeEntry;

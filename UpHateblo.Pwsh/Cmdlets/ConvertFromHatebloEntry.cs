@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Stringify;
 
 namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("ConvertFrom", "HatebloEntry"), OutputType(typeof(string))]
+[Cmdlet("ConvertFrom", "Entry"), OutputType(typeof(string))]
 public class ConvertFromHatebloEntry : Cmdlet
 {
     [Parameter(ValueFromPipeline = true, Mandatory = true)]

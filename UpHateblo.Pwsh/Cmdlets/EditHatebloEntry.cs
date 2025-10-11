@@ -4,7 +4,7 @@ using UpHateblo.Lib.Entry.Shared;
 
 namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("Edit", "HatebloEntry")]
+[Cmdlet("Edit", "Entry")]
 public class EditHatebloEntry : WebRequestingCmdletBase
 {
     private AsyncTaskHandler<EditableEntry, FetchedEntry, Exception> _taskHandler;

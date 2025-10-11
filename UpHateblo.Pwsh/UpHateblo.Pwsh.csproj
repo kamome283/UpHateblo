@@ -44,6 +44,8 @@
                         Key="RootModule" Value="$(AssemblyName)$(TargetExt)"/>
         <ManifestOption Include="$(MSBuildProjectFile)"
                         Key="CmdletsToExport" Value="*"/>
+        <ManifestOption Include="$(MSBuildProjectFile)"
+                        Key="DefaultCommandPrefix" Value="Hateblo"/>
     </ItemGroup>
 
     <Target Name="MakeModuleManifest" AfterTargets="Publish">

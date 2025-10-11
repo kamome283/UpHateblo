@@ -3,7 +3,7 @@ using UpHateblo.Lib.Entry.Delete;
 
 namespace UpHateblo.Pwsh.Cmdlets;
 
-[Cmdlet("Delete", "HatebloEntry")]
+[Cmdlet("Delete", "Entry")]
 public class DeleteHatebloEntry : WebRequestingCmdletBase
 {
     private AsyncTaskHandler<string, object, Exception> _taskHandler;
