@@ -14,9 +14,9 @@ public class DeleteHatebloEntry : WebRequestingCmdletBase
     protected override void BeginProcessing()
     {
         base.BeginProcessing();
-        _taskHandler = new AsyncTaskHandler<string, object, Exception>()
+        _taskHandler = new AsyncTaskHandler<string, object, Exception>
             {
-                ParallelOptions = new ParallelOptions()
+                ParallelOptions = new ParallelOptions
                 {
                     CancellationToken = CancellationToken,
                     MaxDegreeOfParallelism = Parallel

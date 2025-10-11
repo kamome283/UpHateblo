@@ -15,9 +15,9 @@ public class FetchHatebloEntry : WebRequestingCmdletBase
     protected override void BeginProcessing()
     {
         base.BeginProcessing();
-        _taskHandler = new AsyncTaskHandler<string, FetchedEntry, Exception>()
+        _taskHandler = new AsyncTaskHandler<string, FetchedEntry, Exception>
             {
-                ParallelOptions = new ParallelOptions()
+                ParallelOptions = new ParallelOptions
                 {
                     CancellationToken = CancellationToken,
                     MaxDegreeOfParallelism = Parallel

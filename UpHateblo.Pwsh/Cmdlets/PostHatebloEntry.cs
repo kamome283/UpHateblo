@@ -16,9 +16,9 @@ public class PostHatebloEntry : WebRequestingCmdletBase
     protected override void BeginProcessing()
     {
         base.BeginProcessing();
-        _taskHandler = new AsyncTaskHandler<PostableEntry, FetchedEntry, Exception>()
+        _taskHandler = new AsyncTaskHandler<PostableEntry, FetchedEntry, Exception>
             {
-                ParallelOptions = new ParallelOptions()
+                ParallelOptions = new ParallelOptions
                 {
                     MaxDegreeOfParallelism = Parallel,
                     CancellationToken = CancellationToken

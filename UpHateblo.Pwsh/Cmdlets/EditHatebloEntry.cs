@@ -15,9 +15,9 @@ public class EditHatebloEntry : WebRequestingCmdletBase
     protected override void BeginProcessing()
     {
         base.BeginProcessing();
-        _taskHandler = new AsyncTaskHandler<EditableEntry, FetchedEntry, Exception>()
+        _taskHandler = new AsyncTaskHandler<EditableEntry, FetchedEntry, Exception>
             {
-                ParallelOptions = new ParallelOptions()
+                ParallelOptions = new ParallelOptions
                 {
                     MaxDegreeOfParallelism = Parallel,
                     CancellationToken = CancellationToken
